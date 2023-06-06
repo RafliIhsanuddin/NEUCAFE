@@ -24,18 +24,19 @@ class SessionController extends Controller
         foreach($outlet as $out){
             if($out->email == $req->email){
                 if($out->password == $req->password){
-                    return redirect('choose');
+                    session()->put('id',$out->id_outlet);
+                    echo session('id');
                 }else {
                     return redirect('login');
                 }
             }
         }
 
-        // if($outlet->email==$req->email && $outlet->password==$req->password){
-        //     return 'sukses';
-        // } else {
-        //     return redirect('login');
-        // }
+    }
+
+
+    function lockses(Request $req){
+
     }
 
     function login(Request $req){

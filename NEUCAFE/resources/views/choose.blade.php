@@ -14,8 +14,8 @@
 
     <!--  -->
     <section class="flex items-center flex-col justify-center h-screen w-full bg-[#5fb395] py-20 overflow-hidden">
-        <img src="assets/bg6.png" class="absolute -top-20 -left-20" alt="">
-        <img src="assets/bg7.png" class="absolute bottom-0 right-0" alt="">
+        <img src="{{asset('assets/bg6.png')}}" class="absolute -top-20 -left-20" alt="">
+        <img src="{{asset('assets/bg7.png')}}" class="absolute bottom-0 right-0" alt="">
 
         <div class="-mt-10 mb-16">
             <h2 class="text-4xl font-bold">NEUCAFE</h2>
