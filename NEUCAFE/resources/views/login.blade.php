@@ -42,7 +42,7 @@
                                 class="w-40 h-11 border-b-4 focus:border-[#6FBCA0] rounded-lg font-semibold text-black">Karyawan</button>
                         </div>
                     </div> -->
-
+                    
                     <form action="authlog" method="POST" class="flex flex-col font-semibold mt-12">
                         @csrf
                         <label for="">Email</label>

@@ -21,11 +21,21 @@ class SessionController extends Controller
     function login2(Request $req){
         $outlet = outlet::all();
 
-        if($outlet->implode('email')==$req->email && $outlet->implode('password')==$req->password){
-            return 'sukses';
-        } else {
-            return redirect('login');
+        foreach($outlet as $out){
+            if($out->email == $req->email){
+                if($out->password == $req->password){
+                    return redirect('choose');
+                }else {
+                    return redirect('login');
+                }
+            }
         }
+
+        // if($outlet->email==$req->email && $outlet->password==$req->password){
+        //     return 'sukses';
+        // } else {
+        //     return redirect('login');
+        // }
     }
 
     function login(Request $req){

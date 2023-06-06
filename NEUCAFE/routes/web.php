@@ -24,6 +24,7 @@ Route::get('/', function () {
 Route::post('authlog',[SessionController::class, 'login2']);
 
 Route::view("tes",'about');
+Route::view("choose",'choose');
 Route::view("dashboard",'dashboard');
 Route::view("login",'login');
 Route::view("signup",'signup');
