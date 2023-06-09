@@ -22,12 +22,16 @@ Route::get('/', function () {
 
 // Route::get('/login',[SessionController::class, 'halog']);
 Route::post('authlog',[SessionController::class, 'login2']);
+// Route::get('show/{id}', [show::class, 'View_PL_Accnt'])->name('SupAd.View_PL_Accnt');
+Route::get('info');
 
 Route::view("tes",'about');
+Route::view("info",'informasi');
 Route::view("choose",'choose');
 Route::view("dashboard",'dashboard');
 Route::view("login",'login');
 Route::view("signup",'signup');
+Route::view("daftar",'daftarProduk');
 Route::view("landing",'landing');
 Route::view("ProdukPer",'firstProduct');
-Route::view("OutletPer",'infoOutlet');
+Route::view("outletPer",'infoOutlet');

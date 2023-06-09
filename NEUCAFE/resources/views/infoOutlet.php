@@ -6,7 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    @vite('resources/css/app.css')
 </head>
 
 <body>
@@ -20,17 +19,17 @@
             <h1 class="text-center text-3xl font-bold my-14">Informasi Outlet</h1>
 
             <form action="" class="flex flex-col font-semibold">
-                <label for="">Nama</label>
-                <input type="email"
+                <label for="">Nama Manajer</label>
+                <input type="text"
                     class="border-slate-300 border-2 rounded-md h-11 px-2 focus:outline-none focus:border-[#6FBCA0] my-2"
                     required>
 
                 <label for="">Nama Outlet</label>
-                <input type="pass"
+                <input type="text"
                     class="border-slate-300 border-2 rounded-md w-full h-11 px-2 focus:outline-none focus:border-[#6FBCA0] my-2"
                     required>
                 <label for="">Lokasi Outlet</label>
-                <input type="pass"
+                <input type="text"
                     class="border-slate-300 border-2 rounded-md w-full h-11 px-2 focus:outline-none focus:border-[#6FBCA0] my-2"
                     required>
                 <button type="submit"

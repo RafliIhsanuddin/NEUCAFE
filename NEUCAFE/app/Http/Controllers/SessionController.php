@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\outlet;
+use App\Models\akun;
 
 class SessionController extends Controller
 {
@@ -19,13 +20,17 @@ class SessionController extends Controller
 
 
     function login2(Request $req){
-        $outlet = outlet::all();
+        $akun = akun::all();
 
-        foreach($outlet as $out){
+        foreach($akun as $out){
             if($out->email == $req->email){
                 if($out->password == $req->password){
-                    session()->put('id',$out->id_outlet);
-                    echo session('id');
+                    session()->put('id',$out->id_akun);
+                    $id = session('id');
+                    $data = akun::where('id_akun','=',$id)->get();
+                    $outlet = outlet::where('id_outlet','=',$id)->get();
+                    return view('informasi',['datas'=>$data,'outlets'=>$outlet]);
+                    // echo session('id');
                 }else {
                     return redirect('login');
                 }
@@ -35,9 +40,21 @@ class SessionController extends Controller
     }
 
 
-    function lockses(Request $req){
-
+    public function lockses(){        
+        $data = array(            
+            'id' => "posts",            
+            'posts' => akun::all()        
+            );        
+        return view('posts.informasi')->with($data);    
     }
+
+
+    public function show($id){
+        return outlet::find($id);
+    }
+
+
+
 
     function login(Request $req){
         $req->validate([

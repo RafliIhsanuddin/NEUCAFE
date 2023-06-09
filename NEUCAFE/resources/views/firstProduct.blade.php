@@ -20,11 +20,12 @@
         <div class="bg-white h-full w-[790px] z-10 rounded-2xl overflow-hidden px-20 mx-auto">
             <h1 class="text-center text-3xl font-bold my-12">Produk Pertama Kamu</h1>
 
-            <form action="" class="flex flex-col font-semibold">
+            <form action="" method="POST" enctype="multipart/form-data" class="flex flex-col font-semibold">
                 <div class="flex space-x-16 mb-6">
                     <div class="wrapper-image">
                         <h2>Foto Produk</h2>
                         <div class="w-56 h-52 bg-gray-200 my-2"></div>
+                        <div><input type="file" name="file"></div>
                     </div>
                     <div class="wrapper-input flex flex-col w-full">
                         <label for="">Nama Produk</label>
