@@ -24,13 +24,13 @@
         <div class="flex space-x-20">
             <div class="z-10 flex flex-col items-center justify-center space-y-6">
                 <h2 class="text-3xl font-bold text-white">Manager</h2>
-                <a href="" class="w-56 h-56 bg-white border-2 rounded-full  flex items-center justify-center">
+                <a href="/info" class="w-56 h-56 bg-white border-2 rounded-full  flex items-center justify-center">
                     <img src="assets/manager.png" class="w-40 h-40 " alt="">
                 </a>
             </div>
             <div class="z-10 flex flex-col items-center justify-center space-y-6">
                 <h2 class="text-3xl font-bold text-white">Karyawan</h2>
-                <a href="" class="w-56 h-56 bg-white border-2 rounded-full  flex items-center justify-center">
+                <a href="/kasir" class="w-56 h-56 bg-white border-2 rounded-full  flex items-center justify-center">
                     <img src="assets/Kasir.png" class="w-40 h-40 " alt="">
                 </a>
             </div>

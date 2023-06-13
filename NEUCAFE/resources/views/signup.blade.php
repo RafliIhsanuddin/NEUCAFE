@@ -31,32 +31,33 @@
                     <h2 class="text-3xl font-bold">Welcome to Neucafe!</h2>
                     <p class="text-base font-medium text-gray-400 mb-6 mt-1">Register your account</p>
 
-                    <form action="" class="flex flex-col font-semibold">
+                    <form action="authsign" method="POST" class="flex flex-col font-semibold">
+                        @csrf
                         <label for="">No. Telp</label>
-                        <input type="text"
+                        <input type="text" name="notelp"
                             class="border-slate-300 border-2 rounded-md h-9 px-2 focus:outline-none focus:border-[#6FBCA0] my-2"
                             required>
                         <label for="">Email</label>
-                        <input type="email"
+                        <input type="email" name="email"
                             class="border-slate-300 border-2 rounded-md h-9 px-2 focus:outline-none focus:border-[#6FBCA0] my-2"
                             required>
 
                         <div class="flex space-x-5">
                             <div class="w-1/2">
                                 <label for="">Password</label>
-                                <input type="pass"
+                                <input type="pass" name="pass"
                                     class="border-slate-300 border-2 rounded-md w-full h-9 px-2 focus:outline-none focus:border-[#6FBCA0] my-2"
                                     required>
                             </div>
                             <div class="w-1/2">
                                 <label for="">Konfirmasi Password</label>
-                                <input type="pass"
+                                <input type="pass" name="konfir"
                                     class="border-slate-300 border-2 rounded-md w-full h-9 px-2 focus:outline-none focus:border-[#6FBCA0] my-2"
                                     required>
                             </div>
                         </div>
                         <label for="">Kode Manager</label>
-                        <input type="pass"
+                        <input type="text" name="kode"
                             class="border-slate-300 border-2 rounded-md h-9 px-2 focus:outline-none focus:border-[#6FBCA0] my-2"
                             required>
                         <button type="submit" class="w-40 mt-6 h-11 bg-[#6FBCA0] hover:bg-[#337a61] rounded-full font-semibold text-white">Daftar</button>

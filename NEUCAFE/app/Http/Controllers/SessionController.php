@@ -28,8 +28,17 @@ class SessionController extends Controller
                     session()->put('id',$out->id_akun);
                     $id = session('id');
                     $data = akun::where('id_akun','=',$id)->get();
-                    $outlet = outlet::where('id_outlet','=',$id)->get();
-                    return view('informasi',['datas'=>$data,'outlets'=>$outlet]);
+                    $outlet = outlet::where('id_akun','=',$id)->get();
+                    session()->put('datas',$data);
+                    session()->put('outlets',$outlet);
+                    // return view('informasi',['datas'=>$data,'outlets'=>$outlet]);
+                    return view('choose');
+                    // if($outlet->isNotEmpty()){
+                    //     return view('informasi',['datas'=>$data,'outlets'=>$outlet]);
+                    // }else{
+
+                    // }
+                    
                     // echo session('id');
                 }else {
                     return redirect('login');
@@ -51,6 +60,21 @@ class SessionController extends Controller
 
     public function show($id){
         return outlet::find($id);
+    }
+
+    public function masukdata(Request $req){
+        $akun = new akun;
+        $akun->email = $req->email;
+        $akun->password = $req->pass;
+        $akun->notelp = $req->notelp;
+        $akun->kodeManajer = $req->kode;
+        if($req->pass == $req->konfir){
+            $akun->save();
+            return view('login');
+        }else{
+            return redirect('signup');
+        }
+
     }
 
 
