@@ -85,7 +85,7 @@
                     <form class="mt-6 mb-4 md:hidden">
                         <div class="mb-3 pt-0">
                             <input type="text" placeholder="Search"
-                                class="border-0 px-3 py-2 h-12 border border-solid border-blueGray-500 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-base leading-snug shadow-none outline-none focus:outline-none w-full font-normal" />
+                                class="border-0 px-3 py-2 h-12 border-solid border-blueGray-500 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-base leading-snug shadow-none outline-none focus:outline-none w-full font-normal" />
                         </div>
                     </form>
                     <!-- Divider -->
@@ -149,6 +149,9 @@
                 <div class="w-full mx-autp items-center flex justify-between md:flex-nowrap flex-wrap md:px-10 px-4">
                     <a class="text-black text-lg uppercase hidden lg:inline-block font-bold"
                         href="./index.html">Welcome, Juan</a>
+
+
+                    <a href="{{ route('flush') }}" class="w-40 mt-6 h-11 bg-[#6FBCA0] hover:bg-[#337a61] rounded-full font-semibold text-white text-center">Logout</a>
                     <form class="md:flex hidden flex-row flex-wrap items-center lg:ml-auto mr-3">
                         <div class="relative flex w-full flex-wrap items-stretch">
                             <span
@@ -206,8 +209,8 @@
 
                             <!-- Output Informasi Bisnis -->
                             <div class="flex flex-col space-y-3.5 w-96 text-base font-medium">
-                                @foreach($datas as $data)
-                                @foreach($outlets as $outlet)
+                                @foreach(session('datas') as $data)
+                                @foreach( session('outlets') as $outlet)
                                 <p name="" class="h-8 py-1 rounded-md">
                                     {{$outlet['nama']}}
                                 </p>
@@ -257,8 +260,7 @@
 
                             <!-- Output Informasi Akun -->
                             <div class="flex flex-col space-y-3.5 w-96 text-base font-medium">
-                                @foreach($datas as $data)
-                                
+                            @foreach( session('datas') as $data)
                                 <p name="" class="h-8 py-1 rounded-md">
                                     {{$data['email']}}
                                 </p>
@@ -316,8 +318,11 @@
 
                     <!-- Input Informasi Bisnis -->
                     <form action="">
+                            @foreach(session('datas') as $data)
+                            @foreach( session('outlets') as $outlet)
+                            @foreach( session('datas') as $data)
                         <div class="flex flex-col space-y-3.5 w-96 text-base font-medium">
-                            <input type="text" name=""
+                            <input type="text" name="" value={{$outlet['nama']}}
                                 class="h-8 py-1 rounded-md border-gray-300 bg-gray-100 border-[2px]">
                             <input type="email" name=""
                                 class="h-8 py-1 rounded-md border-gray-300 bg-gray-100 border-[2px]">
@@ -326,6 +331,9 @@
                             <input type="text" name=""
                                 class="h-8 py-1 rounded-md border-gray-300 bg-gray-100 border-[2px]">
                         </div>
+                            @endforeach
+                            @endforeach
+                            @endforeach
                     </form>
 
                     <form action="">

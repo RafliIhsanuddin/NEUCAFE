@@ -24,7 +24,11 @@ Route::get('/', function () {
 Route::post('authlog',[SessionController::class, 'login2']);
 Route::post('authsign',[SessionController::class, 'masukdata']);
 // Route::get('show/{id}', [show::class, 'View_PL_Accnt'])->name('SupAd.View_PL_Accnt');
-Route::get('info');
+// Route::view('info',[SessionController::class, 'log']);
+
+Route::get('flush', [SessionController::class, 'flushSession'])->name('flush');
+
+// Route::view("flush",'login');
 
 Route::view("tes",'about');
 Route::view("info",'informasi');
@@ -37,3 +41,4 @@ Route::view("daftar",'daftarProduk');
 Route::view("landing",'landing');
 Route::view("ProdukPer",'firstProduct');
 Route::view("outletPer",'infoOutlet');
+Route::view("coba",'coba');

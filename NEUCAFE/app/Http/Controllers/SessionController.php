@@ -25,14 +25,19 @@ class SessionController extends Controller
         foreach($akun as $out){
             if($out->email == $req->email){
                 if($out->password == $req->password){
-                    session()->put('id',$out->id_akun);
+                    $req->session()->put('id',$out->id_akun);
                     $id = session('id');
                     $data = akun::where('id_akun','=',$id)->get();
                     $outlet = outlet::where('id_akun','=',$id)->get();
-                    session()->put('datas',$data);
-                    session()->put('outlets',$outlet);
-                    // return view('informasi',['datas'=>$data,'outlets'=>$outlet]);
+                    session(['datas' => $data]);
+                    session(['outlets' => $outlet]);
+                    // session()->put('datas', $data);
+                    session()->put('outlets', $outlet);
+                    // return post('informasi',['datas'=>$data,'outlets'=>$outlet]);
                     return view('choose');
+
+
+
                     // if($outlet->isNotEmpty()){
                     //     return view('informasi',['datas'=>$data,'outlets'=>$outlet]);
                     // }else{
@@ -46,6 +51,32 @@ class SessionController extends Controller
             }
         }
 
+    }
+
+
+
+
+
+
+    public function flushSession(Request $request)
+    {
+        $request->session()->flush();
+
+        return view('login');
+    }
+
+
+    function log($id){
+        $data = akun::where('id_akun','=',$id)->get();
+        $outlet = outlet::where('id_akun','=',$id)->get();
+        return view('informasi',['datas'=>$data,'outlets'=>$outlet]);
+    }
+
+
+
+
+    function logout(){
+        $request->session()->flush();
     }
 
 
