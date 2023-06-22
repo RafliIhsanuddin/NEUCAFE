@@ -23,6 +23,7 @@ Route::get('/', function () {
 // Route::get('/login',[SessionController::class, 'halog']);
 Route::post('authlog',[SessionController::class, 'login2']);
 Route::post('authsign',[SessionController::class, 'masukdata']);
+Route::post('editatas',[SessionController::class, 'upatas']);
 // Route::get('show/{id}', [show::class, 'View_PL_Accnt'])->name('SupAd.View_PL_Accnt');
 // Route::view('info',[SessionController::class, 'log']);
 
@@ -42,3 +43,5 @@ Route::view("landing",'landing');
 Route::view("ProdukPer",'firstProduct');
 Route::view("outletPer",'infoOutlet');
 Route::view("coba",'coba');
+Route::view("tambahProduk",'tambahProduk');
+Route::view("detailProduk",'detailProduk');

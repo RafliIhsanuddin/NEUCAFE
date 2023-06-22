@@ -75,6 +75,20 @@ class SessionController extends Controller
 
 
 
+    function upatas(Request $req){
+        $akun= akun::where('id_akun','=',$req->id);
+        $outlet=outlet::where('id_akun','=',$req->id);
+        $outlet->nama=$req->nama;
+        $akun->email=$req->email;
+        $akun->noTelp=$req->telp;
+        $outlet->alamat=$req->alamat;
+        $akun->save();
+        $outlet->save();
+
+
+
+    }
+
     function logout(){
         $request->session()->flush();
     }

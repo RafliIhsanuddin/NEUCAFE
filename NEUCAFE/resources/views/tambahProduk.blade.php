@@ -14,7 +14,7 @@
     <title>Dashboard | Notus Tailwind JS by Creative Tim</title>
 </head>
 
-<body class="text-blueGray-700 antialiased">
+<body class="text-blueGray-700 bg-gray-100 antialiased">
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root">
         <nav
@@ -85,7 +85,7 @@
                     <form class="mt-6 mb-4 md:hidden">
                         <div class="mb-3 pt-0">
                             <input type="text" placeholder="Search"
-                                class="border-0 px-3 py-2 h-12 border-solid border-blueGray-500 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-base leading-snug shadow-none outline-none focus:outline-none w-full font-normal" />
+                                class="border-0 px-3 py-2 h-12 border border-solid border-blueGray-500 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-base leading-snug shadow-none outline-none focus:outline-none w-full font-normal" />
                         </div>
                     </form>
                     <!-- Divider -->
@@ -99,7 +99,7 @@
 
                     <ul class="md:flex-col md:min-w-full flex flex-col list-none">
                         <li class="items-center">
-                            <a href="./dashboard.html" class="text-xs uppercase py-3 font-bold block text-blueGray-500 hover:text-[#45D5A1]">
+                            <a href="./dashboard.html" class="text-xs uppercase py-3 font-bold block text-[#45D5A1]">
                                 <i class="fas fa-tv mr-2 text-sm opacity-75"></i>
                                 Dashboard
                             </a>
@@ -131,7 +131,7 @@
 
                         <li class="items-center">
                             <a href="./informasi.html"
-                                class="text-xs uppercase py-3 font-bold block text-[#45D5A1]">
+                                class="text-xs uppercase py-3 font-bold block text-blueGray-500 hover:text-[#45D5A1]">
                                 <i class="fas fa-map-marked mr-2 text-sm"></i>
                                 Informasi
                             </a>
@@ -143,15 +143,12 @@
             </div>
         </nav>
 
-        <div class="relative md:ml-64 bg-gray-100">
+        <div class="relative md:ml-64">
             <nav
                 class="absolute top-0 left-0 w-full z-10 bg-white md:flex-row md:flex-nowrap md:justify-start flex items-center p-4">
                 <div class="w-full mx-autp items-center flex justify-between md:flex-nowrap flex-wrap md:px-10 px-4">
                     <a class="text-black text-lg uppercase hidden lg:inline-block font-bold"
                         href="./index.html">Welcome, Juan</a>
-
-
-                    <a href="{{ route('flush') }}" class="w-40 mt-6 h-11 bg-[#6FBCA0] hover:bg-[#337a61] rounded-full font-semibold text-white text-center">Logout</a>
                     <form class="md:flex hidden flex-row flex-wrap items-center lg:ml-auto mr-3">
                         <div class="relative flex w-full flex-wrap items-stretch">
                             <span
@@ -176,14 +173,13 @@
                     </ul>
                 </div>
             </nav>
-
-            <!-- Informasi Bisnis -->
+            <!-- Header -->
             <div class="relative md:pt-32 pb-8 pt-12">
                 <div class="px-4 md:px-10 mx-auto w-full">
                     <div
                         class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-white h-fit px-6 py-7">
                         <div class="text-xl font-bold text-black ml-2">
-                            Informasi Bisnis
+                            Tambah Produk
                         </div>
                         <hr class="mt-2 mb-6">
                         <div class="flex w-full mx-2">
@@ -191,236 +187,70 @@
                                 <div class="w-40 h-40 bg-slate-400 rounded-md">
                                     <!-- image -->
                                 </div>
+                                <button type="submit"
+                                    class=" bg-green-600 hover:bg-green-500 focus:outline-none text-white px-5 py-1 font-semibold rounded-md mt-3">Tambah
+                                    Foto</button>
                             </div>
 
-                            <div class="flex flex-col space-y-6 w-32 text-base font-medium">
-                                <p>Nama Cafe</p>
-                                <p>Email</p>
-                                <p>No HandPhone</p>
-                                <p>Alamat</p>
+                            <div class="flex flex-col space-y-3 w-32 text-base font-medium">
+                                <p>Nama</p>
+                                <p>Kategori</p>
+                                <p>Jumlah Stok</p>
+                                <p>Harga Jual</p>
+                                <p>Harga Beli</p>
+                                <p>Deskripsi</p>
+                                <p>Status</p>
                             </div>
-                            <div class="flex flex-col space-y-6 w-6 text-base font-medium">
+                            <div class="flex flex-col space-y-3 w-6 text-base font-medium">
                                 <p>:</p>
                                 <p>:</p>
                                 <p>:</p>
                                 <p>:</p>
+                                <p>:</p>
+                                <p>:</p>
+                                <p>:</p>
                             </div>
 
+                            <div class="flex flex-col space-y-3 w-96 text-base font-medium">
+                                <input type="text" name="" id=""
+                                    class="h-6 py-1 rounded-md border-gray-300 border-[2px]">
+                                <input type="text" name="" id=""
+                                    class="h-6 py-1 rounded-md border-gray-300 border-[2px]">
+                                <input type="text" name="" id=""
+                                    class="h-6 py-1 rounded-md border-gray-300 border-[2px]">
+                                <input type="text" name="" id=""
+                                    class="h-6 py-1 rounded-md border-gray-300 border-[2px]">
+                                <input type="text" name="" id=""
+                                    class="h-6 py-1 rounded-md border-gray-300 border-[2px]">
+                                <input type="text" name="" id=""
+                                    class="h-6 py-1 rounded-md border-gray-300 border-[2px]">
+                                <select name="status" class="h-7 px-1 rounded-md border-gray-300 border-[2px]">
+                                    <option value="Success">
+                                        <i class="fas fa-circle text-green-500 mr-2"></i>
+                                        <span class="text-sm">Success</span>
+                                    </option>
+                                    <option value="pending">
+                                        <i class="fas fa-circle text-green-500 mr-2"></i>
+                                        <span class="text-sm">Pending</span>
+                                    </option>
+                                </select>
 
-                            <!-- Output Informasi Bisnis -->
-                            <div class="flex flex-col space-y-3.5 w-96 text-base font-medium">
-                                @foreach(session('datas') as $data)
-                                @foreach( session('outlets') as $outlet)
-                                <p name="" class="h-8 py-1 rounded-md">
-                                    {{$outlet['nama']}}
-                                </p>
-                                <p name="" class="h-8 py-1 rounded-md">
-                                    {{$data['email']}}
-                                </p>
-                                <p name="" class="h-8 py-1 rounded-md">
-                                    {{$data['noTelp']}}
-                                </p>
-                                <p name="" class="h-8 py-1 rounded-md">
-                                    {{$outlet['alamat']}}
-                                </p>
-                                @endforeach
-                                @endforeach
+                                <div>
+                                    <button type="submit"
+                                        class=" bg-green-600 hover:bg-green-500 focus:outline-none text-white w-28 py-1 font-semibold rounded-md ">Simpan</button>
+                                    <button type="submit"
+                                        class=" bg-red-600 hover:bg-red-500 focus:outline-none text-white w-28 py-1 font-semibold rounded-md">Batal</button>
+                                </div>
                             </div>
-
-                            <!-- BUTTON INI BIARIN AJA, INI BUAT NAMPILIN FORM EDIT AKUN -->
-                            <button type="submit" onclick="tampilkanFormInformasi()"
-                                class="text-base font-semibold text-white bg-green-600 hover:bg-green-500 h-8 w-28 mx-4 rounded-md">
-                                Edit Bisnis
-                            </button>
 
                         </div>
                     </div>
                 </div>
-
-                <div class="px-4 md:px-10 mx-auto w-full">
-                    <div
-                        class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-white h-fit px-6 py-7">
-                        <div class="text-xl font-bold text-black ml-2">
-                            Informasi Akun
-                        </div>
-                        <hr class="mt-2 mb-6">
-                        <div class="flex w-full mx-2">
-
-                            <div class="flex flex-col space-y-6 w-32 text-base font-medium">
-                                <p>Email</p>
-                                <p>Password</p>
-                                <p>Kode Manajer</p>
-                            </div>
-                            <div class="flex flex-col space-y-6 w-6 text-base font-medium">
-                                <p>:</p>
-                                <p>:</p>
-                                <p>:</p>
-                            </div>
-
-
-                            <!-- Output Informasi Akun -->
-                            <div class="flex flex-col space-y-3.5 w-96 text-base font-medium">
-                            @foreach( session('datas') as $data)
-                                <p name="" class="h-8 py-1 rounded-md">
-                                    {{$data['email']}}
-                                </p>
-                                <p name="" id="" class="h-8 py-1 rounded-md">
-                                    {{$data['password']}}
-                                </p>
-                                <p name="" id="" class="h-8 py-1 rounded-md">
-                                    {{$data['kodeManajer']}}
-                                </p>
-                                @endforeach
-                            </div>
-
-                            <!-- BUTTON INI BIARIN AJA, INI BUAT NAMPILIN FORM EDIT AKUN -->
-                            <button type="submit" onclick="tampilkanFormAkun()"
-                                class="text-base font-semibold text-white bg-green-600 hover:bg-green-500 h-8 w-28 mx-4 rounded-md">
-                                Edit Akun
-                            </button>
-
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </div>
-
-
-        <!-- Form Edit Informasi Bisnis -->
-        <div class="absolute top-0 h-screen w-full bg-black/50 z-50 hidden items-center justify-center tutup"
-            id="formEditInformasi">
-            <div
-                class="relative flex flex-col min-w-0 break-words w-[150vh] mb-6 shadow-lg rounded bg-white h-fit px-6 py-7">
-                <div class="text-xl font-bold text-black ml-2">
-                    Edit Informasi Bisnis
-                </div>
-                <hr class="mt-2 mb-6">
-                <div class="flex w-full mx-2">
-                    <div class="flex flex-col items-center mr-7">
-                        <div class="w-40 h-40 bg-slate-400 rounded-md">
-                            <!-- image -->
-                        </div>
-                    </div>
-
-                    <div class="flex flex-col space-y-6 w-32 text-base font-medium">
-                        <p>Nama Cafe</p>
-                        <p>Email</p>
-                        <p>No HandPhone</p>
-                        <p>Alamat</p>
-                    </div>
-                    <div class="flex flex-col space-y-6 w-6 text-base font-medium">
-                        <p>:</p>
-                        <p>:</p>
-                        <p>:</p>
-                        <p>:</p>`
-                    </div>
-
-                    <!-- Input Informasi Bisnis -->
-                    <form action="editatas" method="POST">
-                            @foreach(session('datas') as $data)
-                            @foreach( session('outlets') as $outlet)
-                        <div class="flex flex-col space-y-3.5 w-96 text-base font-medium">
-                            <input type="hidden" name="id" value={{ session('id') }} >
-                            <input type="text" name="nama"  value={{$outlet['nama']}}
-                                class="h-8 py-1 rounded-md border-gray-300 bg-gray-100 border-[2px]">
-                            <input type="email" name="email" value={{$data['email']}}
-                                class="h-8 py-1 rounded-md border-gray-300 bg-gray-100 border-[2px]">
-                            <input type="text" name="telp"  value={{$data['noTelp']}}
-                                class="h-8 py-1 rounded-md border-gray-300 bg-gray-100 border-[2px]">
-                            <input type="text" name="alamat"  value={{$outlet['alamat']}}
-                                class="h-8 py-1 rounded-md border-gray-300 bg-gray-100 border-[2px]">
-                                <input type="submit" value="Simpan Perubahan"
-                            class="py-1 text-base font-semibold text-white bg-green-600 hover:bg-green-500 h-9 px-4 mx-4 rounded-md">
-                        </div>
-                            
-                            @endforeach
-                            @endforeach
-                    </form>
-
-                    <form action="">
-                        <!-- INPUT BUTTON INI BUAT SAVE DATA -->
-                        
-                    </form>
-                </div>
-
-                <!-- BUTTON INI BIARIN AJA, INI BUAT NUTUP FORM EDIT AKUN -->
-                <button type="submit" onclick="tutupForm()"
-                    class="w-10 h-10 bg-gray-500 rounded-full top-3 right-5 absolute mx-auto text-white font-bold">X</button>
-            </div>
-        </div>
-
-        <!-- Form Edit Akun -->
-        <div class="absolute top-0 h-screen w-full bg-black/50 z-50 hidden items-center justify-center"
-            id="formEditAkun">
-            <div
-                class="relative flex flex-col min-w-0 break-words w-[90vh] mb-6 shadow-lg rounded bg-white h-fit px-6 py-7">
-
-                <div class="text-xl font-bold text-black ml-2">
-                    Informasi Akun
-                </div>
-                <hr class="mt-2 mb-6">
-                <div class="flex w-full mx-2">
-
-                    <div class="flex flex-col space-y-6 w-32 text-base font-medium">
-                        <p>Email</p>
-                        <p>Password</p>
-                        <p>Kode Manajer</p>
-                    </div>
-                    <div class="flex flex-col space-y-6 w-6 text-base font-medium">
-                        <p>:</p>
-                        <p>:</p>
-                        <p>:</p>
-                    </div>
-
-
-                    <!-- Output Informasi Akun -->
-                    <form action="">
-                        <div class="flex flex-col space-y-3.5 w-72 text-base font-medium">
-                            <input type="email" name=""
-                                class="h-8 py-1 rounded-md border-gray-300 bg-gray-100 border-[2px]">
-                            <input type="password" name=""
-                                class="h-8 py-1 rounded-md border-gray-300 bg-gray-100 border-[2px]">
-                            <input type="kode" name=""
-                                class="h-8 py-1 rounded-md border-gray-300 bg-gray-100 border-[2px]">
-                        </div>
-                    </form>
-
-                    <form action="">
-                        <!-- INPUT BUTTON INI BUAT SAVE DATA -->
-                        <input type="submit" value="Simpan Perubahan"
-                            class="text-base font-semibold text-white bg-green-600 hover:bg-green-500 h-8 px-4 mx-4 rounded-md">
-                    </form>
-                </div>
-
-                <!-- BUTTON INI BIARIN AJA, INI BUAT NUTUP FORM EDIT AKUN -->
-                <button type="submit" onclick="tutupForm()"
-                    class="w-10 h-10 bg-gray-500 rounded-full top-3 right-5 absolute mx-auto text-white font-bold">X</button>
-            </div>
-        </div>
-
-
-
-
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" charset="utf-8"></script>
     <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
-    <script>
-        function tampilkanFormInformasi() {
-            var objek = document.getElementById("formEditInformasi");
-            objek.style.display = "flex";
-        }
-        function tampilkanFormAkun() {
-            var objek = document.getElementById("formEditAkun");
-            objek.style.display = "flex";
-        }
-        function tutupForm() {
-            var objek1 = document.getElementById("formEditAkun");
-            var objek2 = document.getElementById("formEditInformasi");
-            objek1.style.display = "none";
-            objek2.style.display = "none";
-        }
-    </script>
     <script type="text/javascript">
         /* Make dynamic date appear */
         (function () {
