@@ -13,6 +13,6 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
         //
-        'flush','authlog'
+        'flush','authlog','editatas'
     ];
 }

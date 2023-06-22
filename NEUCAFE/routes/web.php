@@ -20,6 +20,8 @@ Route::get('/', function () {
 
 
 
+
+
 // Route::get('/login',[SessionController::class, 'halog']);
 Route::post('authlog',[SessionController::class, 'login2']);
 Route::post('authsign',[SessionController::class, 'masukdata']);

@@ -333,7 +333,6 @@
                                 <input type="submit" value="Simpan Perubahan"
                             class="py-1 text-base font-semibold text-white bg-green-600 hover:bg-green-500 h-9 px-4 mx-4 rounded-md">
                         </div>
-                            
                             @endforeach
                             @endforeach
                     </form>

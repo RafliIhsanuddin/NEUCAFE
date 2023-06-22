@@ -29,8 +29,9 @@ class SessionController extends Controller
                     $id = session('id');
                     $data = akun::where('id_akun','=',$id)->get();
                     $outlet = outlet::where('id_akun','=',$id)->get();
-                    session(['datas' => $data]);
-                    session(['outlets' => $outlet]);
+                    session()->put('datas', $data);
+                    // session(['datas' => $data]);
+                    // session(['outlets' => $outlet]);
                     // session()->put('datas', $data);
                     session()->put('outlets', $outlet);
                     // return post('informasi',['datas'=>$data,'outlets'=>$outlet]);
@@ -76,17 +77,28 @@ class SessionController extends Controller
 
 
     function upatas(Request $req){
-        $akun= akun::where('id_akun','=',$req->id);
-        $outlet=outlet::where('id_akun','=',$req->id);
-        $outlet->nama=$req->nama;
-        $akun->email=$req->email;
-        $akun->noTelp=$req->telp;
-        $outlet->alamat=$req->alamat;
+        $akun = akun::where('id_akun', '=', $req->id)->first();
+        $outlet = outlet::where('id_akun', '=', $req->id)->first();
+
+        $outlet->nama = $req->nama;
+        $akun->email = $req->email;
+        $akun->noTelp = $req->telp;
+        $outlet->alamat = $req->alamat;
+
         $akun->save();
         $outlet->save();
 
+        $data = akun::where('id_akun','=',$req->id)->get();
+        $outle = outlet::where('id_akun','=',$req->id)->get();
+
+        session()->put('datas', $data);
+        session()->put('outlets', $outle);
+
+        
 
 
+        return view('informasi');
+        
     }
 
     function logout(){

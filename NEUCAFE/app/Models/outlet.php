@@ -10,4 +10,5 @@ class outlet extends Model
     use HasFactory;
     public $table="outlet";
     public $timestamps=false;
+    protected $primaryKey = 'id_akun';
 }

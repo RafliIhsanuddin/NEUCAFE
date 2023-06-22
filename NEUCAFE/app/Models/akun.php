@@ -10,4 +10,5 @@ class akun extends Model
     use HasFactory;
     public $table="akun";
     public $timestamps=false;
+    protected $primaryKey = 'id_akun';
 }
