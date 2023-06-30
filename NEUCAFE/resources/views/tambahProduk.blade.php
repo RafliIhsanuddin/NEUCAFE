@@ -1,21 +1,8 @@
-<!DOCTYPE html>
-<html>
+@extends('layout.template')
 
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <link rel="shortcut icon" href="../../assets/img/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="76x76" href="../../assets/img/apple-icon.png" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" />
-    <link rel="stylesheet" href="../../assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" />
-    <link rel="stylesheet" href="../../assets/styles/tailwind.css" />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <title>tambah Produk</title>
-</head>
+@section('konten')
+    
 
-<body class="text-blueGray-700 bg-gray-100 antialiased">
-    <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root">
         <nav
             class="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-6">
@@ -85,7 +72,7 @@
                     <form class="mt-6 mb-4 md:hidden">
                         <div class="mb-3 pt-0">
                             <input type="text" placeholder="Search"
-                                class="border-0 px-3 py-2 h-12 border border-solid border-blueGray-500 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-base leading-snug shadow-none outline-none focus:outline-none w-full font-normal" />
+                                class="border-0 px-3 py-2 h-12  border-solid border-blueGray-500 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-base leading-snug shadow-none outline-none focus:outline-none w-full font-normal" />
                         </div>
                     </form>
                     <!-- Divider -->
@@ -174,112 +161,101 @@
                 </div>
             </nav>
             <!-- Header -->
-            <div class="relative md:pt-32 pb-8 pt-12">
-                <div class="px-4 md:px-10 mx-auto w-full">
-                    <div
-                        class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-white h-fit px-6 py-7">
-                        <div class="text-xl font-bold text-black ml-2">
-                            Tambah Produk
-                        </div>
-                        <hr class="mt-2 mb-6">
-                        <div class="flex w-full mx-2">
-                            <div class="flex flex-col items-center mr-7">
-                                <div class="w-40 h-40 bg-slate-400 rounded-md">
-                                    <!-- image -->
-                                </div>
-                                <button type="submit"
-                                    class=" bg-green-600 hover:bg-green-500 focus:outline-none text-white px-5 py-1 font-semibold rounded-md mt-3">Tambah
-                                    Foto</button>
+            <!-- ini adalah tempat create.blade.php -->
+            <!-- START FORM-->
+             @if ($errors->any())
+                <div class="pt-24">
+                    <div class="bg-red-500 text-white font-bold px-4 py-3 rounded">
+                        Terjadi Kesalahan!
+                    </div>
+                    <ul class="mt-2 list-disc list-inside">
+                        @foreach ($errors->all() as $item)
+                            <li class="text-red-500">{{ $item }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+            <form action="{{ url('tambahProduk') }}" method="post">
+                @csrf
+                <div class="relative md:pt-32 pb-8 pt-12">
+                    <div class="px-4 md:px-10 mx-auto w-full">
+                        <div
+                            class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-white h-fit px-6 py-7">
+                            <div class="text-xl font-bold text-black ml-2">
+                                Tambah Produk
                             </div>
-
-                            <div class="flex flex-col space-y-3 w-32 text-base font-medium">
-                                <p>Nama</p>
-                                <p>Kategori</p>
-                                <p>Jumlah Stok</p>
-                                <p>Harga Jual</p>
-                                <p>Harga Beli</p>
-                                <p>Deskripsi</p>
-                                <p>Status</p>
-                            </div>
-                            <div class="flex flex-col space-y-3 w-6 text-base font-medium">
-                                <p>:</p>
-                                <p>:</p>
-                                <p>:</p>
-                                <p>:</p>
-                                <p>:</p>
-                                <p>:</p>
-                                <p>:</p>
-                            </div>
-
-                            <div class="flex flex-col space-y-3 w-96 text-base font-medium">
-                                <input type="text" name="" id=""
-                                    class="h-6 py-1 rounded-md border-gray-300 border-[2px]">
-                                <input type="text" name="" id=""
-                                    class="h-6 py-1 rounded-md border-gray-300 border-[2px]">
-                                <input type="text" name="" id=""
-                                    class="h-6 py-1 rounded-md border-gray-300 border-[2px]">
-                                <input type="text" name="" id=""
-                                    class="h-6 py-1 rounded-md border-gray-300 border-[2px]">
-                                <input type="text" name="" id=""
-                                    class="h-6 py-1 rounded-md border-gray-300 border-[2px]">
-                                <input type="text" name="" id=""
-                                    class="h-6 py-1 rounded-md border-gray-300 border-[2px]">
-                                <select name="status" class="h-7 px-1 rounded-md border-gray-300 border-[2px]">
-                                    <option value="Success">
-                                        <i class="fas fa-circle text-green-500 mr-2"></i>
-                                        <span class="text-sm">Success</span>
-                                    </option>
-                                    <option value="pending">
-                                        <i class="fas fa-circle text-green-500 mr-2"></i>
-                                        <span class="text-sm">Pending</span>
-                                    </option>
-                                </select>
-
-                                <div>
+                            <hr class="mt-2 mb-6">
+                            <div class="flex w-full mx-2">
+                                <div class="flex flex-col items-center mr-7">
+                                    <div class="w-40 h-40 bg-slate-400 rounded-md">
+                                        <!-- image -->
+                                    </div>
                                     <button type="submit"
-                                        class=" bg-green-600 hover:bg-green-500 focus:outline-none text-white w-28 py-1 font-semibold rounded-md ">Simpan</button>
-                                    <button type="submit"
-                                        class=" bg-red-600 hover:bg-red-500 focus:outline-none text-white w-28 py-1 font-semibold rounded-md">Batal</button>
+                                        class=" bg-green-600 hover:bg-green-500 focus:outline-none text-white px-5 py-1 font-semibold rounded-md mt-3">Tambah
+                                        Foto</button>
                                 </div>
+            
+                                <div class="flex flex-col space-y-3 w-32 text-base font-medium">
+                                    <p>Nama</p>
+                                    <p>Kategori</p>
+                                    <p>Jumlah Stok</p>
+                                    <p>Harga Jual</p>
+                                    <p>Harga Beli</p>
+                                    <p>Deskripsi</p>
+                                    <p>Outlet</p>
+                                    <p>Status</p>
+                                </div>
+                                <div class="flex flex-col space-y-3 w-6 text-base font-medium">
+                                    <p>:</p>
+                                    <p>:</p>
+                                    <p>:</p>
+                                    <p>:</p>
+                                    <p>:</p>
+                                    <p>:</p>
+                                    <p>:</p>
+                                    <p>:</p>
+                                </div>
+            
+                                <div class="flex flex-col space-y-3 w-96 text-base font-medium">
+                                    <input type="text" name="nama"          value="{{ Session::get('nama') }}"       id=""  
+                                        class="h-6 py-1 rounded-md border-gray-300 border-[2px]">                       <!-- name digunakan untuk pengiriman data yg telah diisi di form ke database , $request->validate di produkController.php-->
+                                    <input type="text" name="kategori"      value="{{ Session::get('kategori') }}"   id=""
+                                        class="h-6 py-1 rounded-md border-gray-300 border-[2px]">                       <!-- value digunakan untuk data yang salah masih bisa dilihat di form pengisian , berhubungan dengan Session::flash di produkController.php-->
+                                    <input type="text" name="stok"          value="{{ Session::get('stok') }}"       id=""
+                                        class="h-6 py-1 rounded-md border-gray-300 border-[2px]">
+                                    <input type="text" name="harga_jual"    value="{{ Session::get('harga_jual') }}" id=""
+                                        class="h-6 py-1 rounded-md border-gray-300 border-[2px]">
+                                    <input type="text" name="harga_beli"    value="{{ Session::get('harga_beli') }}" id=""
+                                        class="h-6 py-1 rounded-md border-gray-300 border-[2px]">
+                                    <input type="text" name="deskripsi"     value="{{ Session::get('deskripsi') }}"  id=""
+                                        class="h-6 py-1 rounded-md border-gray-300 border-[2px]"> 
+                                        <input type="text" name="id_outlet" value="{{ Session::get('id_outlet') }}"  id=""
+                                        class="h-6 py-1 rounded-md border-gray-300 border-[2px]">
+                                    <select name="status" class="h-7 px-1 rounded-md border-gray-300 border-[2px]">
+                                        <option value="Success">
+                                            <i class="fas fa-circle text-green-500 mr-2"></i>
+                                            <span class="text-sm">Success</span>
+                                        </option>
+                                        <option value="pending">
+                                            <i class="fas fa-circle text-green-500 mr-2"></i>
+                                            <span class="text-sm">Pending</span>
+                                        </option>
+                                    </select>
+            
+                                    <div>
+                                        <button type="submit"
+                                            class=" bg-green-600 hover:bg-green-500 focus:outline-none text-white w-28 py-1 font-semibold rounded-md ">Simpan</button>
+                                        <button type="submit"
+                                            class=" bg-red-600 hover:bg-red-500 focus:outline-none text-white w-28 py-1 font-semibold rounded-md">Batal</button>
+                                    </div>
+                                </div>
+            
                             </div>
-
                         </div>
                     </div>
                 </div>
-            </div>
+            </form>
+        <!-- END FORM-->
         </div>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" charset="utf-8"></script>
-    <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
-    <script type="text/javascript">
-        /* Make dynamic date appear */
-        (function () {
-            if (document.getElementById("get-current-year")) {
-                document.getElementById("get-current-year").innerHTML =
-                    new Date().getFullYear();
-            }
-        })();
-        /* Sidebar - Side navigation menu on mobile/responsive mode */
-        function toggleNavbar(collapseID) {
-            document.getElementById(collapseID).classList.toggle("hidden");
-            document.getElementById(collapseID).classList.toggle("bg-white");
-            document.getElementById(collapseID).classList.toggle("m-2");
-            document.getElementById(collapseID).classList.toggle("py-3");
-            document.getElementById(collapseID).classList.toggle("px-6");
-        }
-        /* Function for dropdowns */
-        function openDropdown(event, dropdownID) {
-            let element = event.target;
-            while (element.nodeName !== "A") {
-                element = element.parentNode;
-            }
-            Popper.createPopper(element, document.getElementById(dropdownID), {
-                placement: "bottom-start"
-            });
-            document.getElementById(dropdownID).classList.toggle("hidden");
-            document.getElementById(dropdownID).classList.toggle("block");
-        }
-    </script>
-</body>
-
-</html>
+    @endsection

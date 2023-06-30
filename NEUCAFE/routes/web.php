@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SessionController;
+use App\Http\Controllers\produkController;
+use App\Http\Controllers\tambahProdukController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,3 +49,5 @@ Route::view("outletPer",'infoOutlet');
 Route::view("coba",'coba');
 Route::view("tambahProduk",'tambahProduk');
 Route::view("detailProduk",'detailProduk');
+
+Route::resource("tambahProduk", produkController::class);
