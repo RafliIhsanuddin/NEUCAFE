@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SessionController;
+use App\Http\Controllers\OutletPer;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +27,8 @@ Route::get('/', function () {
 Route::post('authlog',[SessionController::class, 'login2']);
 Route::post('authsign',[SessionController::class, 'masukdata']);
 Route::post('editatas',[SessionController::class, 'upatas']);
+Route::post('editbaw',[SessionController::class, 'upbawah']);
+Route::post('outper',[SessionController::class, 'outletper']);
 // Route::get('show/{id}', [show::class, 'View_PL_Accnt'])->name('SupAd.View_PL_Accnt');
 // Route::view('info',[SessionController::class, 'log']);
 

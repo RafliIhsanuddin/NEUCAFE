@@ -25,9 +25,10 @@
             <div class="h-full w-3/5 flex flex-col py-10 px-20 space-y-6">
                 <div class="flex justify-end w-full h-fit items-center font-medium text-sm text-gray-400 space-x-3">
                     <p class="">Belum punya akun?</p>
-                    <button type="submit"
+                
+                    <a href="signup"
                         class="w-20 py-1 border-2 border-gray-300 font-bold rounded-full text-xs hover:bg-[#6FBCA0] hover:text-white hover:border-white">SIGN
-                        UP</button>
+                        UP</a>
                 </div>
 
                 <div class="w-full h-fit">

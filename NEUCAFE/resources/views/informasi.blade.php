@@ -99,7 +99,7 @@
 
                     <ul class="md:flex-col md:min-w-full flex flex-col list-none">
                         <li class="items-center">
-                            <a href="./dashboard.html" class="text-xs uppercase py-3 font-bold block text-blueGray-500 hover:text-[#45D5A1]">
+                            <a href="/dashboard" class="text-xs uppercase py-3 font-bold block text-blueGray-500 hover:text-[#45D5A1]">
                                 <i class="fas fa-tv mr-2 text-sm opacity-75"></i>
                                 Dashboard
                             </a>
@@ -130,7 +130,7 @@
                         </li>
 
                         <li class="items-center">
-                            <a href="./informasi.html"
+                            <a href="/informasi"
                                 class="text-xs uppercase py-3 font-bold block text-[#45D5A1]">
                                 <i class="fas fa-map-marked mr-2 text-sm"></i>
                                 Informasi
@@ -232,7 +232,6 @@
                                 class="text-base font-semibold text-white bg-green-600 hover:bg-green-500 h-8 w-28 mx-4 rounded-md">
                                 Edit Bisnis
                             </button>
-
                         </div>
                     </div>
                 </div>
@@ -318,17 +317,17 @@
 
                     <!-- Input Informasi Bisnis -->
                     <form action="editatas" method="POST">
-                            @foreach(session('datas') as $data)
+                            @foreach( session('datas') as $data)
                             @foreach( session('outlets') as $outlet)
                         <div class="flex flex-col space-y-3.5 w-96 text-base font-medium">
-                            <input type="hidden" name="id" value={{ session('id') }} >
-                            <input type="text" name="nama"  value={{$outlet['nama']}}
+                            <input type="hidden" name="idbar" value="{{session('id')}}" >
+                            <input type="text" name="nama"  value="{{$outlet['nama']}}"
                                 class="h-8 py-1 rounded-md border-gray-300 bg-gray-100 border-[2px]">
-                            <input type="email" name="email" value={{$data['email']}}
+                            <input type="email" name="email" value="{{$data['email']}}"
                                 class="h-8 py-1 rounded-md border-gray-300 bg-gray-100 border-[2px]">
-                            <input type="text" name="telp"  value={{$data['noTelp']}}
+                            <input type="text" name="telp"  value="{{$data['noTelp']}}"
                                 class="h-8 py-1 rounded-md border-gray-300 bg-gray-100 border-[2px]">
-                            <input type="text" name="alamat"  value={{$outlet['alamat']}}
+                            <input type="text" name="alamat"  value="{{$outlet['alamat']}}"
                                 class="h-8 py-1 rounded-md border-gray-300 bg-gray-100 border-[2px]">
                                 <input type="submit" value="Simpan Perubahan"
                             class="py-1 text-base font-semibold text-white bg-green-600 hover:bg-green-500 h-9 px-4 mx-4 rounded-md">
@@ -374,21 +373,24 @@
 
 
                     <!-- Output Informasi Akun -->
-                    <form action="">
+                    <form action="editbaw" method="POST">
+                        @foreach( session('datas') as $data)
                         <div class="flex flex-col space-y-3.5 w-72 text-base font-medium">
-                            <input type="email" name=""
+                            <input type="hidden" name="idbaw" value="{{session('id')}}" >
+                            <input type="email" name="emailbaw" value="{{$data['email']}}"
                                 class="h-8 py-1 rounded-md border-gray-300 bg-gray-100 border-[2px]">
-                            <input type="password" name=""
+                            <input type="text" name="passbaw" value="{{$data['password']}}"
                                 class="h-8 py-1 rounded-md border-gray-300 bg-gray-100 border-[2px]">
-                            <input type="kode" name=""
+                            <input type="text" name="kode" value="{{$data['kodeManajer']}}"
                                 class="h-8 py-1 rounded-md border-gray-300 bg-gray-100 border-[2px]">
+                                <input type="submit" value="Simpan Perubahan"
+                            class="text-base font-semibold text-white bg-green-600 hover:bg-green-500 h-8 px-4 mx-4 rounded-md">
                         </div>
+                        @endforeach
                     </form>
 
                     <form action="">
                         <!-- INPUT BUTTON INI BUAT SAVE DATA -->
-                        <input type="submit" value="Simpan Perubahan"
-                            class="text-base font-semibold text-white bg-green-600 hover:bg-green-500 h-8 px-4 mx-4 rounded-md">
                     </form>
                 </div>
 

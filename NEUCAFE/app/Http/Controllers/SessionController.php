@@ -27,15 +27,25 @@ class SessionController extends Controller
                 if($out->password == $req->password){
                     $req->session()->put('id',$out->id_akun);
                     $id = session('id');
-                    $data = akun::where('id_akun','=',$id)->get();
                     $outlet = outlet::where('id_akun','=',$id)->get();
-                    session()->put('datas', $data);
+                    if($outlet->isEmpty()){
+                        return view('infoOutlet');
+                    }else{
+                        $data = akun::where('id_akun','=',$id)->get();
+                        session()->put('datas', $data);
+                        session()->put('outlets', $outlet);
+                        return view('choose');
+                    }
+
+                    // $data = akun::where('id_akun','=',$id)->get();
+                    // $outlet = outlet::where('id_akun','=',$id)->get();
+                    // session()->put('datas', $data);
                     // session(['datas' => $data]);
                     // session(['outlets' => $outlet]);
                     // session()->put('datas', $data);
-                    session()->put('outlets', $outlet);
+                    // session()->put('outlets', $outlet);
                     // return post('informasi',['datas'=>$data,'outlets'=>$outlet]);
-                    return view('choose');
+                    // return view('choose');
 
 
 
@@ -54,6 +64,27 @@ class SessionController extends Controller
 
     }
 
+
+    public function outletper(Request $req){
+        $id = session('id');
+        $outlet = new outlet;
+        $outlet->nama = $req->namaout;
+        $outlet->alamat = $req->alout;
+        $outlet->id_akun = $req->idout;
+        $outlet->save();
+        if($outlet->save()){
+            $outlet = outlet::where('id_akun','=',$id)->get();
+            $data = akun::where('id_akun','=',$id)->get();
+            session()->put('datas', $data);
+            session()->put('outlets', $outlet);
+            return view('choose');
+        }
+        
+    }
+
+
+
+    
 
 
 
@@ -77,25 +108,59 @@ class SessionController extends Controller
 
 
     function upatas(Request $req){
-        $akun = akun::where('id_akun', '=', $req->id)->first();
-        $outlet = outlet::where('id_akun', '=', $req->id)->first();
+        $akun = akun::where('id_akun', '=', $req->idbar)->first();
+        $outlet = outlet::where('id_akun', '=', $req->idbar)->first();
 
-        $outlet->nama = $req->nama;
-        $akun->email = $req->email;
-        $akun->noTelp = $req->telp;
-        $outlet->alamat = $req->alamat;
+        
+        if ($outlet) {
+            $outlet->nama = $req->nama;
+            $outlet->alamat = $req->alamat;
+            $outlet->save();
+        } else {
+            
+            // Handle the case when no outlet is found
+            // You can throw an exception, show an error message, or take appropriate action.
+        }
 
-        $akun->save();
-        $outlet->save();
+        if ($akun) {
+            $akun->email = $req->email;
+            $akun->noTelp = $req->telp;
+            $akun->save();
+        } else {
+            // Handle the case when no akun is found
+            // You can throw an exception, show an error message, or take appropriate action.
+        }
 
-        $data = akun::where('id_akun','=',$req->id)->get();
-        $outle = outlet::where('id_akun','=',$req->id)->get();
+        $data = akun::where('id_akun','=',$req->idbar)->get();
+        $outle = outlet::where('id_akun','=',$req->idbar)->get();
 
         session()->put('datas', $data);
         session()->put('outlets', $outle);
 
         
 
+
+        return view('informasi');
+        
+    }
+
+
+    function upbawah(Request $req){
+        $akun = akun::where('id_akun', '=', $req->idbaw)->first();
+
+        if ($akun) {
+            $akun->email = $req->emailbaw;
+            $akun->password = $req->passbaw;
+            $akun->kodeManajer = $req->kode;
+            $akun->save();
+        } else {
+            // Handle the case when no akun is found
+            // You can throw an exception, show an error message, or take appropriate action.
+        }
+
+        $data = akun::where('id_akun','=',$req->idbaw)->get();
+
+        session()->put('datas', $data);
 
         return view('informasi');
         

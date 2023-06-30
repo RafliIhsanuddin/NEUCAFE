@@ -18,18 +18,16 @@
         <div class="bg-white h-full w-[750px] z-10 rounded-2xl overflow-hidden px-28 py-5 mx-auto">
             <h1 class="text-center text-3xl font-bold my-14">Informasi Outlet</h1>
 
-            <form action="" class="flex flex-col font-semibold">
-                <label for="">Nama Manajer</label>
-                <input type="text"
-                    class="border-slate-300 border-2 rounded-md h-11 px-2 focus:outline-none focus:border-[#6FBCA0] my-2"
-                    required>
+            <form action="outper" method="POST" class="flex flex-col font-semibold">
+                @csrf
 
+                <input type="hidden" name="idout" value="{{session('id')}}">
                 <label for="">Nama Outlet</label>
-                <input type="text"
+                <input name="namaout" type="text"
                     class="border-slate-300 border-2 rounded-md w-full h-11 px-2 focus:outline-none focus:border-[#6FBCA0] my-2"
                     required>
-                <label for="">Lokasi Outlet</label>
-                <input type="text"
+                <label for="">Alamat Outlet</label>
+                <input name="alout" type="text"
                     class="border-slate-300 border-2 rounded-md w-full h-11 px-2 focus:outline-none focus:border-[#6FBCA0] my-2"
                     required>
                 <button type="submit"
