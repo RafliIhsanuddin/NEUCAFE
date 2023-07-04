@@ -34,6 +34,14 @@
                 <div class="w-full h-fit">
                     <h2 class="text-3xl font-bold">Welcome to Neucafe!</h2>
                     <p class="text-lg font-semibold text-gray-500">Register your account</p>
+                    
+                    @if((session('eror')))
+                    <div class="pt-24">
+                        <div class="bg-red-500 text-white font-bold px-4 py-3 rounded">
+                            Terjadi Kesalahan! {{ session('eror') }}
+                        </div>
+                    </div>
+                    @endif
                     <!-- <div class="flex flex-col text-center my-7 ">
                         <p class="text-lg font-medium mt-1 text-gray-500">Login sebagai</p>
                         <div class="mt-3">

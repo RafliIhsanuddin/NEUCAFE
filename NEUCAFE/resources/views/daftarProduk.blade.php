@@ -290,9 +290,11 @@
                                                 </a>
                                                 <div class="hidden bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg min-w-48"
                                                     id="table-light-1-dropdown">
+                                                    <a href="#"
+                                                        class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent hover:bg-gray-100 text-blueGray-700">Edit</a>
                                                     <a href="detailProduk.html"
                                                         class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent hover:bg-gray-100 text-blueGray-700">Detail</a>
-                                                    <a href="#pablo"
+                                                    <a href="#"
                                                         class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent hover:bg-gray-100 text-blueGray-700">Hapus</a>
                                                 </div>
                                             </td>

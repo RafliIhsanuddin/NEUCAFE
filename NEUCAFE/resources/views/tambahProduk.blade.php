@@ -187,12 +187,14 @@
                             <hr class="mt-2 mb-6">
                             <div class="flex w-full mx-2">
                                 <div class="flex flex-col items-center mr-7">
-                                    <div class="w-40 h-40 bg-slate-400 rounded-md">
-                                        <!-- image -->
-                                    </div>
-                                    <button type="submit"
-                                        class=" bg-green-600 hover:bg-green-500 focus:outline-none text-white px-5 py-1 font-semibold rounded-md mt-3">Tambah
-                                        Foto</button>
+                                    <figure class="image-container w-40 h-40">
+                                        <img id="chosen-image" class="w-40 h-40 bg-slate-500">
+                                    </figure>
+                            
+                                    <input type="file" id="upload-button" accept="image/*" class=" hidden">
+                                    <label for="upload-button" class="bg-green-600 hover:bg-green-500 focus:outline-none text-white px-5 py-1 font-semibold rounded-md mt-3">
+                                        Tambah Foto
+                                    </label>
                                 </div>
             
                                 <div class="flex flex-col space-y-3 w-32 text-base font-medium">
@@ -258,4 +260,18 @@
         <!-- END FORM-->
         </div>
     </div>
+    
+    <script type="text/javascript">
+        let uploadButton = document.getElementById("upload-button");
+        let chosenImage = document.getElementById("chosen-image");
+
+        uploadButton.onchange = () => {
+            let reader = new FileReader();
+            reader.readAsDataURL(uploadButton.files[0]);
+            reader.onload = () => {
+                chosenImage.setAttribute("src", reader.result);
+            }
+        }
+    </script>
     @endsection
+    

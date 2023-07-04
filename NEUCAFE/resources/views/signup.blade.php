@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Sign Up</title>
     <script src="https://cdn.tailwindcss.com"></script>
 
 </head>
@@ -34,7 +34,7 @@
                     <form action="authsign" method="POST" class="flex flex-col font-semibold">
                         @csrf
                         <label for="">No. Telp</label>
-                        <input type="text" name="notelp"
+                        <input type="number" name="notelp"
                             class="border-slate-300 border-2 rounded-md h-9 px-2 focus:outline-none focus:border-[#6FBCA0] my-2"
                             required>
                         <label for="">Email</label>
@@ -57,7 +57,7 @@
                             </div>
                         </div>
                         <label for="">Kode Manager</label>
-                        <input type="text" name="kode"
+                        <input type="number" name="kode"
                             class="border-slate-300 border-2 rounded-md h-9 px-2 focus:outline-none focus:border-[#6FBCA0] my-2"
                             required>
                         <button type="submit" class="w-40 mt-6 h-11 bg-[#6FBCA0] hover:bg-[#337a61] rounded-full font-semibold text-white">Daftar</button>

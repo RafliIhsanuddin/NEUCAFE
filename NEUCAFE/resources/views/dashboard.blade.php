@@ -85,7 +85,7 @@
           <form class="mt-6 mb-4 md:hidden">
             <div class="mb-3 pt-0">
               <input type="text" placeholder="Search"
-                class="px-3 py-2 h-12 border border-solid border-blueGray-500 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-base leading-snug shadow-none outline-none focus:outline-none w-full font-normal" />
+                class="border-0 px-3 py-2 h-12 border border-solid border-blueGray-500 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-base leading-snug shadow-none outline-none focus:outline-none w-full font-normal" />
             </div>
           </form>
           <!-- Divider -->
@@ -106,7 +106,7 @@
             </li>
 
             <li class="items-center">
-              <a href="#"
+              <a href="./laporan.html"
                 class="text-xs uppercase py-3 font-bold block text-blueGray-500 hover:text-[#45D5A1]">
                 <i class="fas fa-tools mr-2 text-sm"></i>
                 Laporan
@@ -171,6 +171,8 @@
           </ul>
         </div>
       </nav>
+
+
       <!-- Header -->
       <div class="relative md:pt-32 pb-32 pt-12">
         <div class="px-4 md:px-10 mx-auto w-full">
@@ -196,8 +198,8 @@
                         </div>
                       </div>
                     </div>
-                    <p class="text-sm text-blueGray-400 mt-4">
-                      <span class="text-emerald-500 mr-2">
+                    <p class="text-sm text-black mt-4">
+                      <span class="text-black mr-2">
                         <i class="fas fa-arrow-up"></i> 3.48%
                       </span>
                       <span class="whitespace-nowrap">
@@ -213,10 +215,10 @@
                     <div class="flex flex-wrap">
                       <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
                         <h5 class="text-white uppercase font-semibold text-sm">
-                          New users
+                          Keuntungan
                         </h5>
                         <span class="font-bold text-xl text-white">
-                          2,356
+                          Rp720.000
                         </span>
                       </div>
                       <div class="relative w-auto pl-4 flex-initial">
@@ -226,8 +228,8 @@
                         </div>
                       </div>
                     </div>
-                    <p class="text-sm text-blueGray-400 mt-4">
-                      <span class="text-red-500 mr-2">
+                    <p class="text-sm text-black mt-4">
+                      <span class="text-black mr-2">
                         <i class="fas fa-arrow-down"></i> 3.48%
                       </span>
                       <span class="whitespace-nowrap"> Since last week </span>
@@ -254,8 +256,8 @@
                         </div>
                       </div>
                     </div>
-                    <p class="text-sm text-blueGray-400 mt-4">
-                      <span class="text-orange-500 mr-2">
+                    <p class="text-sm text-black mt-4">
+                      <span class="text-black mr-2">
                         <i class="fas fa-arrow-down"></i> 1.10%
                       </span>
                       <span class="whitespace-nowrap"> Since yesterday </span>
@@ -282,8 +284,8 @@
                         </div>
                       </div>
                     </div>
-                    <p class="text-sm text-blueGray-400 mt-4">
-                      <span class="text-emerald-500 mr-2">
+                    <p class="text-sm text-black mt-4">
+                      <span class="text-black mr-2">
                         <i class="fas fa-arrow-up"></i> 12%
                       </span>
                       <span class="whitespace-nowrap">
@@ -299,7 +301,7 @@
       </div>
       <div class="px-4 md:px-10 mx-auto w-full -m-24">
         <div class="flex flex-wrap">
-          <div class="w-full mb-12 xl:mb-0 px-4">
+          <div class="w-full mb-0 xl:mb-0 px-4">
             <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-white">
               <div class="rounded-t mb-0 px-4 py-3 bg-transparent">
                 <div class="flex flex-wrap items-center">
@@ -315,85 +317,64 @@
               </div>
               <div class="p-4 flex-auto">
                 <!-- LINE CHART, DATANYA ADA DI JAVASCRIPT BAWAH -->
-                <div class="relative h-350-px">
+                <div class="relative h-[350px]">
                   <canvas id="line-chart"></canvas>
                 </div>
               </div>
             </div>
+          </div>          
+        </div>
+
+        <div class="flex flex-wrap pb-6">
+
+          <div class="w-6/12 lg:w-6/12 xl:w-3/12 px-4">
+            <div class="relative flex flex-col min-w-0 break-words bg-[#fff] p-5 items-center rounded mb-6 xl:mb-0 shadow-lg h-60 max-sm:h-52 justify-between">
+                    <h5 class="text-black uppercase font-bold text-sm text-center">
+                      Stok Terendah
+                    </h5>
+                    <div class="bg-gray-200 w-36 aspect-square max-sm:w-28">
+                      <!-- image -->
+                      <img src="" alt="" class="w-36 aspect-square max-sm:w-28">
+                    </div>
+                    <h5 class="text-black uppercase font-bold text-sm text-center">
+                      Americano
+                    </h5>
+            </div>
           </div>
 
-          <!-- BAGIAN INI BIARIN AJA, WKWKWK -->
-          <!-- <div class="w-full xl:w-4/12 px-4">
-            <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
+          <div class="w-6/12 lg:w-6/12 xl:w-3/12 px-4">
+            <div class="relative flex flex-col min-w-0 break-words bg-[#fff] p-5 items-center rounded mb-6 xl:mb-0 shadow-lg h-60 max-sm:h-52">
+                    <h5 class="text-black uppercase font-bold text-sm text-center">
+                      Review
+                    </h5>
+                    <h5 class="text-black uppercase font-bold text-center text-[60px] my-auto">
+                      4,8
+                    </h5>
+            </div>
+          </div>
+
+          <div class="w-full xl:w-6/12 px-4">
+            <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded h-60">
               <div class="rounded-t mb-0 px-4 py-3 bg-transparent">
                 <div class="flex flex-wrap items-center">
                   <div class="relative w-full max-w-full flex-grow flex-1">
-                    <h6 class="uppercase text-blueGray-400 mb-1 text-xs font-semibold">
-                      Performance
-                    </h6>
-                    <h2 class="text-blueGray-700 text-xl font-semibold">
-                      Total orders
-                    </h2>
+                    <h3 class="font-bold text-xl text-black">
+                      Grafik Penjualan Produk
+                    </h3>
                   </div>
                 </div>
               </div>
               <div class="p-4 flex-auto">
-
-                Chart
-                <div class="relative h-350-px">
+                <!-- BAR CHART, DATANYA ADA DI JAVASCRIPT BAWAH (INI CUMA NAMPILIN 3 DATA PRODUK TERATAS AJA YA) -->
+                <div class="relative">
                   <canvas id="bar-chart"></canvas>
                 </div>
-                
               </div>
             </div>
-          </div> -->
+          </div>
 
         </div>
 
-        <div class="flex flex-wrap justify-between h-fit pb-6">
-          <div class="w-72 px-4">
-            <div class="relative flex flex-col min-w-0 break-words bg-white space-y-2 p-5 h-56 rounded mb-6 xl:mb-0 shadow-lg">
-              <div class="flex justify-center">
-                <h5 class="text-black uppercase font-bold text-base">
-                  Produk Terlaris
-                </h5>
-              </div>
-
-              <div class="w-full h-full bg-gray-500">
-                <!-- image -->
-              </div>
-            </div>
-          </div>
-
-          <div class="w-72 px-4">
-            <div class="relative flex flex-col min-w-0 break-words bg-white space-y-2 p-5 h-56 rounded mb-6 xl:mb-0 shadow-lg">
-              <div class="flex justify-center">
-                <h5 class="text-black uppercase font-bold text-base">
-                  Stok Terendah
-                </h5>
-              </div>
-
-              <div class="w-full h-full bg-gray-500">
-                <!-- image -->
-              </div>
-            </div>
-          </div>
-
-          <div class="w-72 px-4">
-            <div class="relative flex flex-col min-w-0 break-words bg-white space-y-2 p-5 h-56 rounded mb-6 xl:mb-0 shadow-lg">
-              <div class="flex justify-center">
-                <h5 class="text-black uppercase font-bold text-base">
-                  Review
-                </h5>
-              </div>
-
-              <div class="w-full h-full bg-gray-500">
-                <!-- image -->
-              </div>
-              
-            </div>
-          </div>
-        </div>
       </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" charset="utf-8"></script>
@@ -538,103 +519,99 @@
         var ctx = document.getElementById("line-chart").getContext("2d");
         window.myLine = new Chart(ctx, config);
 
-        /* INI BAR CHART, DIEMIN AJA DULU */
-        config = {
-          type: "bar",
-          data: {
-            labels: [
-              "January",
-              "February",
-              "March",
-              "April",
-              "May",
-              "June",
-              "July"
+        /* Bar Chart */
+      config = {
+        type: "horizontalBar", // Mengganti tipe grafik menjadi horizontalBar
+        data: {
+          labels: [ //ini label nama produknya (top 3 terlaris)
+            "Cappucino",
+            "Chocolate",
+            "Americano",
+          ],
+          datasets: [
+            {
+              label: new Date().getFullYear(),
+              fill: false,
+              backgroundColor: "#4c51bf",
+              borderColor: "#4c51bf",
+              data: [27, 68, 86], //ini data jumlah produk yang terjual
+              barThickness: 8
+            }
+          ]
+        },
+        options: {
+          maintainAspectRatio: false,
+          responsive: true,
+          title: {
+            display: false,
+            text: "Orders Chart"
+          },
+          tooltips: {
+            mode: "index",
+            intersect: false
+          },
+          hover: {
+            mode: "nearest",
+            intersect: true
+          },
+          legend: {
+            labels: {
+              fontColor: "rgba(0,0,0,.4)"
+            },
+            align: "end",
+            position: "bottom"
+          },
+          scales: {
+            xAxes: [
+              {
+                ticks: {
+                  fontColor: "rgba(0,0,0)"
+                },
+                display: true,
+                scaleLabel: {
+                  display: false,
+                  labelString: "Value"
+                },
+                gridLines: {
+                  borderDash: [2],
+                  drawBorder: false,
+                  borderDashOffset: [2],
+                  color: "rgba(0,0,0, 0.5)",
+                  zeroLineColor: "rgba(0,0,0, 0.5)",
+                  zeroLineBorderDash: [2],
+                  zeroLineBorderDashOffset: [2]
+                }
+              }
             ],
-            datasets: [
+            yAxes: [
               {
-                label: new Date().getFullYear(),
-                backgroundColor: "#ed64a6",
-                borderColor: "#ed64a6",
-                data: [30, 78, 56, 34, 100, 45, 13],
-                fill: false,
-                barThickness: 8
-              },
-              {
-                label: new Date().getFullYear() - 1,
-                fill: false,
-                backgroundColor: "#4c51bf",
-                borderColor: "#4c51bf",
-                data: [27, 68, 86, 74, 10, 4, 87],
-                barThickness: 8
+                ticks: {
+                  fontColor: "rgba(0,0,0)"
+                },
+                display: true,
+                scaleLabel: {
+                  display: false,
+                  labelString: "Month"
+                },
+                gridLines: {
+                  borderDash: [2],
+                  drawBorder: false,
+                  borderDashOffset: [2],
+                  color: "rgba(0,0,0, 0.3)",
+                  zeroLineColor: "rgba(0,0,0, 0.3)",
+                  zeroLineBorderDash: [2],
+                  zeroLineBorderDashOffset: [2]
+                }
               }
             ]
-          },
-          options: {
-            maintainAspectRatio: false,
-            responsive: true,
-            title: {
-              display: false,
-              text: "Orders Chart"
-            },
-            tooltips: {
-              mode: "index",
-              intersect: false
-            },
-            hover: {
-              mode: "nearest",
-              intersect: true
-            },
-            legend: {
-              labels: {
-                fontColor: "rgba(0,0,0,.4)"
-              },
-              align: "end",
-              position: "bottom"
-            },
-            scales: {
-              xAxes: [
-                {
-                  display: false,
-                  scaleLabel: {
-                    display: true,
-                    labelString: "Month"
-                  },
-                  gridLines: {
-                    borderDash: [2],
-                    borderDashOffset: [2],
-                    color: "rgba(33, 37, 41, 0.3)",
-                    zeroLineColor: "rgba(33, 37, 41, 0.3)",
-                    zeroLineBorderDash: [2],
-                    zeroLineBorderDashOffset: [2]
-                  }
-                }
-              ],
-              yAxes: [
-                {
-                  display: true,
-                  scaleLabel: {
-                    display: false,
-                    labelString: "Value"
-                  },
-                  gridLines: {
-                    borderDash: [2],
-                    drawBorder: false,
-                    borderDashOffset: [2],
-                    color: "rgba(33, 37, 41, 0.2)",
-                    zeroLineColor: "rgba(33, 37, 41, 0.15)",
-                    zeroLineBorderDash: [2],
-                    zeroLineBorderDashOffset: [2]
-                  }
-                }
-              ]
-            }
           }
-        };
-        ctx = document.getElementById("bar-chart").getContext("2d");
-        window.myBar = new Chart(ctx, config);
-      })();
-    </script>
+        }
+      };
+
+      ctx = document.getElementById("bar-chart").getContext("2d");
+      window.myBar = new Chart(ctx, config);
+    })();
+  </script>
 </body>
 
 </html>

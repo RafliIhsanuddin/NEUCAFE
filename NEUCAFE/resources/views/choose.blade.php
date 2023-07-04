@@ -17,6 +17,12 @@
         <img src="{{asset('assets/bg6.png')}}" class="absolute -top-20 -left-20" alt="">
         <img src="{{asset('assets/bg7.png')}}" class="absolute bottom-0 right-0" alt="">
 
+        <div class="-mt-10 mb-20">
+        <a href="{{ route('flush') }}" class="w-40 mt-6 h-11 bg-[#6FBCA0] hover:bg-[#337a61] rounded-full font-semibold text-white text-center">Logout</a>
+        </div>
+
+        
+
         <div class="-mt-10 mb-16">
             <h2 class="text-4xl font-bold">NEUCAFE</h2>
         </div>

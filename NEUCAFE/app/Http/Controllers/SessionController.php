@@ -54,14 +54,31 @@ class SessionController extends Controller
                     // }else{
 
                     // }
-                    
+                        
                     // echo session('id');
                 }else {
-                    return redirect('login');
+                    return redirect('login')->with('eror','email atau password salah') ;
                 }
+            }else{
+                return redirect('login')->with('eror','email atau password salah') ;
             }
         }
 
+    }
+
+
+    public function konfir(Request $req){
+        $id = session('id');
+        $akun = akun::all();
+
+        foreach($akun as $out){
+            if($out->kodeManajer == $req->konfirKode){
+                return view('informasi');
+            }else{
+                return redirect('kodem')->with('eror','KODE manajer yang anda masukkan salah');
+            }
+        }
+        
     }
 
 
@@ -77,9 +94,8 @@ class SessionController extends Controller
             $data = akun::where('id_akun','=',$id)->get();
             session()->put('datas', $data);
             session()->put('outlets', $outlet);
-            return view('choose');
+            return view('informasi');  
         }
-        
     }
 
 

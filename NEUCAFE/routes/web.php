@@ -31,6 +31,7 @@ Route::post('authsign',[SessionController::class, 'masukdata']);
 Route::post('editatas',[SessionController::class, 'upatas']);
 Route::post('editbaw',[SessionController::class, 'upbawah']);
 Route::post('outper',[SessionController::class, 'outletper']);
+Route::post('konfkod',[SessionController::class, 'outletper']);
 // Route::get('show/{id}', [show::class, 'View_PL_Accnt'])->name('SupAd.View_PL_Accnt');
 // Route::view('info',[SessionController::class, 'log']);
 
@@ -45,6 +46,7 @@ Route::view("kasir",'kasir');
 Route::view("dashboard",'dashboard');
 Route::view("login",'login');
 Route::view("signup",'signup');
+Route::view("laporan",'laporan');
 Route::view("daftar",'daftarProduk');
 Route::view("landing",'landing');
 Route::view("ProdukPer",'firstProduct');
@@ -52,5 +54,6 @@ Route::view("outletPer",'infoOutlet');
 Route::view("coba",'coba');
 Route::view("tambahProduk",'tambahProduk');
 Route::view("detailProduk",'detailProduk');
+Route::view("konfir",'kodem');
 
 Route::resource("tambahProduk", produkController::class);
