@@ -11,5 +11,24 @@
     <div class="bg-purple-600 ">
     <p class="text-9xl font-serif font-semibold">about page</p>
     </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Month</th>
+                <th>Count</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($results as $result)
+                <tr>
+                    <td>{{ $result->month }}</td>
+                    <td>{{ $result->count }}</td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+
+
 </body>
 </html>

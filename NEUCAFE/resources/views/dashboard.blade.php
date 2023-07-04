@@ -411,9 +411,16 @@
       (function () {
         /* Chart initialisations */
         /* INI CONFIG LINE CHART NYA */
+        var data2 = [];
+
+    // Convert the PHP results to JSON and populate the data array
+    @foreach ($results as $result)
+        data2.push({{ $result->count }});
+    @endforeach
         var config = {
           type: "line",
           data: {
+            
             labels: [
               "Januari",
               "Februari",
@@ -433,15 +440,15 @@
                 label: new Date().getFullYear(),
                 backgroundColor: "#5a60e0",
                 borderColor: "#5a60e0",
-                data: [65, 78, 66, 44, 56, 67, 75],
-                fill: false
+                data: data2,
+                fill: false,
               },
               {
                 label: new Date().getFullYear() - 1,
                 fill: false,
                 backgroundColor: "#f01111",
                 borderColor: "#f01111",
-                data: [40, 68, 86, 74, 56, 60, 87]
+                data: [40, 68, 86, 74, 56, 60, 87, 34, 90, 45, 89, 67]
               }
             ]
           },

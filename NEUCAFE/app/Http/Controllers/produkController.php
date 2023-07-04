@@ -46,7 +46,7 @@ class produkController extends Controller
             'harga_jual'  =>'required | numeric',
             'harga_beli'  =>'required | numeric',
             'deskripsi'   =>'required',
-            'id_outlet'   =>'required | numeric',
+            'id_outlet' => 'required|exists:outlet,id_outlet',
 
         ],[ //Memberikan Peringatan dalam Bahasa Indonesia
             'nama.required'       =>'Nama wajib diisi',

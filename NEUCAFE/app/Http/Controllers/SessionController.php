@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use App\Models\outlet;
 use App\Models\akun;
 
@@ -22,47 +23,24 @@ class SessionController extends Controller
     function login2(Request $req){
         $akun = akun::all();
 
-        foreach($akun as $out){
-            if($out->email == $req->email){
-                if($out->password == $req->password){
-                    $req->session()->put('id',$out->id_akun);
-                    $id = session('id');
-                    $outlet = outlet::where('id_akun','=',$id)->get();
-                    if($outlet->isEmpty()){
-                        return view('infoOutlet');
-                    }else{
-                        $data = akun::where('id_akun','=',$id)->get();
-                        session()->put('datas', $data);
-                        session()->put('outlets', $outlet);
-                        return view('choose');
-                    }
-
-                    // $data = akun::where('id_akun','=',$id)->get();
-                    // $outlet = outlet::where('id_akun','=',$id)->get();
-                    // session()->put('datas', $data);
-                    // session(['datas' => $data]);
-                    // session(['outlets' => $outlet]);
-                    // session()->put('datas', $data);
-                    // session()->put('outlets', $outlet);
-                    // return post('informasi',['datas'=>$data,'outlets'=>$outlet]);
-                    // return view('choose');
-
-
-
-                    // if($outlet->isNotEmpty()){
-                    //     return view('informasi',['datas'=>$data,'outlets'=>$outlet]);
-                    // }else{
-
-                    // }
-                        
-                    // echo session('id');
-                }else {
-                    return redirect('login')->with('eror','email atau password salah') ;
+        foreach ($akun as $out) {
+            if ($out->email == $req->email && $out->password == $req->password) {
+                $req->session()->put('id', $out->id_akun);
+                $id = session('id');
+                $data = akun::where('id_akun', $id)->first();
+                $outlet = outlet::where('id_akun', $id)->first();
+    
+                if ($outlet) {
+                    session()->put('datas', $data);
+                    session()->put('outlets', $outlet);
+                    return view('choose');
+                } else {
+                    return view('infoOutlet');
                 }
-            }else{
-                return redirect('login')->with('eror','email atau password salah') ;
             }
         }
+    
+        return redirect('login')->with('eror', 'email atau password salah');
 
     }
 
@@ -102,6 +80,21 @@ class SessionController extends Controller
 
     
 
+
+    public function tanggal()
+    {
+        $query = DB::table('transaksi')
+            ->selectRaw('MONTH(waktu_order) as month, COUNT(*) as count')
+            ->groupBy(DB::raw('MONTH(waktu_order)'))
+            ->orderBy(DB::raw('MONTH(waktu_order)'));
+
+        // Execute the query and assign the result to a variable
+        $results = $query->get();
+
+        // Process the results or pass them to the view
+        // For example, you can return them as JSON
+        return view('dashboard', ['results' => $results]);
+    }
 
 
 
