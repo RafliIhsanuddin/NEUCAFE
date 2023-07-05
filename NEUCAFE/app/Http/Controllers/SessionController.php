@@ -75,6 +75,53 @@ class SessionController extends Controller
     // }
 
 
+    
+    function login2(Request $req){
+        $akun = akun::all();
+
+        foreach($akun as $out){
+            if($out->email == $req->email){
+                if($out->password == $req->password){
+                    $req->session()->put('id',$out->id_akun);
+                    $id = session('id');
+                    $outlet = outlet::where('id_akun','=',$id)->get();
+                    if($outlet->isEmpty()){
+                        return view('infoOutlet');
+                    }else{
+                        $data = akun::where('id_akun','=',$id)->get();
+                        session()->put('datas', $data);
+                        session()->put('outlets', $outlet);
+                        return view('choose');
+                    }
+
+                    // $data = akun::where('id_akun','=',$id)->get();
+                    // $outlet = outlet::where('id_akun','=',$id)->get();
+                    // session()->put('datas', $data);
+                    // session(['datas' => $data]);
+                    // session(['outlets' => $outlet]);
+                    // session()->put('datas', $data);
+                    // session()->put('outlets', $outlet);
+                    // return post('informasi',['datas'=>$data,'outlets'=>$outlet]);
+                    // return view('choose');
+
+
+
+                    // if($outlet->isNotEmpty()){
+                    //     return view('informasi',['datas'=>$data,'outlets'=>$outlet]);
+                    // }else{
+
+                    // }
+                    
+                    // echo session('id');
+                }else {
+                    return redirect('login')->with('eror', 'email atau password salah');
+                }
+            }
+        }
+
+    }
+
+
     public function konfir(Request $req){
         $id = session('id');
         $akun = akun::all();
