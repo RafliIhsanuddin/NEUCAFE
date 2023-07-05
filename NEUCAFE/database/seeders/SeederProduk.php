@@ -22,7 +22,7 @@ class SeederProduk extends Seeder
             'nama' => Str::random(10),
             'stok' => random_int(1, 100),
             'deskripsi' => Str::random(10),
-            'id_outlet' => array_rand([1, 3, 4, 5, 8]), 
+            'id_outlet' => array_rand([1, 3, 4, 5, 8]),
             'kategori' => Str::random(10),
             'harga_jual' => random_int(100000, 1000000),
             'harga_beli' => random_int(100000, 1000000),

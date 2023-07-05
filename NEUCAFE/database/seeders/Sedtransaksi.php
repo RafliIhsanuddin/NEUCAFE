@@ -19,13 +19,17 @@ class Sedtransaksi extends Seeder
         //
         $faker = Faker::create();
 
+        $currentMonth = Carbon::now()->format('Y-m');
+
+        $tes = [1, 3, 4, 5, 8];
 
         DB::table('transaksi')->insert([
-            'waktu_order' => $faker->dateTimeBetween('-1 year', 'now'), 
+            'waktu_order' => $faker->dateTimeBetween($currentMonth, $currentMonth.' +1 month'),
+            // 'waktu_order' => $faker->dateTimeBetween('-1 year', 'now'), 
             'metode_pembayaran' => Str::random(10),
             'total_tagihan' => random_int(100000, 1000000),
             'jenis_transaksi' => Str::random(10),
-            'id_outlet' => array_rand([1, 3, 4, 5, 8]), 
+            'id_outlet' => $tes[array_rand($tes)],
         ]);
     }
 }
