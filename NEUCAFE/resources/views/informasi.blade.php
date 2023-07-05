@@ -209,22 +209,19 @@
 
                             <!-- Output Informasi Bisnis -->
                             <div class="flex flex-col space-y-3.5 w-96 text-base font-medium">
-                                @foreach(session('datas') as $data)
-                                @foreach( session('outlets') as $outlet)
+                                
                                 <p name="" class="h-8 py-1 rounded-md">
-                                    {{$outlet['nama']}}
+                                    {{ session('outlets')['nama'] }}
                                 </p>
                                 <p name="" class="h-8 py-1 rounded-md">
-                                    {{$data['email']}}
+                                    {{ session('datas')['email'] }}
                                 </p>
                                 <p name="" class="h-8 py-1 rounded-md">
-                                    {{$data['noTelp']}}
+                                    {{ session('datas')['noTelp'] }}
                                 </p>
                                 <p name="" class="h-8 py-1 rounded-md">
-                                    {{$outlet['alamat']}}
+                                    {{ session('outlets')['alamat'] }}
                                 </p>
-                                @endforeach
-                                @endforeach
                             </div>
 
                             <!-- BUTTON INI BIARIN AJA, INI BUAT NAMPILIN FORM EDIT AKUN -->
@@ -259,17 +256,15 @@
 
                             <!-- Output Informasi Akun -->
                             <div class="flex flex-col space-y-3.5 w-96 text-base font-medium">
-                            @foreach( session('datas') as $data)
                                 <p name="" class="h-8 py-1 rounded-md">
-                                    {{$data['email']}}
+                                {{ session('datas')['email'] }}
                                 </p>
                                 <p name="" id="" class="h-8 py-1 rounded-md">
-                                    {{$data['password']}}
+                                {{ session('datas')['password'] }}
                                 </p>
                                 <p name="" id="" class="h-8 py-1 rounded-md">
-                                    {{$data['kodeManajer']}}
+                                {{ session('datas')['kodeManajer'] }}
                                 </p>
-                                @endforeach
                             </div>
 
                             <!-- BUTTON INI BIARIN AJA, INI BUAT NAMPILIN FORM EDIT AKUN -->
@@ -317,23 +312,19 @@
 
                     <!-- Input Informasi Bisnis -->
                     <form action="editatas" method="POST">
-                            @foreach( session('datas') as $data)
-                            @foreach( session('outlets') as $outlet)
                         <div class="flex flex-col space-y-3.5 w-96 text-base font-medium">
                             <input type="hidden" name="idbar" value="{{session('id')}}" >
-                            <input type="text" name="nama"  value="{{$outlet['nama']}}"
+                            <input type="text" name="nama"  value="{{ session('outlets')['nama'] }}"
                                 class="h-8 py-1 rounded-md border-gray-300 bg-gray-100 border-[2px]">
-                            <input type="email" name="email" value="{{$data['email']}}"
+                            <input type="email" name="email" value="{{ session('datas')['email'] }}"
                                 class="h-8 py-1 rounded-md border-gray-300 bg-gray-100 border-[2px]">
-                            <input type="text" name="telp"  value="{{$data['noTelp']}}"
+                            <input type="text" name="telp"  value="{{ session('datas')['noTelp'] }}"
                                 class="h-8 py-1 rounded-md border-gray-300 bg-gray-100 border-[2px]">
-                            <input type="text" name="alamat"  value="{{$outlet['alamat']}}"
+                            <input type="text" name="alamat"  value="{{ session('outlets')['alamat'] }}"
                                 class="h-8 py-1 rounded-md border-gray-300 bg-gray-100 border-[2px]">
                                 <input type="submit" value="Simpan Perubahan"
                             class="py-1 text-base font-semibold text-white bg-green-600 hover:bg-green-500 h-9 px-4 mx-4 rounded-md">
                         </div>
-                            @endforeach
-                            @endforeach
                     </form>
 
                     <form action="">
@@ -374,19 +365,17 @@
 
                     <!-- Output Informasi Akun -->
                     <form action="editbaw" method="POST">
-                        @foreach( session('datas') as $data)
                         <div class="flex flex-col space-y-3.5 w-72 text-base font-medium">
                             <input type="hidden" name="idbaw" value="{{session('id')}}" >
-                            <input type="email" name="emailbaw" value="{{$data['email']}}"
+                            <input type="email" name="emailbaw" value="{{ session('datas')['email'] }}"
                                 class="h-8 py-1 rounded-md border-gray-300 bg-gray-100 border-[2px]">
-                            <input type="text" name="passbaw" value="{{$data['password']}}"
+                            <input type="text" name="passbaw" value="{{ session('datas')['password'] }}"
                                 class="h-8 py-1 rounded-md border-gray-300 bg-gray-100 border-[2px]">
-                            <input type="text" name="kode" value="{{$data['kodeManajer']}}"
+                            <input type="text" name="kode" value="{{ session('datas')['kodeManajer'] }}"
                                 class="h-8 py-1 rounded-md border-gray-300 bg-gray-100 border-[2px]">
                                 <input type="submit" value="Simpan Perubahan"
                             class="text-base font-semibold text-white bg-green-600 hover:bg-green-500 h-8 px-4 mx-4 rounded-md">
                         </div>
-                        @endforeach
                     </form>
 
                     <form action="">

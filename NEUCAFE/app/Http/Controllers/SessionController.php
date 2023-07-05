@@ -22,29 +22,57 @@ class SessionController extends Controller
     // }
 
 
-    function login2(Request $req){
-        $akun = akun::all();
-
-        foreach ($akun as $out) {
-            if ($out->email == $req->email && $out->password == $req->password) {
-                $req->session()->put('id', $out->id_akun);
-                $id = session('id');
-                $data = akun::where('id_akun', $id)->first();
-                $outlet = outlet::where('id_akun', $id)->first();
+    // function login2(Request $req){
+    //     $akun = akun::all();
     
-                if ($outlet) {
-                    session()->put('datas', $data);
-                    session()->put('outlets', $outlet);
-                    return view('choose');
-                } else {
-                    return view('infoOutlet');
-                }
-            }
-        }
+    //     foreach ($akun as $out) {
+    //         if ($out->email == $req->email && $out->password == $req->password) {
+    //             $req->session()->put('id', $out->id_akun);
+    //             $id = session('id');
+    //             $data = akun::where('id_akun', $id)->first();
+    //             $outlet = outlet::where('id_akun', $id)->first();
     
-        return redirect('login')->with('eror', 'email atau password salah');
+    //             if ($outlet) {
+    //                 session()->put('datas', $data->toArray());
+    //                 session()->put('outlets', $outlet->toArray());
+    //                 return view('choose');
+    //             } else {
+    //                 return view('infoOutlet');
+    //             }
+    //         }
+    //     }
+    
+    //     return redirect('login')->with('eror', 'email atau password salah');
+    // }
 
-    }
+
+    // function login2(Request $req){
+    //     $akun = akun::all();
+
+    //     foreach ($akun as $out) {
+    //         if ($out->email == $req->email && $out->password == $req->password) {
+    //             $req->session()->put('id', $out->id_akun);
+    //             $id = session('id');
+    //             $data = akun::where('id_akun', $id)->first();
+    //             $outlet = outlet::where('id_akun', $id)->first();
+    
+    //             if ($outlet) {
+    //                 session()->put('outlets', $outlet);
+    //             }
+
+    //             if ($data) {
+    //                 session()->put('datas', $data);
+    //             }
+
+    //             return view('choose');
+    //         }else {
+    //             return view('infoOutlet');
+    //         }
+    //     }
+    
+    //     return redirect('login')->with('eror', 'email atau password salah');
+
+    // }
 
 
     public function konfir(Request $req){
