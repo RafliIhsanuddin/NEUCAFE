@@ -12,6 +12,8 @@
     <p class="text-9xl font-serif font-semibold">about page</p>
     </div>
 
+    @foreach ($monthlyCounts as $year => $months)
+    <h2>{{ $year }}</h2>
     <table>
         <thead>
             <tr>
@@ -20,15 +22,15 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($results as $result)
+            @foreach ($months as $month => $count)
                 <tr>
-                    <td>{{ $result->month }}</td>
-                    <td>{{ $result->count }}</td>
+                    <td>{{ $month }}</td>
+                    <td>{{ $count }}</td>
                 </tr>
             @endforeach
         </tbody>
     </table>
-
+@endforeach
 
 </body>
 </html>

@@ -377,9 +377,39 @@
 
       </div>
     </div>
+
+    @php
+    $january2022 = isset($january2022) ? $january2022 : 0;
+    $february2022 = isset($february2022) ? $february2022 : 0;
+    $march2022 = isset($march2022) ? $march2022 : 0;
+    $april2022 = isset($april2022) ? $april2022 : 0;
+    $may2022 = isset($may2022) ? $may2022 : 0;
+    $june2022 = isset($june2022) ? $june2022 : 0;
+    $july2022 = isset($july2022) ? $july2022 : 0;
+    $august2022 = isset($august2022) ? $august2022 : 0;
+    $september2022 = isset($september2022) ? $september2022 : 0;
+    $october2022 = isset($october2022) ? $october2022 : 0;
+    $november2022 = isset($november2022) ? $november2022 : 0;
+    $december2022 = isset($december2022) ? $december2022 : 0;
+
+    $january2023 = isset($january2023) ? $january2023 : 0;
+    $february2023 = isset($february2023) ? $february2023 : 0;
+    $march2023 = isset($march2023) ? $march2023 : 0;
+    $april2023 = isset($april2023) ? $april2023 : 0;
+    $may2023 = isset($may2023) ? $may2023 : 0;
+    $june2023 = isset($june2023) ? $june2023 : 0;
+    $july2023 = isset($july2023) ? $july2023 : 0;
+    $august2023 = isset($august2023) ? $august2023 : 0;
+    $september2023 = isset($september2023) ? $september2023 : 0;
+    $october2023 = isset($october2023) ? $october2023 : 0;
+    $november2023 = isset($november2023) ? $november2023 : 0;
+    $december2023 = isset($december2023) ? $december2023 : 0;
+    @endphp
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" charset="utf-8"></script>
     <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
     <script type="text/javascript">
+
       /* Make dynamic date appear */
       (function () {
         if (document.getElementById("get-current-year")) {
@@ -409,14 +439,6 @@
       }
 
       (function () {
-        /* Chart initialisations */
-        /* INI CONFIG LINE CHART NYA */
-        var data2 = [];
-
-    // Convert the PHP results to JSON and populate the data array
-    @foreach ($results as $result)
-        data2.push({{ $result->count }});
-    @endforeach
         var config = {
           type: "line",
           data: {
@@ -440,7 +462,20 @@
                 label: new Date().getFullYear(),
                 backgroundColor: "#5a60e0",
                 borderColor: "#5a60e0",
-                data: data2,
+                data: [
+                            {{ $january2023 }},
+                            {{ $february2023 }},
+                            {{ $march2023 }},
+                            {{ $april2023 }},
+                            {{ $may2023 }},
+                            {{ $june2023 }},
+                            {{ $july2023 }},
+                            {{ $august2023 }},
+                            {{ $september2023 }},
+                            {{ $october2023 }},
+                            {{ $november2023 }},
+                            {{ $december2023 }}
+                        ],
                 fill: false,
               },
               {
@@ -448,7 +483,20 @@
                 fill: false,
                 backgroundColor: "#f01111",
                 borderColor: "#f01111",
-                data: [40, 68, 86, 74, 56, 60, 87, 34, 90, 45, 89, 67]
+                data: [
+                            {{ $january2022 }},
+                            {{ $february2022 }},
+                            {{ $march2022 }},
+                            {{ $april2022 }},
+                            {{ $may2022 }},
+                            {{ $june2022 }},
+                            {{ $july2022 }},
+                            {{ $august2022 }},
+                            {{ $september2022 }},
+                            {{ $october2022 }},
+                            {{ $november2022 }},
+                            {{ $december2022 }}
+                        ]
               }
             ]
           },

@@ -33,7 +33,8 @@ Route::post('editbaw',[SessionController::class, 'upbawah']);
 Route::post('outper',[SessionController::class, 'outletper']);
 Route::post('konfkod',[SessionController::class, 'outletper']);
 // Route::get('/tes', [YourController::class, 'tanggal'])->name('tes');
-Route::get('/dashboard', [SessionController::class, 'tanggal']);
+// Route::get('/dashboard', [SessionController::class, 'tanggal']);
+Route::get('/dashboard', [SessionController::class, 'getTransactionsPerMonth']);
 // Route::get('show/{id}', [show::class, 'View_PL_Accnt'])->name('SupAd.View_PL_Accnt');
 // Route::view('info',[SessionController::class, 'log']);
 
@@ -42,6 +43,7 @@ Route::get('flush', [SessionController::class, 'flushSession'])->name('flush');
 // Route::view("flush",'login');
 
 // Route::view("tes",'about');
+// Route::get('/about', [SessionController::class, 'getTransactionsPerMonth'])->name('transactions');
 Route::view("info",'informasi');
 Route::view("choose",'choose');
 Route::view("kasir",'kasir');
