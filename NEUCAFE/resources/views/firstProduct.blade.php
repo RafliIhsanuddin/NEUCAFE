@@ -30,7 +30,7 @@
 
                         <input type="file" id="upload-button" accept="image/*" class=" hidden">
                         <label for="upload-button"
-                            class="bg-green-500 hover:bg-green-600 hover:bg-green-500 focus:outline-none text-white px-4 py-1 font-semibold rounded-md">
+                            class="bg-green-500 hover:bg-green-600 focus:outline-none text-white px-4 py-1 font-semibold rounded-md">
                             Tambah Foto
                         </label>
                     </div>

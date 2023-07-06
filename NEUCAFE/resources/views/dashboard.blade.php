@@ -404,7 +404,24 @@
     $october2023 = isset($october2023) ? $october2023 : 0;
     $november2023 = isset($november2023) ? $november2023 : 0;
     $december2023 = isset($december2023) ? $december2023 : 0;
+
+    
+    $topProduct1 = isset($topProduct1) ? $topProduct1 : '' ;
+    $topProduct2 = isset($topProduct2) ? $topProduct2 : '' ;
+    $topProduct3 = isset($topProduct3) ? $topProduct3 : '' ;
+
+
+    $topQuantity1 = isset($topQuantity1) ? $topQuantity1 : 0;
+    $topQuantity2 = isset($topQuantity2) ? $topQuantity2 : 0;
+    $topQuantity3 = isset($topQuantity3) ? $topQuantity3 : 0;
+
+
+    
+
+
     @endphp
+
+
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" charset="utf-8"></script>
     <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
@@ -579,9 +596,9 @@
         type: "horizontalBar", // Mengganti tipe grafik menjadi horizontalBar
         data: {
           labels: [ //ini label nama produknya (top 3 terlaris)
-            "Cappucino",
-            "Chocolate",
-            "Americano",
+            "{{ $topProduct1 }}",
+            "{{ $topProduct2 }}",
+            "{{ $topProduct3 }}",
           ],
           datasets: [
             {
@@ -589,7 +606,7 @@
               fill: false,
               backgroundColor: "#4c51bf",
               borderColor: "#4c51bf",
-              data: [27, 68, 86], //ini data jumlah produk yang terjual
+              data: [{{ $topQuantity1 }}, {{ $topQuantity2 }}, {{ $topQuantity3 }}], //ini data jumlah produk yang terjual
               barThickness: 8
             }
           ]

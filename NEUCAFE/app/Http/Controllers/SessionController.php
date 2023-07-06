@@ -75,7 +75,47 @@ class SessionController extends Controller
     // }
 
 
+
+
+
+    function tes(){
+        $results = DB::table('detail_transaksi')
+        ->join('transaksi', 'detail_transaksi.id_transaksi', '=', 'transaksi.id_transaksi')
+        ->join('produk', 'detail_transaksi.id_produk', '=', 'produk.id_produk')
+        ->select('produk.id_produk', DB::raw('MAX(transaksi.id_outlet) AS id_outlet'), 'produk.nama', DB::raw('SUM(detail_transaksi.quantity) AS total_quantity'))
+        ->whereMonth('transaksi.waktu_order', '=', date('m'))
+        ->where('transaksi.id_outlet', '=', 4)
+        ->groupBy('produk.id_produk', 'produk.nama')
+        ->orderByDesc(DB::raw('SUM(detail_transaksi.quantity)'))
+        ->take(3)
+        ->get();
+
+    $topProduct1 = $results[0]->nama;
+    $topProduct2 = $results[1]->nama;
+    $topProduct3 = $results[2]->nama;
+
+    $topQuantity1 = $results[0]->total_quantity;
+    $topQuantity2 = $results[1]->total_quantity;
+    $topQuantity3 = $results[2]->total_quantity;
+
     
+
+    return view('dashboard',[
+        "topProduct1" => $topProduct1,
+        "topProduct2" => $topProduct2,
+        "topProduct3" => $topProduct3,
+        "topQuantity1" => $topQuantity1,
+        "topQuantity2" => $topQuantity2,
+        "topQuantity3" => $topQuantity3,
+        ]);
+    }
+
+
+        // ->groupBy('produk.id_produk', 'produk.nama', 'transaksi.id_outlet')
+        // ->groupBy('produk.id_produk', 'produk.nama')
+        // ->select('produk.id_produk', 'transaksi.id_outlet', 'produk.nama', DB::raw('SUM(detail_transaksi.quantity) AS total_quantity'))
+
+
     function login2(Request $req){
         $akun = akun::all();
 
@@ -145,7 +185,7 @@ class SessionController extends Controller
     public function getTransactionsPerMonth() {
     $transactions = DB::table('transaksi')
         ->selectRaw('YEAR(waktu_order) AS Year, DATE_FORMAT(waktu_order, "%M") AS Month, COUNT(*) AS count')
-        ->where('id_outlet', 2)
+        ->where('id_outlet', 4)
         ->groupBy('Year', 'Month')
         ->orderByRaw('Year ASC, FIELD(Month, "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December")')
         ->get();
@@ -167,6 +207,25 @@ class SessionController extends Controller
         // Assign the count to the respective month
         $monthlyCounts[$year][$month] = $count;
     }
+
+    $results = DB::table('detail_transaksi')
+        ->join('transaksi', 'detail_transaksi.id_transaksi', '=', 'transaksi.id_transaksi')
+        ->join('produk', 'detail_transaksi.id_produk', '=', 'produk.id_produk')
+        ->select('produk.id_produk', DB::raw('MAX(transaksi.id_outlet) AS id_outlet'), 'produk.nama', DB::raw('SUM(detail_transaksi.quantity) AS total_quantity'))
+        ->whereMonth('transaksi.waktu_order', '=', date('m'))
+        ->where('transaksi.id_outlet', '=', 4)
+        ->groupBy('produk.id_produk', 'produk.nama')
+        ->orderByDesc(DB::raw('SUM(detail_transaksi.quantity)'))
+        ->take(3)
+        ->get();
+
+    $topProduct1 = $results[0]->nama;
+    $topProduct2 = $results[1]->nama;
+    $topProduct3 = $results[2]->nama;
+
+    $topQuantity1 = $results[0]->total_quantity;
+    $topQuantity2 = $results[1]->total_quantity;
+    $topQuantity3 = $results[2]->total_quantity;
 
     $january2022 = isset($monthlyCounts[2022]['January']) ? $monthlyCounts[2022]['January'] : 0;
     $february2022 = isset($monthlyCounts[2022]['February']) ? $monthlyCounts[2022]['February'] : 0;
@@ -219,6 +278,13 @@ class SessionController extends Controller
         'october2023' => $october2023,
         'november2023' => $november2023,
         'december2023' => $december2023,
+
+        "topProduct1" => $topProduct1,
+        "topProduct2" => $topProduct2,
+        "topProduct3" => $topProduct3,
+        "topQuantity1" => $topQuantity1,
+        "topQuantity2" => $topQuantity2,
+        "topQuantity3" => $topQuantity3,
     ]);
 }
 

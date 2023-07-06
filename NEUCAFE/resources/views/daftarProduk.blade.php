@@ -99,14 +99,14 @@
 
                     <ul class="md:flex-col md:min-w-full flex flex-col list-none">
                         <li class="items-center">
-                            <a href="./dashboard.html" class="text-xs uppercase py-3 font-bold block text-blueGray-500 hover:text-[#45D5A1]">
+                            <a href="/dashboard" class="text-xs uppercase py-3 font-bold block text-blueGray-500 hover:text-[#45D5A1]">
                                 <i class="fas fa-tv mr-2 text-sm opacity-75"></i>
                                 Dashboard
                             </a>
                         </li>
 
                         <li class="items-center">
-                            <a href="#"
+                            <a href="/laporan"
                                 class="text-xs uppercase py-3 font-bold block text-blueGray-500 hover:text-[#45D5A1]">
                                 <i class="fas fa-tools mr-2 text-sm"></i>
                                 Laporan
@@ -114,7 +114,7 @@
                         </li>
 
                         <li class="items-center">
-                            <a href="./daftarProduk.html"
+                            <a href="/daftar"
                                 class="text-xs uppercase py-3 font-bold block text-[#45D5A1]">
                                 <i class="fas fa-table mr-2 text-sm"></i>
                                 Daftar Produk
@@ -122,7 +122,7 @@
                         </li>
 
                         <li class="items-center">
-                            <a href="./reviewPelanggan.html"
+                            <a href="/review"
                                 class="text-xs uppercase py-3 font-bold block text-blueGray-500 hover:text-[#45D5A1]">
                                 <i class="fas fa-map-marked mr-2 text-sm"></i>
                                 Review Pelanggan
@@ -130,7 +130,7 @@
                         </li>
 
                         <li class="items-center">
-                            <a href="./informasi.html"
+                            <a href="/info"
                                 class="text-xs uppercase py-3 font-bold block text-blueGray-500 hover:text-[#45D5A1]">
                                 <i class="fas fa-map-marked mr-2 text-sm"></i>
                                 Informasi
@@ -290,7 +290,7 @@
                                                 </a>
                                                 <div class="hidden bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg min-w-48"
                                                     id="table-light-1-dropdown">
-                                                    <a href="#"
+                                                    <a href="/edit"
                                                         class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent hover:bg-gray-100 text-blueGray-700">Edit</a>
                                                     <a href="detailProduk.html"
                                                         class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent hover:bg-gray-100 text-blueGray-700">Detail</a>

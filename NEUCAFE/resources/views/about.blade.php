@@ -12,25 +12,11 @@
     <p class="text-9xl font-serif font-semibold">about page</p>
     </div>
 
-    @foreach ($monthlyCounts as $year => $months)
-    <h2>{{ $year }}</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Month</th>
-                <th>Count</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($months as $month => $count)
-                <tr>
-                    <td>{{ $month }}</td>
-                    <td>{{ $count }}</td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
-@endforeach
+    <h2>Top 3 Products</h2>
+
+<p>1. Product: {{ $topProduct1 }}, Quantity: {{ $topQuantity1 }}</p>
+<p>2. Product: {{ $topProduct2 }}, Quantity: {{ $topQuantity2 }}</p>
+<p>3. Product: {{ $topProduct3 }}, Quantity: {{ $topQuantity3 }}</p>
 
 </body>
 </html>

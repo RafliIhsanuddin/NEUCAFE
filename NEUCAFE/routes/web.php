@@ -34,11 +34,26 @@ Route::post('outper',[SessionController::class, 'outletper']);
 Route::post('konfkod',[SessionController::class, 'outletper']);
 // Route::get('/tes', [YourController::class, 'tanggal'])->name('tes');
 // Route::get('/dashboard', [SessionController::class, 'tanggal']);
+// Route::get('/dashboard', [SessionController::class, 'tes']);
 Route::get('/dashboard', [SessionController::class, 'getTransactionsPerMonth']);
+// Route::get('/dashboard', [SessionController::class, 'tes']);
 // Route::get('show/{id}', [show::class, 'View_PL_Accnt'])->name('SupAd.View_PL_Accnt');
 // Route::view('info',[SessionController::class, 'log']);
 
 Route::get('flush', [SessionController::class, 'flushSession'])->name('flush');
+
+// Route::get('/dashboard', function () {
+//     // Call the first function
+//     $result1 = SessionController::tanggal();
+
+//     // Call the second function
+//     $result2 = SessionController::tes();
+
+//     // Return the response or perform other actions
+//     return "Result 1: $result1, Result 2: $result2";
+// });
+
+
 
 // Route::view("flush",'login');
 
@@ -49,9 +64,11 @@ Route::view("choose",'choose');
 Route::view("kasir",'kasir');
 // Route::view("dashboard",'dashboard');
 Route::view("login",'login');
+Route::view("edit",'editProduk');
 Route::view("signup",'signup');
 Route::view("laporan",'laporan');
 Route::view("daftar",'daftarProduk');
+Route::view("review",'reviewPelanggan');
 Route::view("landing",'landing');
 Route::view("ProdukPer",'firstProduct');
 Route::view("outletPer",'infoOutlet');
