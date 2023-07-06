@@ -116,14 +116,53 @@ class SessionController extends Controller
         // ->select('produk.id_produk', 'transaksi.id_outlet', 'produk.nama', DB::raw('SUM(detail_transaksi.quantity) AS total_quantity'))
 
 
+    // function login2(Request $req){
+    //     $akun = akun::all();
+
+    //     foreach($akun as $out){
+    //         if($out->email == $req->email){
+    //             if($out->password == $req->password){
+    //                 $req->session()->put('id',$out->id_akun);
+    //                 $id = session('id');
+    //                 $outlet = outlet::where('id_akun','=',$id)->get();
+    //                 if($outlet->isEmpty()){
+    //                     return view('infoOutlet');
+    //                 }else{
+    //                     $data = akun::where('id_akun','=',$id)->get();
+    //                     session()->put('datas', $data);
+    //                     session()->put('outlets', $outlet);
+    //                     return view('choose');
+    //                 }
+    //             }else {
+    //                 return redirect('login')->with('eror', 'email atau password salah');
+    //             }
+    //         }
+    //     }
+
+    // }
+
+
     function login2(Request $req){
         $akun = akun::all();
-
+    
         foreach($akun as $out){
             if($out->email == $req->email){
                 if($out->password == $req->password){
                     $req->session()->put('id',$out->id_akun);
+                    
                     $id = session('id');
+
+
+                    $outletdatabase = DB::table('outlet')
+                    ->where('id_akun', $id)
+                    ->first();
+
+                    $databaseoutlet = $outletdatabase->id_outlet ;
+
+                    $req->session()->put('id_outlet',$databaseoutlet);
+
+
+                    $id_outlet = session('id_outlet');
                     $outlet = outlet::where('id_akun','=',$id)->get();
                     if($outlet->isEmpty()){
                         return view('infoOutlet');
@@ -133,32 +172,12 @@ class SessionController extends Controller
                         session()->put('outlets', $outlet);
                         return view('choose');
                     }
-
-                    // $data = akun::where('id_akun','=',$id)->get();
-                    // $outlet = outlet::where('id_akun','=',$id)->get();
-                    // session()->put('datas', $data);
-                    // session(['datas' => $data]);
-                    // session(['outlets' => $outlet]);
-                    // session()->put('datas', $data);
-                    // session()->put('outlets', $outlet);
-                    // return post('informasi',['datas'=>$data,'outlets'=>$outlet]);
-                    // return view('choose');
-
-
-
-                    // if($outlet->isNotEmpty()){
-                    //     return view('informasi',['datas'=>$data,'outlets'=>$outlet]);
-                    // }else{
-
-                    // }
-                    
-                    // echo session('id');
                 }else {
-                    return redirect('login')->with('eror', 'email atau password salah');
+                    return redirect('login')->with('eror', 'Email atau password salah');
                 }
             }
         }
-
+        return redirect('login')->with('eror', 'Email atau password salah');
     }
 
 
@@ -183,9 +202,11 @@ class SessionController extends Controller
 
 
     public function getTransactionsPerMonth() {
+        $id_outlet = session('id_outlet');
+        // $id_outlet = 4;
     $transactions = DB::table('transaksi')
         ->selectRaw('YEAR(waktu_order) AS Year, DATE_FORMAT(waktu_order, "%M") AS Month, COUNT(*) AS count')
-        ->where('id_outlet', 4)
+        ->where('id_outlet', $id_outlet)
         ->groupBy('Year', 'Month')
         ->orderByRaw('Year ASC, FIELD(Month, "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December")')
         ->get();
@@ -209,7 +230,7 @@ class SessionController extends Controller
 
     $currentMonthTagihan = DB::table('transaksi')
         ->select(DB::raw('SUM(total_tagihan) AS total_tagihan'))
-        ->where('id_outlet', 4)
+        ->where('id_outlet', $id_outlet)
         ->whereRaw('MONTH(transaksi.waktu_order) = MONTH(CURDATE())')
         ->first();
 
@@ -226,11 +247,29 @@ class SessionController extends Controller
 
 
     $transaksiCount = DB::table('transaksi')
-    ->where('id_outlet', 4)
+    ->where('id_outlet', $id_outlet)
     ->whereRaw('MONTH(waktu_order) = MONTH(CURDATE())')
     ->count();
 
     $transaksiCount = isset($transaksiCount) ? $transaksiCount : 0;
+
+
+    $transaksiData = DB::table('detail_transaksi')
+    ->join('transaksi', 'detail_transaksi.id_transaksi', '=', 'transaksi.id_transaksi')
+    ->select('transaksi.id_outlet', DB::raw('SUM(detail_transaksi.quantity) AS total_quantity'), DB::raw('MONTH(transaksi.waktu_order) AS month'))
+    ->where('transaksi.id_outlet', $id_outlet)
+    ->whereRaw('MONTH(transaksi.waktu_order) = MONTH(CURDATE())')
+    ->groupBy('transaksi.id_outlet', DB::raw('MONTH(transaksi.waktu_order)'))
+    ->first();
+
+    // $idOutlet = $transaksiData->id_outlet;
+    // $totalQuantity = $transaksiData->total_quantity;
+    // $month = $transaksiData->month;
+
+    // $idOutlet = isset($transaksiData->id_outlet) ? $transaksiData->id_outlet : 0;
+    $totalQuantity = isset($transaksiData->total_quantity) ? $transaksiData->total_quantity : 0;
+    // $month = isset($transaksiData->month) ? $transaksiData->month : 0;
+
 
 
 
@@ -242,7 +281,7 @@ class SessionController extends Controller
         ->join('produk', 'detail_transaksi.id_produk', '=', 'produk.id_produk')
         ->select('produk.id_produk', DB::raw('MAX(transaksi.id_outlet) AS id_outlet'), 'produk.nama', DB::raw('SUM(detail_transaksi.quantity) AS total_quantity'))
         ->whereMonth('transaksi.waktu_order', '=', date('m'))
-        ->where('transaksi.id_outlet', '=', 4)
+        ->where('transaksi.id_outlet', '=', $id_outlet)
         ->groupBy('produk.id_produk', 'produk.nama')
         ->orderByDesc(DB::raw('SUM(detail_transaksi.quantity)'))
         ->take(3)
@@ -318,6 +357,11 @@ class SessionController extends Controller
 
         "total_tagihan_bulan" => $total_tagihan_bulan,
         "transaksiCount" => $transaksiCount,
+
+
+        "totalQuantity" => $totalQuantity,
+
+        
 
 
     ]);
