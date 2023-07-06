@@ -121,7 +121,7 @@ HALAMAN LOGIN
                         </li>
 
                         <li class="items-center">
-                            <a href="./daftarProduk.html"
+                            <a href="/daftar"
                                 class="text-xs uppercase py-3 font-bold block text-blueGray-500 hover:text-[#45D5A1]">
                                 <i class="fas fa-table mr-2 text-sm"></i>
                                 Daftar Produk
@@ -129,7 +129,7 @@ HALAMAN LOGIN
                         </li>
 
                         <li class="items-center">
-                            <a href="./reviewPelanggan.html"
+                            <a href="/review"
                                 class="text-xs uppercase py-3 font-bold block text-blueGray-500 hover:text-[#45D5A1]">
                                 <i class="fas fa-map-marked mr-2 text-sm"></i>
                                 Review Pelanggan
