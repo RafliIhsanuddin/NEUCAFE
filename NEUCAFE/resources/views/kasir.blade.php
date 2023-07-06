@@ -28,14 +28,14 @@
 
                 <ul class="flex list-none space-x-6">
                     <li class="items-center">
-                        <a href="./dashboard.html"
+                        <a href="./kasir"
                             class="text-sm uppercase py-3 font-bold block text-[#45D5A1]">
                             <i class="fas fa-tv mr-1 text-sm opacity-75"></i>
                             Kasir
                         </a>
                     </li>
                     <li class="items-center">
-                        <a href="./dashboard.html"
+                        <a href="./riwayat"
                             class="text-sm uppercase py-3 font-bold block text-blueGray-500 hover:text-[#45D5A1]">
                             <i class="fas fa-tv mr-1 text-sm opacity-75"></i>
                             Riwayat
@@ -51,81 +51,49 @@
 
             <!-- Informasi Bisnis -->
             <div class="relative pb-8 pt-12">
-                <div class="flex px-4 md:px-10 mx-auto w-full">
-                    <form action="" class="flex flex-wrap w-[60%] mb-6 rounded h-fit ">
+                <div class="min-[860px]:flex max-[860px]:justify-center px-4 md:px-10 mx-auto w-full">
+                    <form action="" class="flex flex-wrap w-full mb-6 rounded h-fit ">
+                        @foreach ($produk as $item)
                         <div
                             class="w-36 h-40 my-3 mx-3 bg-white hover:bg-white/10 rounded-md flex flex-col items-center justify-around cursor-pointer shadow-lg focus:shadow-none">
-                            <h5>Americano</h5>
+                            <h5>{{ $item->nama }}</h5>
                             <div class="w-20 h-20 bg-gray-200">
                                 <!-- image -->
                             </div>
-                            <h5>Rp18.000</h5>
+                            <h5>Rp{{ number_format($item->harga_jual, 0, '.', '.') }}</h5>
                         </div>
-                        <div
-                            class="w-36 h-40 my-3 mx-3 bg-white rounded-md flex flex-col items-center justify-around cursor-pointer shadow-lg focus:shadow-none">
-                            <h5>Americano</h5>
-                            <div class="w-20 h-20 bg-gray-200">
-                                <!-- image -->
-                            </div>
-                            <h5>Rp18.000</h5>
-                        </div>
-                        <div
-                            class="w-36 h-40 my-3 mx-3 bg-white rounded-md flex flex-col items-center justify-around cursor-pointer shadow-lg focus:shadow-none">
-                            <h5>Americano</h5>
-                            <div class="w-20 h-20 bg-gray-200">
-                                <!-- image -->
-                            </div>
-                            <h5>Rp18.000</h5>
-                        </div>
-                        <div
-                            class="w-36 h-40 my-3 mx-3 bg-white rounded-md flex flex-col items-center justify-around cursor-pointer shadow-lg focus:shadow-none">
-                            <h5>Americano</h5>
-                            <div class="w-20 h-20 bg-gray-200">
-                                <!-- image -->
-                            </div>
-                            <h5>Rp18.000</h5>
-                        </div>
-                        <div
-                            class="w-36 h-40 my-3 mx-3 bg-white rounded-md flex flex-col items-center justify-around cursor-pointer shadow-lg focus:shadow-none">
-                            <h5>Americano</h5>
-                            <div class="w-20 h-20 bg-gray-200">
-                                <!-- image -->
-                            </div>
-                            <h5>Rp18.000</h5>
-                        </div>
-                        <div
-                            class="w-36 h-40 my-3 mx-3 bg-white rounded-md flex flex-col items-center justify-around cursor-pointer shadow-lg focus:shadow-none">
-                            <h5>Americano</h5>
-                            <div class="w-20 h-20 bg-gray-200">
-                                <!-- image -->
-                            </div>
-                            <h5>Rp18.000</h5>
-                        </div>
-                        
+                        @endforeach
                     </form>
-                    <div class="w-[40%] h-[78vh] bg-white rounded-lg p-5 "> 
+                    <div class="md:w-[45rem] w-full h-auto bg-white rounded-lg p-5 "> 
                         <div class="w-full h-20">
                             <h2 class=" font-semibold text-2xl text-center">Order Menu</h2>
-                            <input type="text" class="w-32 h-7 rounded-full mt-2 bg-gray-100">
+                            <input type="text" class=" px-4 py-1 rounded-full mt-2 bg-gray-100 outline-none" placeholder="Nama Customers">
                         </div>
                         <hr class="w-full bg-black h-[1.5px]">
-                        <div class="h-[48vh] w-full py-4 overflow-auto">
+                        <div class="h-[27rem] w-full py-4 overflow-auto">
 
-                            <div class="flex w-full h-24 rounded-xl overflow-hidden border-[1px] border-gray-300 mb-2">
+                            <div class="flex w-full h-20 rounded-xl overflow-hidden border-[1px] border-gray-300 mb-2">
                                 <div class="w-6 h-full bg-green-500"></div>
-                                <div class="flex justify-between items-center w-full h-full bg-white px-4">
-                                    <div class="flex">
-                                        <div class="w-16 h-16 bg-gray-100 mr-2"></div>
+                                <div class="flex justify-between items-center w-full h-full bg-white pl-2 pr-4 space-x-4">
+                                    <div class="flex items-center">
+                                        {{-- <div class="w-16 h-16 bg-gray-100 mr-2"></div> --}}
                                         <div>
                                             <h5 class="font-semibold">Americano</h5>
-                                            <p class=" text-xs font-medium text-gray-700">Rp18.000</p>
-                                            <input type="text" class="h-3 w-40 text-xs rounded-md" placeholder="Tambahkan Catatan">
+                                            <input type="text" class="w-40 text-sm rounded-md border-b-2 outline-none" placeholder="Tambahkan Catatan">
                                         </div>
                                     </div>
                                     <div class="w-28 items-center justify-center flex">
-                                        <button type="submit" class="flex items-center justify-center w-8 h-8 bg-green-500 text-white text-2xl font-bold"> - </button>
-                                        <p class="w-8 h-8 mx-2 text-center">3</p>
-                                        <button type="submit" class="flex items-center justify-center w-8 h-8 bg-green-500 text-white text-2xl font-bold"> + </button>
+
+                                        <button id="decrementBtn"
+                                            class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-l">
+                                            -
+                                        </button>
+                                        <input id="countInput" type="text" class="w-10 text-center" value="1" readonly>
+                                        <button id="incrementBtn"
+                                            class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-r">
+                                            +
+                                        </button>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -143,7 +111,6 @@
                             </div>
                         </div>
 
-
                     </div>
                 </div>
             </div>
@@ -153,6 +120,25 @@
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" charset="utf-8"></script>
     <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
+    <script>
+        const decrementBtn = document.getElementById('decrementBtn');
+        const incrementBtn = document.getElementById('incrementBtn');
+        const countInput = document.getElementById('countInput');
+
+        let count = 1;
+
+        decrementBtn.addEventListener('click', () => {
+        if (count > 1) {
+            count--;
+            countInput.value = count;
+        }
+        });
+
+        incrementBtn.addEventListener('click', () => {
+        count++;
+        countInput.value = count;
+        });
+    </script>
     <script type="text/javascript">
         /* Make dynamic date appear */
         (function () {

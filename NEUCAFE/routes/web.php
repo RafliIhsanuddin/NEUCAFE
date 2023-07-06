@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\OutletPer;
 use App\Http\Controllers\produkController;
+use App\Http\Controllers\transaksiController;
 use App\Http\Controllers\tambahProdukController;
 use App\Http\Controllers\App\Models\Produk;
 
@@ -42,6 +43,9 @@ Route::get('/dashboard', [SessionController::class, 'getTransactionsPerMonth']);
 // Route::view('info',[SessionController::class, 'log']);
 
 Route::get('flush', [SessionController::class, 'flushSession'])->name('flush');
+Route::get('kasir',[produkController::class, 'tampil']);
+Route::get('riwayat',[transaksiController::class, 'tampil']);
+
 
 // Route::get('/dashboard', function () {
 //     // Call the first function
@@ -62,7 +66,7 @@ Route::get('flush', [SessionController::class, 'flushSession'])->name('flush');
 // Route::get('/about', [SessionController::class, 'getTransactionsPerMonth'])->name('transactions');
 Route::view("info",'informasi');
 Route::view("choose",'choose');
-Route::view("kasir",'kasir');
+// Route::view("kasir",'kasir');
 // Route::view("dashboard",'dashboard');
 Route::view("login",'login');
 Route::view("edit",'editProduk');
