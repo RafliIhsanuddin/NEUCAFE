@@ -27,7 +27,7 @@ class produkController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    use App\Models\Produk; // Import the Produk model if not already imported
+    
 
 public function store(Request $request)
 {

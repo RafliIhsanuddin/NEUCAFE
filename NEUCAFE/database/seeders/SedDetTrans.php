@@ -19,7 +19,7 @@ class SedDetTrans extends Seeder
         $produk = [18, 3, 13, 14, 24, 25];
 
         DB::table('detail_transaksi')->insert([
-            'id_transaksi' => random_int(177, 187),
+            'id_transaksi' => random_int(192, 235),
             'id_produk' =>  $produk[array_rand($produk)],
             'quantity' => random_int(1, 10),
             'total_harga' => $totalHargaOptions[array_rand($totalHargaOptions)],

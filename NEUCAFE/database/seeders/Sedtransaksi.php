@@ -25,6 +25,7 @@ class Sedtransaksi extends Seeder
 
         DB::table('transaksi')->insert([
             'waktu_order' => $faker->dateTimeBetween($currentMonth, $currentMonth.' +1 month'),
+            'nama_customer' => Str::random(10),
             // 'waktu_order' => $faker->dateTimeBetween('-1 year', 'now'), 
             'metode_pembayaran' => Str::random(10),
             'total_tagihan' => random_int(100000, 1000000),

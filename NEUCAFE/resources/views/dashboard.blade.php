@@ -188,7 +188,7 @@
                           Penjualan Bulan Ini
                         </h5>
                         <span class="font-bold text-xl text-white">
-                          Rp350.897
+                        {{ $total_tagihan_bulan }}
                         </span>
                       </div>
                       <div class="relative w-auto pl-4 flex-initial">
@@ -243,7 +243,7 @@
                     <div class="flex flex-wrap">
                       <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
                         <h5 class="text-white uppercase font-semibold text-sm">
-                          Produk Terjual
+                          Produk Terjual bulan ini
                         </h5>
                         <span class="font-bold text-xl text-white">
                           924
@@ -271,10 +271,10 @@
                     <div class="flex flex-wrap">
                       <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
                         <h5 class="text-white uppercase font-semibold text-sm">
-                          Total Transaksi
+                          Total Transaksi bulan ini
                         </h5>
                         <span class="font-bold text-xl text-white">
-                          49,65%
+                        {{ $transaksiCount }}
                         </span>
                       </div>
                       <div class="relative w-auto pl-4 flex-initial">
@@ -414,6 +414,10 @@
     $topQuantity1 = isset($topQuantity1) ? $topQuantity1 : 0;
     $topQuantity2 = isset($topQuantity2) ? $topQuantity2 : 0;
     $topQuantity3 = isset($topQuantity3) ? $topQuantity3 : 0;
+
+
+    
+    
 
 
     

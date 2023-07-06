@@ -5,6 +5,7 @@ use App\Http\Controllers\SessionController;
 use App\Http\Controllers\OutletPer;
 use App\Http\Controllers\produkController;
 use App\Http\Controllers\tambahProdukController;
+use App\Http\Controllers\App\Models\Produk;
 
 /*
 |--------------------------------------------------------------------------

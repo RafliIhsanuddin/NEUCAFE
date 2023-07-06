@@ -189,7 +189,6 @@ class SessionController extends Controller
         ->groupBy('Year', 'Month')
         ->orderByRaw('Year ASC, FIELD(Month, "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December")')
         ->get();
-
     // Initialize an empty associative array
     $monthlyCounts = [];
 
@@ -208,6 +207,36 @@ class SessionController extends Controller
         $monthlyCounts[$year][$month] = $count;
     }
 
+    $currentMonthTagihan = DB::table('transaksi')
+        ->select(DB::raw('SUM(total_tagihan) AS total_tagihan'))
+        ->where('id_outlet', 4)
+        ->whereRaw('MONTH(transaksi.waktu_order) = MONTH(CURDATE())')
+        ->first();
+
+
+        // $total_tagihan_bulan = 'Rp ' . number_format($currentMonthTagihan->total_tagihan, 0, ',', '.');
+
+        $total_tagihan_bulan = isset($currentMonthTagihan->total_tagihan) ? 'Rp ' . number_format($currentMonthTagihan->total_tagihan, 0, ',', '.') : 'Rp.0';
+        
+
+    
+    // $total_tagihan_bulan = isset($currentMonthTagihan->total_tagihan) ? $currentMonthTagihan->total_tagihan : 0;
+
+
+
+
+    $transaksiCount = DB::table('transaksi')
+    ->where('id_outlet', 4)
+    ->whereRaw('MONTH(waktu_order) = MONTH(CURDATE())')
+    ->count();
+
+    $transaksiCount = isset($transaksiCount) ? $transaksiCount : 0;
+
+
+
+
+
+
     $results = DB::table('detail_transaksi')
         ->join('transaksi', 'detail_transaksi.id_transaksi', '=', 'transaksi.id_transaksi')
         ->join('produk', 'detail_transaksi.id_produk', '=', 'produk.id_produk')
@@ -219,13 +248,13 @@ class SessionController extends Controller
         ->take(3)
         ->get();
 
-    $topProduct1 = $results[0]->nama;
-    $topProduct2 = $results[1]->nama;
-    $topProduct3 = $results[2]->nama;
+        $topProduct1 = isset($results[0]->nama) ? $results[0]->nama : "";
+        $topProduct2 = isset($results[1]->nama) ? $results[1]->nama : "";
+        $topProduct3 = isset($results[2]->nama) ? $results[2]->nama : "";
 
-    $topQuantity1 = $results[0]->total_quantity;
-    $topQuantity2 = $results[1]->total_quantity;
-    $topQuantity3 = $results[2]->total_quantity;
+    $topQuantity1 = isset($results[0]->total_quantity) ? $results[0]->total_quantity : 0;
+    $topQuantity2 = isset($results[1]->total_quantity) ? $results[1]->total_quantity : 0;
+    $topQuantity3 = isset($results[2]->total_quantity) ? $results[2]->total_quantity : 0;
 
     $january2022 = isset($monthlyCounts[2022]['January']) ? $monthlyCounts[2022]['January'] : 0;
     $february2022 = isset($monthlyCounts[2022]['February']) ? $monthlyCounts[2022]['February'] : 0;
@@ -285,6 +314,12 @@ class SessionController extends Controller
         "topQuantity1" => $topQuantity1,
         "topQuantity2" => $topQuantity2,
         "topQuantity3" => $topQuantity3,
+
+
+        "total_tagihan_bulan" => $total_tagihan_bulan,
+        "transaksiCount" => $transaksiCount,
+
+
     ]);
 }
 
