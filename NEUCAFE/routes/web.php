@@ -67,7 +67,7 @@ Route::view("login",'login');
 Route::view("edit",'editProduk');
 Route::view("signup",'signup');
 Route::view("laporan",'laporan');
-Route::view("daftar",'daftarProduk');
+Route::view("daftarProduk",'daftarProduk');
 Route::view("review",'reviewPelanggan');
 Route::view("landing",'landing');
 Route::view("ProdukPer",'firstProduct');
@@ -77,4 +77,4 @@ Route::view("tambahProduk",'tambahProduk');
 Route::view("detailProduk",'detailProduk');
 Route::view("konfir",'kodem');
 
-Route::resource("tambahProduk", produkController::class);
+Route::resource("daftarProduk", produkController::class);

@@ -14,6 +14,15 @@
     <title>Daftar Produk</title>
 </head>
 
+<!-- Peringatan Berhasil -->
+@if (Session::has('success'))
+<div class="pt-3">
+    <div class="bg-green-500 text-white text-center py-2 px-4">
+        {{ Session::get('success') }}
+    </div>
+</div>
+@endif
+
 <body class="text-blueGray-700 antialiased">
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root">
@@ -191,7 +200,7 @@
                                         <div class="relative flex w-full flex-wrap items-stretch">
 
                                             <!-- INI LINK PINDAH HALAMAN KE TAMBAH PRODUK -->
-                                            <a href="tambahProduk.html"
+                                            <a href="tambahProduk"
                                                 class="border-0 px-3 py-2 text-white relative rounded-md text-base shadow font-semibold outline-none focus:outline-none w-full bg-green-600 hover:bg-green-500">
                                                 + Tambah Produk
                                             </a>
@@ -201,12 +210,13 @@
                                 <div class="flex mx-4 mt-2">
 
                                     <!-- INI FORM PENCARIAN -->
-                                    <form class="md:flex w-[60vh] flex-row flex-wrap items-center">
+                                    <form class="md:flex w-[60vh] flex-row flex-wrap items-center" action="{{ url('daftarProduk') }}" method="get">
                                         <div class="relative flex w-full flex-wrap items-stretch">
                                             <span
                                                 class="z-10 h-full leading-snug font-normal text-center text-blueGray-700 absolute bg-transparent rounded text-base items-center justify-center w-8 pl-3 py-3"><i
                                                     class="fas fa-search"></i></span>
-                                            <input type="text" placeholder="Search here..."
+                                        
+                                            <input type="search" placeholder="Search here..." name="katakunci" value="{{ Request::get('katakunci') }}"
                                                 class="border-0 px-3 py-3 placeholder-blueGray-900 text-blueGray-700 relative bg-gray-100 rounded text-sm shadow outline-none focus:outline-none w-full pl-10" />
                                         </div>
                                     </form>
@@ -218,6 +228,10 @@
                                 <table class="items-center w-full bg-transparent border-collapse">
                                     <thead>
                                         <tr>
+                                            <th
+                                            class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100">
+                                            No
+                                        </th>
                                             <th
                                                 class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100">
                                                 Nama Produk
@@ -248,37 +262,48 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-
+                                        <?php $i = $data->firstItem(); ?> {{-- digunakan untuk menambah No di tampil data sesuai dgn banyak data  --}}
                                         <!-- OUTPUT DAFTAR PRODUKNYA, UNTUK SEMENTARA YANG IMAGENYA BIARIN AJA DULU -->
+                                        @foreach ($data as $item)
+                                            
                                         <tr>
+                                            <td
+                                                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                                {{ $i }}
+                                            </td>
                                             <th
                                                 class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-sm whitespace-nowrap p-4 text-left flex items-center">
                                                 <img src="../../assets/img/bootstrap.jpg"
                                                     class="h-12 w-12 bg-white rounded-full border" alt="..." />
                                                 <span class="ml-3 mr-2 font-bold text-blueGray-600">
-                                                    Americano
+                                                    {{ $item-> nama }}
                                                 </span>
                                             </th>
                                             <td
                                                 class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                Kopi
+                                                {{ $item-> kategori }}
                                             </td>
                                             <td
                                                 class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                121
+                                                {{ $item-> stok }}
                                             </td>
                                             <td
                                                 class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                Rp12.000
+                                                {{ $item-> harga_beli }}
                                             </td>
                                             <td
                                                 class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                Rp15.000
+                                                {{ $item-> harga_jual }}
                                             </td>
                                             <td
                                                 class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                            @if ($item->status == 'Success')
                                                 <i class="fas fa-circle text-green-500 mr-2"></i>
                                                 Tampil di menu
+                                            @elseif ($item->status == 'Pending')
+                                                <i class="fas fa-circle text-yellow-500 mr-2"></i>
+                                                Menunggu
+                                            @endif
                                             </td>
 
                                             <!-- NAH INI LINK BUAT HAPUS PRODUKNYA, DAN PINDAH KE HALAMAN DETAIL PRODUK -->
@@ -290,17 +315,26 @@
                                                 </a>
                                                 <div class="hidden bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg min-w-48"
                                                     id="table-light-1-dropdown">
-                                                    <a href="/edit"
+                                                    <a href={{ url('daftarProduk/' .$item->id_produk. '/edit') }}
                                                         class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent hover:bg-gray-100 text-blueGray-700">Edit</a>
-                                                    <a href="detailProduk.html"
+                                                    <a href="detailProduk"
                                                         class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent hover:bg-gray-100 text-blueGray-700">Detail</a>
-                                                    <a href="#"
-                                                        class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent hover:bg-gray-100 text-blueGray-700">Hapus</a>
+                                                                            {{-- Penghapusan data --}}
+                                                    <form onsubmit="return confirm('Yakin akan melakukan aksi delete data')" action="{{ url('daftarProduk/'.$item->id_produk) }}" method="POST"> 
+                                                        @csrf
+                                                        @method('DELETE')
+                                                            <button  type ='submit' name='submit'
+                                                            class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent hover:bg-gray-100 text-blueGray-700">Hapus</button>
+                                                    </form>
+                                                                            {{-- Penghapusan data --}}
                                                 </div>
                                             </td>
                                         </tr>
+                                        <?php $i++ ?>
+                                        @endforeach
                                     </tbody>
                                 </table>
+                                {{ $data->withQueryString()->links() }} {{-- paginasi untuk mengarah ke halaman lain dengan data yang berbeda --}}
                             </div>
                         </div>
                     </div>

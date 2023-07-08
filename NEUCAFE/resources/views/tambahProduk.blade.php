@@ -163,6 +163,8 @@
             <!-- Header -->
             <!-- ini adalah tempat create.blade.php -->
             <!-- START FORM-->
+
+            {{-- Peringatan error yang terjadi --}}
              @if ($errors->any())
                 <div class="pt-24">
                     <div class="bg-red-500 text-white font-bold px-4 py-3 rounded">
@@ -175,7 +177,9 @@
                     </ul>
                 </div>
             @endif
-            <form action="{{ url('tambahProduk') }}" method="post">
+            {{-- Peringatan error yang terjadi --}}
+
+            <form action="{{ url('daftarProduk') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="relative md:pt-32 pb-8 pt-12">
                     <div class="px-4 md:px-10 mx-auto w-full">
@@ -190,8 +194,8 @@
                                     <figure class="image-container w-40 h-40">
                                         <img id="chosen-image" class="w-40 h-40 bg-slate-500">
                                     </figure>
-                            
-                                    <input type="file" id="upload-button" accept="image/*" class=" hidden">
+                                    {{-- nanti ditambahkan value untuk session flash untuk upload gambar --}}
+                                    <input type="file" id="upload-button" accept="image/*" name = 'gambar_produk' class=" hidden" > 
                                     <label for="upload-button" class="bg-green-600 hover:bg-green-500 focus:outline-none text-white px-5 py-1 font-semibold rounded-md mt-3">
                                         Tambah Foto
                                     </label>
@@ -217,7 +221,7 @@
                                     <p>:</p>
                                     <p>:</p>
                                 </div>
-            
+                                
                                 <div class="flex flex-col space-y-3 w-96 text-base font-medium">
                                     <input type="text" name="nama"          value="{{ Session::get('nama') }}"       id=""  
                                         class="h-6 py-1 rounded-md border-gray-300 border-[2px]">                       <!-- name digunakan untuk pengiriman data yg telah diisi di form ke database , $request->validate di produkController.php-->
@@ -230,15 +234,15 @@
                                     <input type="text" name="harga_beli"    value="{{ Session::get('harga_beli') }}" id=""
                                         class="h-6 py-1 rounded-md border-gray-300 border-[2px]">
                                     <input type="text" name="deskripsi"     value="{{ Session::get('deskripsi') }}"  id=""
-                                        class="h-6 py-1 rounded-md border-gray-300 border-[2px]"> 
-                                        <input type="text" name="id_outlet" value="{{ Session::get('id_outlet') }}"  id=""
+                                        class="h-6 py-1 rounded-md border-gray-300 border-[2px]" maxlength="255">
+                                    <input type="text" name="id_outlet"     value="{{ Session::get('id_outlet') }}"  id=""
                                         class="h-6 py-1 rounded-md border-gray-300 border-[2px]">
                                     <select name="status" class="h-7 px-1 rounded-md border-gray-300 border-[2px]">
                                         <option value="Success">
                                             <i class="fas fa-circle text-green-500 mr-2"></i>
                                             <span class="text-sm">Success</span>
                                         </option>
-                                        <option value="pending">
+                                        <option value="Pending">
                                             <i class="fas fa-circle text-green-500 mr-2"></i>
                                             <span class="text-sm">Pending</span>
                                         </option>
@@ -251,12 +255,12 @@
                                             class=" bg-red-600 hover:bg-red-500 focus:outline-none text-white w-28 py-1 font-semibold rounded-md">Batal</button>
                                     </div>
                                 </div>
-            
+                            </form>
                             </div>
                         </div>
                     </div>
                 </div>
-            </form>
+            
         <!-- END FORM-->
         </div>
     </div>
