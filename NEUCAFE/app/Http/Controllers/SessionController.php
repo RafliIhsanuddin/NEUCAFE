@@ -202,6 +202,7 @@ class SessionController extends Controller
 
 
     public function getTransactionsPerMonth() {
+        $id = session('id');
         $id_outlet = session('id_outlet');
         // $id_outlet = 4;
     $transactions = DB::table('transaksi')
@@ -246,12 +247,60 @@ class SessionController extends Controller
 
 
 
+    $totalHargaBeli = DB::table('transaksi')
+    ->selectRaw('SUM(total_tagihan) as sum_total_tagihan, SUM(total_harga_beli) as sum_total_harga_beli, SUM(total_tagihan) - SUM(total_harga_beli) AS difference')
+    ->where('id_outlet', $id_outlet)
+    ->whereRaw('MONTH(waktu_order) = MONTH(CURDATE())')
+    ->first();
+
+    // $sumTotalTagihan = isset($totalHargaBeli->sum_total_tagihan) ? $totalHargaBeli->sum_total_tagihan : 0;
+    // $sumTotalHargaBeli = isset($totalHargaBeli->sum_total_harga_beli) ? $totalHargaBeli->sum_total_harga_beli : 0;
+    // $difference = isset($totalHargaBeli->difference) ? $totalHargaBeli->difference : 0;
+
+    $difference = isset($totalHargaBeli->difference) ? 'Rp ' . number_format($totalHargaBeli->difference, 0, ',', '.') : 'Rp 0';
+
+
+
+    $akunData = DB::table('akun')
+    ->select('id_akun', 'email')
+    ->where('id_akun', $id)
+    ->first();
+
+    $akunEmail = isset($akunData->email) ? $akunData->email : "";
+
+
+
     $transaksiCount = DB::table('transaksi')
     ->where('id_outlet', $id_outlet)
     ->whereRaw('MONTH(waktu_order) = MONTH(CURDATE())')
     ->count();
 
     $transaksiCount = isset($transaksiCount) ? $transaksiCount : 0;
+
+
+    $namastokTerendah = DB::table('detail_transaksi')
+    ->join('transaksi', 'detail_transaksi.id_transaksi', '=', 'transaksi.id_transaksi')
+    ->join('produk', 'detail_transaksi.id_produk', '=', 'produk.id_produk')
+    ->select('detail_transaksi.id_relasi', 'produk.id_produk', 'produk.nama', 'produk.stok', DB::raw('MONTH(transaksi.waktu_order) AS month'))
+    ->where('transaksi.id_outlet', 1)
+    ->whereRaw('MONTH(transaksi.waktu_order) = MONTH(CURRENT_DATE)')
+    ->orderBy('produk.stok')
+    ->first();
+
+    $produkMinStok = isset($namastokTerendah->nama) ? $namastokTerendah->nama : "";
+
+
+
+    // $namastokTerendah = DB::table('detail_transaksi')
+    // ->join('transaksi', 'detail_transaksi.id_transaksi', '=', 'transaksi.id_transaksi')
+    // ->join('produk', 'detail_transaksi.id_produk', '=', 'produk.id_produk')
+    // ->select('detail_transaksi.id_relasi', 'produk.id_produk', 'produk.nama', DB::raw('MIN(produk.stok) as min_stok'), DB::raw('MONTH(transaksi.waktu_order) AS month'))
+    // ->where('transaksi.id_outlet', 1)
+    // ->whereRaw('MONTH(transaksi.waktu_order) = MONTH(CURRENT_DATE)')
+    // ->groupBy('produk.nama') 
+    // ->get();
+
+    // $minStok = isset($namastokTerendah[0]->nama) ? $namastokTerendah[0]->nama : "";
 
 
     $transaksiData = DB::table('detail_transaksi')
@@ -360,12 +409,118 @@ class SessionController extends Controller
 
 
         "totalQuantity" => $totalQuantity,
+        "difference" => $difference,
+        "akunEmail" => $akunEmail,
+        "produkMinStok" => $produkMinStok,
 
         
 
 
     ]);
 }
+
+
+
+
+
+
+
+
+
+        public function getreport(Request $request){
+            $id_outlet = 1;
+            $month = $request->input('bdaymonth');
+            $month = date('m', strtotime($month));
+
+            $transactions = DB::table('transaksi')
+                ->where('id_outlet', 1)
+                ->whereMonth('waktu_order', '=', $month)
+                ->get();
+
+            return view('laporaneu', compact('transactions', 'month'));
+        }
+
+
+
+
+        // public function laporan(Request $request){
+        //     $id_outlet = 1;
+        //     // $month = $request->input('bdaymonth');
+        //     // $month = '2023-07';
+        //     // $month = '2023-07'; // or $request->input('bdaymonth');
+        //     $month = $request->input('bdaymonth');
+        //     $month = date('m', strtotime($month));
+        //     // $month = 7;
+
+        //     $transactions = DB::table('transaksi')
+        //     ->where('id_outlet', 1)
+        //     ->whereMonth('waktu_order', '=', $month)
+        //     ->get();
+    
+        //     return view('/about', compact('transactions','month'));
+        // }
+
+
+        // public function laporan(Request $request)
+        // {
+        //     $selectedMonth = $request->input('selected_month');
+    
+        //     // Perform any necessary data processing or validation here
+    
+        //     $transactions = DB::table('transaksi')
+        //     ->where('id_outlet', 1)
+        //         ->whereMonth('waktu_order', $selectedMonth)
+        //         ->get();
+    
+        //     return view('about', compact('transactions', 'selectedMonth'));
+        // }
+
+
+
+
+
+
+// public function laporan(Request $request)
+// {
+//     $id_outlet = 1;
+//     $month = $request->input('bdaymonth');
+    
+//     if (empty($month)) {
+//         // Handle the case when the month is null or empty
+//         $transaksiData = [];
+//     } else {
+//         $transaksi = DB::table('transaksi')
+//             ->where('id_outlet', $id_outlet)
+//             ->whereRaw("MONTH(waktu_order) = MONTH('$month')")
+//             ->get();
+        
+//         $transaksiData = [];
+        
+//         foreach ($transaksi as $item) {
+//             $id_transaksi = $item->id_transaksi;
+//             $nama_customer = $item->nama_customer;
+//             $waktu_order = $item->waktu_order;
+//             $metode_pembayaran = $item->metode_pembayaran;
+//             $total_tagihan = $item->total_tagihan;
+//             $total_harga_beli = $item->total_harga_beli;
+//             $jenis_transaksi = $item->jenis_transaksi;
+//             $id_outlet = $item->id_outlet;
+        
+//             $transaksiData[] = [
+//                 'id_transaksi' => $id_transaksi,
+//                 'nama_customer' => $nama_customer,
+//                 'waktu_order' => $waktu_order,
+//                 'metode_pembayaran' => $metode_pembayaran,
+//                 'total_tagihan' => $total_tagihan,
+//                 'total_harga_beli' => $total_harga_beli,
+//                 'jenis_transaksi' => $jenis_transaksi,
+//                 'id_outlet' => $id_outlet,
+//             ];
+//         }
+//     }
+    
+//     return view('laporan', ['transaksiData' => $transaksiData]);
+// }
 
 
 

@@ -6,6 +6,7 @@ use App\Http\Controllers\OutletPer;
 use App\Http\Controllers\produkController;
 use App\Http\Controllers\tambahProdukController;
 use App\Http\Controllers\App\Models\Produk;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,11 +55,46 @@ Route::get('flush', [SessionController::class, 'flushSession'])->name('flush');
 //     return "Result 1: $result1, Result 2: $result2";
 // });
 
+// Route::post('/laporan/{month}', [SessionController::class, 'laporan'])->name('laporan');
+// Route::post('/laporan/{month}', [SessionController::class, 'laporan'])->name('laporan');
+// Route::post('/about', [SessionController::class, 'laporan'])->name('laporan');
 
+// Route::match(['GET', 'POST'], '/about', [SessionController::class, 'laporan'])->name('laporan');
+
+// Route::match(['GET', 'POST'], '/about', function (Request $request) {
+//     $selectedMonth = $request->input('selected_month');
+//     return app()->call(SessionController::class.'laporan', ['request' => $request, 'selectedMonth' => $selectedMonth]);
+// })->name('laporan');
+
+// Route::match(['GET', 'POST'], '/about', [SessionController::class, 'getreport'])->name('laporan');
+// Route::match(['GET', 'POST'], '/laporan', [SessionController::class, 'getreport'])->name('laporan');
+Route::match(['GET', 'POST'], '/laporaneu', [SessionController::class, 'getreport'])->name('laporan');
+
+
+
+// Route::match(['GET', 'POST'], '/about', function (Request $request) {
+//     $selectedMonth = $request->input('selected_month');
+//     return app()->call([SessionController::class, 'laporan'], ['request' => $request, 'selectedMonth' => $selectedMonth]);
+// })->name('laporan');
+
+// Route::match(['GET', 'POST'], '/about', function (Request $request) {
+//     $selectedMonth = $request->input('selected_month');
+//     return app()->call([SessionController::class, 'laporan'], ['request' => $request, 'selectedMonth' => $selectedMonth]);
+// })->name('laporan');
+
+
+// Route::get('/about', [SessionController::class, 'laporan'])->name('about');
+
+// Route::post('/laporan', [SessionController::class, 'laporan'])->name('laporan')
+// Route::post('/about', [SessionController::class, 'laporan']);
+// Route::get('/about', [SessionController::class, 'laporan'])->name('laporan');
 
 // Route::view("flush",'login');
 
+// Route::post('/about', [SessionController::class, 'laporan'])->name('laporan');
+
 // Route::view("tes",'about');
+
 // Route::get('/about', [SessionController::class, 'getTransactionsPerMonth'])->name('transactions');
 Route::view("info",'informasi');
 Route::view("choose",'choose');

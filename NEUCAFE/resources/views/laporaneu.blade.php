@@ -85,7 +85,7 @@
           <form class="mt-6 mb-4 md:hidden">
             <div class="mb-3 pt-0">
               <input type="text" placeholder="Search"
-                class="border-0 px-3 py-2 h-12 border border-solid border-blueGray-500 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-base leading-snug shadow-none outline-none focus:outline-none w-full font-normal" />
+                class="border-0 px-3 py-2 h-12  border-solid border-blueGray-500 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-base leading-snug shadow-none outline-none focus:outline-none w-full font-normal" />
             </div>
           </form>
           <!-- Divider -->
@@ -183,7 +183,11 @@
                     <h3 class="font-bold text-xl text-black">
                       Detail Penjualan
                     </h3>
-                    <input type="month" id="bdaymonth" name="bdaymonth" class=" rounded-md h-8">
+                    <form method="POST" action="{{ route('laporan') }}">
+                      @csrf
+                      <input type="month" id="bdaymonth" name="bdaymonth" class="rounded-md h-8">
+                      <button type="submit" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">Submit</button>
+                    </form>
                   </div>
                 </div>
                 <div class="flex mx-4 my-6">
@@ -241,34 +245,39 @@
                       </th>
                     </tr>
                   </thead>
+                  
                   <tbody>
+                    @php
+                      $variableName = 1;
+                    @endphp
+                    @foreach ($transactions as $transaction)
 
                     <!-- OUTPUT DAFTAR PRODUKNYA, UNTUK SEMENTARA YANG IMAGENYA BIARIN AJA DULU -->
                     <tr>
                       <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        001
+                      {{ $variableName }}
                       </td>
                       <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        Zaki
+                      {{ $transaction->nama_customer }}
                       </td>
                       <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        01/04/2023 12:02:43
+                      {{ $transaction->waktu_order }}
                       </td>
                       <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        Rp12.000
+                      {{ $transaction->total_tagihan }}
                       </td>
                       <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        Tunai
+                      {{ $transaction->metode_pembayaran }}
                       </td>
                     </tr>
-
+                    @php
+                      $variableName++; // Increment the variable by 1
+                    @endphp
+                    @endforeach
                   </tbody>
                 </table>
               </div>
-
             </div>
-
-
             <div class="w-full">
               <div class="relative flex flex-col min-w-0 break-words bg-sky-950 bg-bl w-full mb-6 shadow-lg rounded">
                 <div class="rounded-t mb-0 px-4 py-3 bg-transparent">
