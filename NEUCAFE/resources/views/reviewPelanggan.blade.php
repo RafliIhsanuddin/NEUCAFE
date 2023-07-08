@@ -98,7 +98,8 @@
 
                     <ul class="md:flex-col md:min-w-full flex flex-col list-none">
                         <li class="items-center">
-                            <a href="./dashboard.html" class="text-xs uppercase py-3 font-bold block text-blueGray-500 hover:text-[#45D5A1]">
+                            <a href="./dashboard.html"
+                                class="text-xs uppercase py-3 font-bold block text-blueGray-500 hover:text-[#45D5A1]">
                                 <i class="fas fa-tv mr-2 text-sm opacity-75"></i>
                                 Dashboard
                             </a>
@@ -113,7 +114,7 @@
                         </li>
 
                         <li class="items-center">
-                            <a href="./daftarProduk.html"
+                            <a href="daftarProduk"
                                 class="text-xs uppercase py-3 font-bold block text-blueGray-500 hover:text-[#45D5A1]">
                                 <i class="fas fa-table mr-2 text-sm"></i>
                                 Daftar Produk
@@ -158,7 +159,8 @@
                         </div>
                     </form>
                     <ul class="flex-col md:flex-row list-none items-center hidden md:flex">
-                        <a class="text-blueGray-500 block" href="#pablo" onclick="openDropdown(event,'user-dropdown')">
+                        <a class="text-blueGray-500 block" href="#pablo"
+                            onclick="openDropdown(event,'user-dropdown')">
                             <div class="items-center flex">
                                 <span
                                     class="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full"><img
@@ -219,11 +221,13 @@
                                     <tr>
                                         <td
                                             class="border-t-0 px-2 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                            1 <!-- output nomor transaksi -->
+                                            1
+                                            <!-- output nomor transaksi -->
                                         </td>
                                         <td
                                             class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                            kipli <!-- output nama pelanggan -->
+                                            kipli
+                                            <!-- output nama pelanggan -->
                                         </td>
                                         <td
                                             class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
@@ -258,7 +262,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" charset="utf-8"></script>
     <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
     <script type="text/javascript">
-
         var resultProduk = document.getElementById("produk");
         var resultPelayanan = document.getElementById("pelayanan");
         var resultTempat = document.getElementById("tempat");
@@ -268,7 +271,8 @@
         var dummyRatingDataPelayanan = 5; // Data dummy rating Pelayanan
         var dummyRatingDataTempat = 3; // Data dummy rating Tempat
 
-        var totalStar = (dummyRatingDataProduk + dummyRatingDataPelayanan + dummyRatingDataTempat) / 3 //akumulasi rating keseluruhan
+        var totalStar = (dummyRatingDataProduk + dummyRatingDataPelayanan + dummyRatingDataTempat) /
+            3 //akumulasi rating keseluruhan
         akumulasi.innerHTML += totalStar.toFixed(2);
 
         for (var i = 0; i < dummyRatingDataProduk; i++) {
@@ -281,7 +285,7 @@
             resultTempat.innerHTML += "&#9733;";
         }
         /* Make dynamic date appear */
-        (function () {
+        (function() {
             if (document.getElementById("get-current-year")) {
                 document.getElementById("get-current-year").innerHTML =
                     new Date().getFullYear();

@@ -36,7 +36,7 @@
                     <i class="fas fa-bars"></i>
                 </button>
                 <a class="md:block text-center md:pb-2 text-black mr-0 inline-block whitespace-nowrap text-lg uppercase font-bold p-4 px-0"
-                    href="../../index.html">
+                    href="#">
                     Neucafe
                 </a>
                 <ul class="md:hidden items-center flex flex-wrap list-none">
@@ -78,7 +78,7 @@
                         <div class="flex flex-wrap">
                             <div class="w-6/12">
                                 <a class="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
-                                    href="../../index.html">
+                                    href="#">
                                     Notus Tailwind JS
                                 </a>
                             </div>
@@ -157,7 +157,7 @@
                 class="absolute top-0 left-0 w-full z-10 bg-white md:flex-row md:flex-nowrap md:justify-start flex items-center p-4">
                 <div class="w-full mx-autp items-center flex justify-between md:flex-nowrap flex-wrap md:px-10 px-4">
                     <a class="text-black text-lg uppercase hidden lg:inline-block font-bold"
-                        href="./index.html">Welcome, Juan</a>
+                        href="#">Welcome, Juan</a>
                     <form class="md:flex hidden flex-row flex-wrap items-center lg:ml-auto mr-3">
                         <div class="relative flex w-full flex-wrap items-stretch">
                             <span
@@ -242,6 +242,10 @@
                                             </th>
                                             <th
                                                 class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100">
+                                                Id Produk
+                                            </th>
+                                            <th
+                                                class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100">
                                                 Stok
                                             </th>
                                             <th
@@ -262,14 +266,14 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php $i = $data->firstItem(); ?> {{-- digunakan untuk menambah No di tampil data sesuai dgn banyak data  --}}
+                                       {{-- digunakan untuk menambah No di tampil data sesuai dgn banyak data  --}}
                                         <!-- OUTPUT DAFTAR PRODUKNYA, UNTUK SEMENTARA YANG IMAGENYA BIARIN AJA DULU -->
                                         @foreach ($data as $item)
                                             
                                         <tr>
                                             <td
                                                 class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                {{ $i }}
+                                                {{ $loop->iteration }}
                                             </td>
                                             <th
                                                 class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-sm whitespace-nowrap p-4 text-left flex items-center">
@@ -279,9 +283,14 @@
                                                     {{ $item->nama }}
                                                 </span>
                                             </th>
+                                           
                                             <td
                                                 class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                                                 {{ $item->kategori }}
+                                            </td>
+                                            <td
+                                                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                                {{ $item->id_produk }}
                                             </td>
                                             <td
                                                 class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
@@ -315,7 +324,7 @@
                                                 </a>
                                                 <div class="hidden bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg min-w-48"
                                                     id="table-light-1-dropdown">
-                                                    <a href={{ url('daftarProduk/' . $item->id_produk . '/edit') }}
+                                                    <a href="{{ url('/daftarProduk') }}{{ '/' }}{{ $item->id_produk }}{{ '/' }}{{ 'edit' }}"
                                                         class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent hover:bg-gray-100 text-blueGray-700">Edit</a>
                                                     <a href="detailProduk"
                                                         class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent hover:bg-gray-100 text-blueGray-700">Detail</a>
@@ -330,7 +339,7 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                        <?php $i++; ?> @endforeach
+                                       @endforeach
                                     </tbody>
                                 </table>
                                 {{ $data->withQueryString()->links() }} {{-- paginasi untuk mengarah ke halaman lain dengan data yang berbeda --}}
