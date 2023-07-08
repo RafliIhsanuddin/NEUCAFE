@@ -85,7 +85,7 @@
           <form class="mt-6 mb-4 md:hidden">
             <div class="mb-3 pt-0">
               <input type="text" placeholder="Search"
-                class="border-0 px-3 py-2 h-12 border border-solid border-blueGray-500 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-base leading-snug shadow-none outline-none focus:outline-none w-full font-normal" />
+                class="border-0 px-3 py-2 h-12 border-solid border-blueGray-500 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-base leading-snug shadow-none outline-none focus:outline-none w-full font-normal" />
             </div>
           </form>
           <!-- Divider -->
@@ -99,14 +99,14 @@
 
           <ul class="md:flex-col md:min-w-full flex flex-col list-none">
             <li class="items-center">
-              <a href="./dashboard.html" class="text-xs uppercase py-3 font-bold block text-[#45D5A1]">
+              <a href="/dashboard" class="text-xs uppercase py-3 font-bold block text-[#45D5A1]">
                 <i class="fas fa-tv mr-2 text-sm opacity-75"></i>
                 Dashboard
               </a>
             </li>
 
             <li class="items-center">
-              <a href="./laporan.html"
+              <a href="/laporan"
                 class="text-xs uppercase py-3 font-bold block text-blueGray-500 hover:text-[#45D5A1]">
                 <i class="fas fa-tools mr-2 text-sm"></i>
                 Laporan
@@ -114,7 +114,7 @@
             </li>
 
             <li class="items-center">
-              <a href="./daftarProduk.html"
+              <a href="daftar"
                 class="text-xs uppercase py-3 font-bold block text-blueGray-500 hover:text-[#45D5A1]">
                 <i class="fas fa-table mr-2 text-sm"></i>
                 Daftar Produk
@@ -122,7 +122,7 @@
             </li>
 
             <li class="items-center">
-              <a href="./reviewPelanggan.html"
+              <a href="/review"
                 class="text-xs uppercase py-3 font-bold block text-blueGray-500 hover:text-[#45D5A1]">
                 <i class="fas fa-map-marked mr-2 text-sm"></i>
                 Review Pelanggan
@@ -130,7 +130,7 @@
             </li>
 
             <li class="items-center">
-              <a href="./informasi.html"
+              <a href="/info"
                 class="text-xs uppercase py-3 font-bold block text-blueGray-500 hover:text-[#45D5A1]">
                 <i class="fas fa-map-marked mr-2 text-sm"></i>
                 Informasi
@@ -147,7 +147,7 @@
       <nav
         class="absolute top-0 left-0 w-full z-10 bg-white md:flex-row md:flex-nowrap md:justify-start flex items-center p-4">
         <div class="w-full mx-autp items-center flex justify-between md:flex-nowrap flex-wrap md:px-10 px-4">
-          <a class="text-black text-lg uppercase hidden lg:inline-block font-bold" href="./index.html">Welcome, Juan</a>
+          <a class="text-black text-lg uppercase hidden lg:inline-block font-bold" href="./index.html">Welcome, "{{ $akunEmail }}" </a>
           <form class="md:flex hidden flex-row flex-wrap items-center lg:ml-auto mr-3">
             <div class="relative flex w-full flex-wrap items-stretch">
               <span
@@ -188,7 +188,7 @@
                           Penjualan Bulan Ini
                         </h5>
                         <span class="font-bold text-xl text-white">
-                          Rp350.897
+                        {{ $total_tagihan_bulan }}
                         </span>
                       </div>
                       <div class="relative w-auto pl-4 flex-initial">
@@ -215,10 +215,10 @@
                     <div class="flex flex-wrap">
                       <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
                         <h5 class="text-white uppercase font-semibold text-sm">
-                          Keuntungan
+                          Keuntungan bulan ini
                         </h5>
                         <span class="font-bold text-xl text-white">
-                          Rp720.000
+                        {{ $difference }}
                         </span>
                       </div>
                       <div class="relative w-auto pl-4 flex-initial">
@@ -243,10 +243,10 @@
                     <div class="flex flex-wrap">
                       <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
                         <h5 class="text-white uppercase font-semibold text-sm">
-                          Produk Terjual
+                          Produk Terjual bulan ini
                         </h5>
                         <span class="font-bold text-xl text-white">
-                          924
+                        {{ $totalQuantity }}
                         </span>
                       </div>
                       <div class="relative w-auto pl-4 flex-initial">
@@ -271,10 +271,10 @@
                     <div class="flex flex-wrap">
                       <div class="relative w-full pr-4 max-w-full flex-grow flex-1">
                         <h5 class="text-white uppercase font-semibold text-sm">
-                          Total Transaksi
+                          Total Transaksi bulan ini
                         </h5>
                         <span class="font-bold text-xl text-white">
-                          49,65%
+                        {{ $transaksiCount }}
                         </span>
                       </div>
                       <div class="relative w-auto pl-4 flex-initial">
@@ -337,7 +337,7 @@
                       <img src="" alt="" class="w-36 aspect-square max-sm:w-28">
                     </div>
                     <h5 class="text-black uppercase font-bold text-sm text-center">
-                      Americano
+                    {{ $produkMinStok }}
                     </h5>
             </div>
           </div>
@@ -414,6 +414,10 @@
     $topQuantity1 = isset($topQuantity1) ? $topQuantity1 : 0;
     $topQuantity2 = isset($topQuantity2) ? $topQuantity2 : 0;
     $topQuantity3 = isset($topQuantity3) ? $topQuantity3 : 0;
+
+
+    
+    
 
 
     
