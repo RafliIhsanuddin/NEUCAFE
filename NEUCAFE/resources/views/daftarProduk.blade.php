@@ -276,24 +276,24 @@
                                                 <img src="../../assets/img/bootstrap.jpg"
                                                     class="h-12 w-12 bg-white rounded-full border" alt="..." />
                                                 <span class="ml-3 mr-2 font-bold text-blueGray-600">
-                                                    {{ $item-> nama }}
+                                                    {{ $item->nama }}
                                                 </span>
                                             </th>
                                             <td
                                                 class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                {{ $item-> kategori }}
+                                                {{ $item->kategori }}
                                             </td>
                                             <td
                                                 class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                {{ $item-> stok }}
+                                                {{ $item->stok }}
                                             </td>
                                             <td
                                                 class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                {{ $item-> harga_beli }}
+                                                {{ $item->harga_beli }}
                                             </td>
                                             <td
                                                 class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                {{ $item-> harga_jual }}
+                                                {{ $item->harga_jual }}
                                             </td>
                                             <td
                                                 class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
@@ -315,12 +315,12 @@
                                                 </a>
                                                 <div class="hidden bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg min-w-48"
                                                     id="table-light-1-dropdown">
-                                                    <a href={{ url('daftarProduk/' .$item->id_produk. '/edit') }}
+                                                    <a href={{ url('daftarProduk/' . $item->id_produk . '/edit') }}
                                                         class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent hover:bg-gray-100 text-blueGray-700">Edit</a>
                                                     <a href="detailProduk"
                                                         class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent hover:bg-gray-100 text-blueGray-700">Detail</a>
                                                                             {{-- Penghapusan data --}}
-                                                    <form onsubmit="return confirm('Yakin akan melakukan aksi delete data')" action="{{ url('daftarProduk/'.$item->id_produk) }}" method="POST"> 
+                                                    <form onsubmit="return confirm('Yakin akan melakukan aksi delete data')" action="{{ url('daftarProduk/' . $item->id_produk) }}" method="POST"> 
                                                         @csrf
                                                         @method('DELETE')
                                                             <button  type ='submit' name='submit'
@@ -330,8 +330,7 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                        <?php $i++ ?>
-                                        @endforeach
+                                        <?php $i++; ?> @endforeach
                                     </tbody>
                                 </table>
                                 {{ $data->withQueryString()->links() }} {{-- paginasi untuk mengarah ke halaman lain dengan data yang berbeda --}}
@@ -346,7 +345,7 @@
     <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
     <script type="text/javascript">
         /* Make dynamic date appear */
-        (function () {
+        (function() {
             if (document.getElementById("get-current-year")) {
                 document.getElementById("get-current-year").innerHTML =
                     new Date().getFullYear();
@@ -373,7 +372,7 @@
             document.getElementById(dropdownID).classList.toggle("block");
         }
 
-        (function () {
+        (function() {
             /* Chart initialisations */
             /* Line Chart */
             var config = {
@@ -392,8 +391,7 @@
                         "Oktober",
                         "November"
                     ],
-                    datasets: [
-                        {
+                    datasets: [{
                             label: new Date().getFullYear(),
                             backgroundColor: "#5a60e0",
                             borderColor: "#5a60e0",
@@ -433,50 +431,46 @@
                         intersect: true
                     },
                     scales: {
-                        xAxes: [
-                            {
-                                ticks: {
-                                    fontColor: "rgba(0, 0, 0)"
-                                },
-                                display: true,
-                                scaleLabel: {
-                                    display: false,
-                                    labelString: "Month",
-                                    fontColor: "black"
-                                },
-                                gridLines: {
-                                    display: false,
-                                    borderDash: [2],
-                                    borderDashOffset: [2],
-                                    color: "rgba(33, 37, 41, 0.3)",
-                                    zeroLineColor: "rgba(0, 0, 0, 0)",
-                                    zeroLineBorderDash: [2],
-                                    zeroLineBorderDashOffset: [2]
-                                }
+                        xAxes: [{
+                            ticks: {
+                                fontColor: "rgba(0, 0, 0)"
+                            },
+                            display: true,
+                            scaleLabel: {
+                                display: false,
+                                labelString: "Month",
+                                fontColor: "black"
+                            },
+                            gridLines: {
+                                display: false,
+                                borderDash: [2],
+                                borderDashOffset: [2],
+                                color: "rgba(33, 37, 41, 0.3)",
+                                zeroLineColor: "rgba(0, 0, 0, 0)",
+                                zeroLineBorderDash: [2],
+                                zeroLineBorderDashOffset: [2]
                             }
-                        ],
-                        yAxes: [
-                            {
-                                ticks: {
-                                    fontColor: "rgba(0,0,0)"
-                                },
-                                display: true,
-                                scaleLabel: {
-                                    display: false,
-                                    labelString: "Value",
-                                    fontColor: "black"
-                                },
-                                gridLines: {
-                                    borderDash: [3],
-                                    borderDashOffset: [3],
-                                    drawBorder: false,
-                                    color: "rgba(0,0,0, 0.15)",
-                                    zeroLineColor: "rgba(33, 37, 41, 0)",
-                                    zeroLineBorderDash: [2],
-                                    zeroLineBorderDashOffset: [2]
-                                }
+                        }],
+                        yAxes: [{
+                            ticks: {
+                                fontColor: "rgba(0,0,0)"
+                            },
+                            display: true,
+                            scaleLabel: {
+                                display: false,
+                                labelString: "Value",
+                                fontColor: "black"
+                            },
+                            gridLines: {
+                                borderDash: [3],
+                                borderDashOffset: [3],
+                                drawBorder: false,
+                                color: "rgba(0,0,0, 0.15)",
+                                zeroLineColor: "rgba(33, 37, 41, 0)",
+                                zeroLineBorderDash: [2],
+                                zeroLineBorderDashOffset: [2]
                             }
-                        ]
+                        }]
                     }
                 }
             };
@@ -496,8 +490,7 @@
                         "June",
                         "July"
                     ],
-                    datasets: [
-                        {
+                    datasets: [{
                             label: new Date().getFullYear(),
                             backgroundColor: "#ed64a6",
                             borderColor: "#ed64a6",
@@ -538,41 +531,37 @@
                         position: "bottom"
                     },
                     scales: {
-                        xAxes: [
-                            {
-                                display: false,
-                                scaleLabel: {
-                                    display: true,
-                                    labelString: "Month"
-                                },
-                                gridLines: {
-                                    borderDash: [2],
-                                    borderDashOffset: [2],
-                                    color: "rgba(33, 37, 41, 0.3)",
-                                    zeroLineColor: "rgba(33, 37, 41, 0.3)",
-                                    zeroLineBorderDash: [2],
-                                    zeroLineBorderDashOffset: [2]
-                                }
-                            }
-                        ],
-                        yAxes: [
-                            {
+                        xAxes: [{
+                            display: false,
+                            scaleLabel: {
                                 display: true,
-                                scaleLabel: {
-                                    display: false,
-                                    labelString: "Value"
-                                },
-                                gridLines: {
-                                    borderDash: [2],
-                                    drawBorder: false,
-                                    borderDashOffset: [2],
-                                    color: "rgba(33, 37, 41, 0.2)",
-                                    zeroLineColor: "rgba(33, 37, 41, 0.15)",
-                                    zeroLineBorderDash: [2],
-                                    zeroLineBorderDashOffset: [2]
-                                }
+                                labelString: "Month"
+                            },
+                            gridLines: {
+                                borderDash: [2],
+                                borderDashOffset: [2],
+                                color: "rgba(33, 37, 41, 0.3)",
+                                zeroLineColor: "rgba(33, 37, 41, 0.3)",
+                                zeroLineBorderDash: [2],
+                                zeroLineBorderDashOffset: [2]
                             }
-                        ]
+                        }],
+                        yAxes: [{
+                            display: true,
+                            scaleLabel: {
+                                display: false,
+                                labelString: "Value"
+                            },
+                            gridLines: {
+                                borderDash: [2],
+                                drawBorder: false,
+                                borderDashOffset: [2],
+                                color: "rgba(33, 37, 41, 0.2)",
+                                zeroLineColor: "rgba(33, 37, 41, 0.15)",
+                                zeroLineBorderDash: [2],
+                                zeroLineBorderDashOffset: [2]
+                            }
+                        }]
                     }
                 }
             };

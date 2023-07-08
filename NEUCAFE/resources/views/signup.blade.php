@@ -25,7 +25,9 @@
             <div class="h-full w-3/5 flex flex-col items-center justify-center py-8 px-20 space-y-6">
                 <div class="flex justify-end w-full h-fit items-center font-medium text-sm text-gray-400 space-x-3">
                     <p class="">Sudah punya akun?</p>
-                    <button type="submit" class="w-20 py-1 border-2 border-gray-300 font-bold rounded-full text-xs hover:bg-[#6FBCA0] hover:text-white hover:border-white">SIGN IN</button>
+                    <button type="submit"
+                        class="w-20 py-1 border-2 border-gray-300 font-bold rounded-full text-xs hover:bg-[#6FBCA0] hover:text-white hover:border-white">SIGN
+                        IN</button>
                 </div>
                 <div class="w-full h-fit">
                     <h2 class="text-3xl font-bold">Welcome to Neucafe!</h2>
@@ -60,7 +62,8 @@
                         <input type="number" name="kode"
                             class="border-slate-300 border-2 rounded-md h-9 px-2 focus:outline-none focus:border-[#6FBCA0] my-2"
                             required>
-                        <button type="submit" class="w-40 mt-6 h-11 bg-[#6FBCA0] hover:bg-[#337a61] rounded-full font-semibold text-white">Daftar</button>
+                        <button type="submit"
+                            class="w-40 mt-6 h-11 bg-[#6FBCA0] hover:bg-[#337a61] rounded-full font-semibold text-white">Daftar</button>
                     </form>
 
                 </div>
@@ -71,7 +74,7 @@
 
             </div>
 
-            
+
 
         </div>
 
