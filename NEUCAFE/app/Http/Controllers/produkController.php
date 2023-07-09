@@ -59,12 +59,12 @@ class produkController extends Controller
             'nama'          => 'required|max:255',
             'kategori'      => 'required',
             'stok'          => 'required|numeric',
-            'harga_jual'    => 'required|numeric|max:200',
-            'harga_beli'    => 'required|numeric|max:200',
+            'harga_jual'    => 'required|numeric',
+            'harga_beli'    => 'required|numeric',
             'deskripsi'     => 'required|max:255',
             'id_outlet'     => 'required|numeric|exists:outlet,id_outlet',
             'status'        => 'required',
-            'gambar_produk' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048' //Dengan penambahan nullable, aturan validasi gambar_produk akan memungkinkan nilai null untuk diterima.
+            'gambar_produk' => 'nullable|file|image|mimes:jpeg,png,jpg|max:2048' //Dengan penambahan nullable, aturan validasi gambar_produk akan memungkinkan nilai null untuk diterima.
             // nanti ditambahkan kodingan upload gambar
         ], [
             // Memberikan Peringatan dengan bahasa Indonesia
@@ -83,21 +83,24 @@ class produkController extends Controller
             'status'              => 'Mohon dipilih salah satu'
         ]);
 
-        // Create a new Produk instance and set its attributes
-        $produk = new Produk();
-        $produk->nama           = $request->nama;
-        $produk->kategori       = $request->kategori;
-        $produk->stok           = $request->stok;
-        $produk->harga_jual     = $request->harga_jual;
-        $produk->harga_beli     = $request->harga_beli;
-        $produk->deskripsi      = $request->deskripsi;
-        $produk->id_outlet      = $request->id_outlet;
-        $produk->status         = $request->input('status');
-        $produk->gambar_produk  = null;
 
-        // Save the Produk instance to the database
-        $produk->save();
+        $file = $request->file('gambar_produk');
+        $namaFile  = time() . "_" . $file->getClientOriginalName();
 
+        $fileUp = 'imgProducts'; //buat folder imgproducts di public
+        $file->move($fileUp, $namaFile); // simpan gambarnya di dir img products dengan nama gambar
+
+        produk::create([
+            'nama' => $request->nama,
+            'kategori' => $request->kategori,
+            'stok' => $request->stok,
+            'harga_jual' => $request->harga_jual,
+            'harga_beli' => $request->harga_beli,
+            'deskripsi' =>  $request->deskripsi,
+            'id_outlet' => $request->id_outlet,
+            'status' =>  $request->input('status'),
+            'gambar_produk' => $namaFile,
+        ]);
         return redirect()->to('daftarProduk')->with('success', 'Berhasil Melakukan Pengisian Data');
     }
 

@@ -277,7 +277,7 @@
                                             </td>
                                             <th
                                                 class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-sm whitespace-nowrap p-4 text-left flex items-center">
-                                                <img src="../../assets/img/bootstrap.jpg"
+                                                <img src="{{ url('imgProducts/' . $item->gambar_produk) }}"
                                                     class="h-12 w-12 bg-white rounded-full border" alt="..." />
                                                 <span class="ml-3 mr-2 font-bold text-blueGray-600">
                                                     {{ $item->nama }}
@@ -326,7 +326,7 @@
                                                     id="table-light-1-dropdown">
                                                     <a href="{{ url('/daftarProduk') }}{{ '/' }}{{ $item->id_produk }}{{ '/' }}{{ 'edit' }}"
                                                         class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent hover:bg-gray-100 text-blueGray-700">Edit</a>
-                                                    <a href="{{ url('/daftarProduk')}}{{ ('/')}}{{ $item->id_produk }}"
+                                                    <a href="{{ url('/daftarProduk') }}{{ '/' }}{{ $item->id_produk }}"
                                                         class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent hover:bg-gray-100 text-blueGray-700">Detail</a>
                                                                             {{-- Penghapusan data --}}
                                                     <form onsubmit="return confirm('Yakin akan melakukan aksi delete data')" action="{{ url('daftarProduk/' . $item->id_produk) }}" method="POST"> 
@@ -338,8 +338,7 @@
                                                                             {{-- Penghapusan data --}}
                                                 </div>
                                             </td>
-                                        </tr>
-                                       @endforeach
+                                        </tr> @endforeach
                                     </tbody>
                                 </table>
                                 {{ $data->withQueryString()->links() }} {{-- paginasi untuk mengarah ke halaman lain dengan data yang berbeda --}}
