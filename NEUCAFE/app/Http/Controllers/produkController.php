@@ -17,7 +17,7 @@ class produkController extends Controller
         $katakunci   = $request->katakunci;
         $jumlahbaris = 4;
         if (strlen($katakunci)) {
-            $data =    produk::where('nama',       'like', "%$katakunci%")
+            $data =    produk::where('nama', 'like', "%$katakunci%")
                 ->orWhere('kategori',   'like', "%$katakunci%")
                 ->orWhere('stok',       'like', "%$katakunci%")
                 ->orWhere('harga_jual', 'like', "%$katakunci%")
