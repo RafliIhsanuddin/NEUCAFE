@@ -433,6 +433,12 @@ class SessionController extends Controller
 
 
 
+            
+
+
+
+
+
             if ($request->input('bdaymonth') === null) {
                 // Check if the 'bdaymonth' key exists in the session
                 if (session()->has('bdaymonth')) {
@@ -473,6 +479,26 @@ class SessionController extends Controller
             ->where('id_outlet', $id_outlet)
             ->whereMonth('waktu_order', '=', $month)
             ->get();
+
+            $transactionCount = DB::table('transaksi')
+            ->where('id_outlet', $id_outlet)
+            ->whereMonth('waktu_order', $month)
+            ->count('id_transaksi');
+
+
+            $totaltagihan = DB::table('transaksi')
+            ->where('id_outlet', $id_outlet)
+            ->whereMonth('waktu_order', $month)
+            ->sum('total_tagihan');
+
+
+            $totalHargabeli = DB::table('transaksi')
+            ->where('id_outlet', $id_outlet)
+            ->whereMonth('waktu_order', $month)
+            ->sum('total_harga_beli');
+
+
+
 
 
 
@@ -538,6 +564,9 @@ class SessionController extends Controller
                 'jumlahTotalproduk' => $jumlahTotalproduk,
                 'monthbar' => $monthbar,
                 'monthNameBar' => $monthNameBar,
+                'transactionCount' => $transactionCount,
+                'totaltagihan' => $totaltagihan,
+                'totalHargabeli' => $totalHargabeli,
 
             ]);
         }

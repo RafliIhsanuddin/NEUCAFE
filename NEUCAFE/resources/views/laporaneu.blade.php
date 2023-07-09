@@ -200,21 +200,21 @@
                       <div class="flex w-6 h-full bg-red-600"></div>
                       <div class="flex flex-col items-left px-4 py-3 space-y-1">
                         <h5>Total Penjualan</h5>
-                        <h2 class=" font-semibold text-xl">Rp1.000.000</h2>
+                        <h2 class=" font-semibold text-xl">Rp. {{ $totalHargabeli }}</h2>
                       </div>
                     </div>
                     <div class="flex w-[30%] h-24 rounded-md overflow-hidden shadow-md">
                       <div class="flex w-6 h-full bg-yellow-500"></div>
                       <div class="flex flex-col items-left px-4 py-3 space-y-1">
                         <h5>Total Pembayaran</h5>
-                        <h2 class=" font-semibold text-xl">Rp1.000.000</h2>
+                        <h2 class=" font-semibold text-xl">Rp.{{ $totaltagihan }}</h2>
                       </div>
                     </div>
                     <div class="flex w-[30%] h-24 rounded-md overflow-hidden shadow-md">
                       <div class="flex w-6 h-full bg-green-600"></div>
                       <div class="flex flex-col items-left px-4 py-3 space-y-1">
                         <h5>Jumlah Transaksi</h5>
-                        <h2 class=" font-semibold text-xl">121</h2>
+                        <h2 class=" font-semibold text-xl"> {{ $transactionCount }} </h2>
                       </div>
                     </div>
                   </div>
