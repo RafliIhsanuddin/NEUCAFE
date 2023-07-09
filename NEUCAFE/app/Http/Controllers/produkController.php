@@ -46,14 +46,14 @@ class produkController extends Controller
     public function store(Request $request)
     {
         // Melihat data yang dimasukkan sebelumnya untuk mengecek kesalahan di form
-        Session::flash('nama',       $request->nama);
-        Session::flash('kategori',   $request->kategori);
-        Session::flash('stok',       $request->stok);
-        Session::flash('harga_jual', $request->harga_jual);
-        Session::flash('harga_beli', $request->harga_beli);
-        Session::flash('deskripsi',  $request->deskripsi);
-        Session::flash('id_outlet',  $request->id_outlet);
-
+        Session::flash('nama',          $request->nama);
+        Session::flash('kategori',      $request->kategori);
+        Session::flash('stok',          $request->stok);
+        Session::flash('harga_jual',    $request->harga_jual);
+        Session::flash('harga_beli',    $request->harga_beli);
+        Session::flash('deskripsi',     $request->deskripsi);
+        Session::flash('id_outlet',     $request->id_outlet);
+        
 
         $request->validate([
             'nama'          => 'required|max:255',
@@ -64,7 +64,7 @@ class produkController extends Controller
             'deskripsi'     => 'required|max:255',
             'id_outlet'     => 'required|numeric|exists:outlet,id_outlet',
             'status'        => 'required',
-            'gambar_produk' => 'nullable|file|image|mimes:jpeg,png,jpg|max:2048' //Dengan penambahan nullable, aturan validasi gambar_produk akan memungkinkan nilai null untuk diterima.
+            'gambar_produk' => 'required|nullable|file|image|mimes:jpeg,png,jpg|max:2048' //Dengan penambahan nullable, aturan validasi gambar_produk akan memungkinkan nilai null untuk diterima.
             // nanti ditambahkan kodingan upload gambar
         ], [
             // Memberikan Peringatan dengan bahasa Indonesia
@@ -80,7 +80,13 @@ class produkController extends Controller
             'id_outlet.required'  => 'Outlet wajib diisi',
             'id_outlet.exists'    => 'Outlet tidak valid',
             'id_outlet.numeric'   => 'Outlet harus menggunakan angka',
-            'status'              => 'Mohon dipilih salah satu'
+            'status'              => 'Mohon dipilih salah satu',
+            'gambar_produk.required' => 'Gambar produk wajib diunggah',
+            'gambar_produk.file'     => 'Tipe file gambar tidak valid',
+            'gambar_produk.image'    => 'File harus berupa gambar',
+            'gambar_produk.mimes'    => 'Format gambar tidak valid. Hanya diperbolehkan format JPEG, PNG, dan JPG',
+            'gambar_produk.max'      => 'Ukuran gambar terlalu besar. Maksimum 2MB',
+            
         ]);
 
 
@@ -91,15 +97,15 @@ class produkController extends Controller
         $file->move($fileUp, $namaFile); // simpan gambarnya di dir img products dengan nama gambar
 
         produk::create([
-            'nama' => $request->nama,
-            'kategori' => $request->kategori,
-            'stok' => $request->stok,
-            'harga_jual' => $request->harga_jual,
-            'harga_beli' => $request->harga_beli,
-            'deskripsi' =>  $request->deskripsi,
-            'id_outlet' => $request->id_outlet,
-            'status' =>  $request->input('status'),
-            'gambar_produk' => $namaFile,
+            'nama'              => $request->nama,
+            'kategori'          => $request->kategori,
+            'stok'              => $request->stok,
+            'harga_jual'        => $request->harga_jual,
+            'harga_beli'        => $request->harga_beli,
+            'deskripsi'         => $request->deskripsi,
+            'id_outlet'         => $request->id_outlet,
+            'status'            => $request->input('status'),
+            'gambar_produk'     => $namaFile,
         ]);
         return redirect()->to('daftarProduk')->with('success', 'Berhasil Melakukan Pengisian Data');
     }
@@ -150,7 +156,7 @@ class produkController extends Controller
             'id_outlet.required'  => 'Outlet wajib diisi',
             'id_outlet.exists'    => 'Outlet tidak valid',
             'id_outlet.numeric'   => 'Outlet harus menggunakan angka',
-            'status'              => 'Mohon dipilih salah satu'
+            'status.required'     => 'Mohon dipilih salah satu'
         ]);
 
         // Find the existing Produk instance by ID
@@ -165,7 +171,26 @@ class produkController extends Controller
         $produk->deskripsi      = $request->deskripsi;
         $produk->id_outlet      = $request->id_outlet;
         $produk->status         = $request->input('status');
-        $produk->gambar_produk  = null;
+        
+        // Check if a new image is uploaded
+    if ($request->hasFile('gambar_produk')) {
+        $file = $request->file('gambar_produk');
+        $namaFile = time() . "_" . $file->getClientOriginalName();
+
+        $fileUp = 'imgProducts';
+        $file->move($fileUp, $namaFile);
+
+        // Delete the previous image file if it exists
+        if ($produk->gambar_produk) {
+            $fileToDelete = $fileUp . '/' . $produk->gambar_produk;
+            if (file_exists($fileToDelete)) {
+                unlink($fileToDelete);
+            }
+        }
+
+        $produk->gambar_produk = $namaFile;
+    }
+
 
         // Save the updated Produk instance to the database
         $produk->save();

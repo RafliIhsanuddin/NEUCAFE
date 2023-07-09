@@ -195,7 +195,8 @@
                                         <img id="chosen-image" class="w-40 h-40 bg-slate-500">
                                     </figure>
                                     <input type="file" id="upload-button" accept="image/*" name="gambar_produk" class="hidden">
-                                    <label for="upload-button" class="bg-green-600 hover:bg-green-500 focus:outline-none text-white px-5 py-1 font-semibold rounded-md mt-3">
+                                    <label for="upload-button" 
+                                        class="bg-green-600 hover:bg-green-500 focus:outline-none text-white px-5 py-1 font-semibold rounded-md mt-3">
                                         Edit Foto
                                     </label>
                                 </div>
