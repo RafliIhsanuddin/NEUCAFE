@@ -84,10 +84,10 @@ class produkController extends Controller
         ]);
 
 
-        $file = $request->file('gambar_produk');
-        $namaFile  = time() . "_" . $file->getClientOriginalName();
+        $file = $request->file('gambar_produk'); // input gambarnya
+        $namaFile  = time() . "_" . $file->getClientOriginalName(); // nama originalnya
 
-        $fileUp = 'imgProducts'; //buat folder imgproducts di public
+        $fileUp = 'imgProducts'; //buat folder imgproducts digunakan untuk menyimpan gambar yang telah di upload (create secara otomatis by laravel)
         $file->move($fileUp, $namaFile); // simpan gambarnya di dir img products dengan nama gambar
 
         produk::create([
