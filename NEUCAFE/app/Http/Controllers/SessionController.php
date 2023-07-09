@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\outlet;
 use App\Models\akun;
 
+
 class SessionController extends Controller
 {
     //
@@ -429,18 +430,121 @@ class SessionController extends Controller
 
         public function getreport(Request $request){
             $id_outlet = 1;
-            $month = $request->input('bdaymonth');
-            $month = date('m', strtotime($month));
+
+
+
+            if ($request->input('bdaymonth') === null) {
+                // Check if the 'bdaymonth' key exists in the session
+                if (session()->has('bdaymonth')) {
+                    // Retrieve the value from the session
+                    $yearmonth = session('bdaymonth');
+                } else {
+                    // Set a default value if the key doesn't exist in the session
+                    $yearmonth = '2023-01';
+                }
+            } else {
+                // Store the 'bdaymonth' input in the session
+                session(['bdaymonth' => $request->input('bdaymonth')]);
+                $yearmonth = $request->input('bdaymonth');
+            }
+
+            // if ($request->input('bdaymonth') === null) {
+            //     // Retrieve the value from the session if it exists
+            //     if (Session::has('monthses')) {
+            //         $yearmonth = Session::get('monthses');
+            //     } else {
+            //         // Handle the case when the value doesn't exist in the session or input
+            //         // You can set a default value or perform any other necessary logic
+            //         $yearmonth = '2023-01';
+            //     }
+            // } else {
+            //     // Update the session value with the new input value
+            //     $yearmonth = $request->input('bdaymonth');
+            //     session()->put('monthses', $yearmonth);
+            // }
+
+
+            // $yearmonth = session('monthses');
+            $month = date('m', strtotime($yearmonth));
+
+            $monthName = Carbon::create()->month($month)->locale('id')->monthName;
 
             $transactions = DB::table('transaksi')
-                ->where('id_outlet', 1)
-                ->whereMonth('waktu_order', '=', $month)
-                ->get();
+            ->where('id_outlet', $id_outlet)
+            ->whereMonth('waktu_order', '=', $month)
+            ->get();
 
-            return view('laporaneu', compact('transactions', 'month'));
+
+
+
+            if ($request->input('bdaymonthbar') === null) {
+                // Check if the 'bdaymonth' key exists in the session
+                if (session()->has('bdaymonthbar')) {
+                    // Retrieve the value from the session
+                    $yearmonthBar = session('bdaymonthbar');
+                } else {
+                    // Set a default value if the key doesn't exist in the session
+                    $yearmonthBar = '2023-01';
+                }
+            } else {
+                // Store the 'bdaymonth' input in the session
+                session(['bdaymonthbar' => $request->input('bdaymonthbar')]);
+                $yearmonthBar = $request->input('bdaymonthbar');
+            }
+
+
+            // if ($request->input('bdaymonthbar') === null) {
+            //     // Retrieve the value from the session if it exists
+            //     if (Session::has('monthsesbar')) {
+            //         $yearmonthBar = Session::get('monthsesbar');
+            //     } else {
+            //         // Handle the case when the value doesn't exist in the session or input
+            //         // You can set a default value or perform any other necessary logic
+            //         $yearmonthBar = '2023-01';
+            //     }
+            // } else {
+            //     // Update the session value with the new input value
+            //     $yearmonthBar = $request->input('bdaymonthbar');
+            //     session()->put('monthsesbar', $yearmonthBar);
+            // }
+
+            
+            
+            // $yearmonthBar = session('monthsesbar');
+            
+            $monthbar = date('m', strtotime($yearmonthBar)); 
+            
+            $monthNameBar = Carbon::create()->month($monthbar)->locale('id')->monthName;
+
+            $jumlahTotalproduk = DB::table('detail_transaksi')
+            ->select('produk.id_produk', 'produk.id_outlet', 'produk.nama', DB::raw('MONTH(transaksi.waktu_order) AS MONTH'), DB::raw('SUM(detail_transaksi.quantity) AS total_quantity'))
+            ->join('transaksi', 'detail_transaksi.id_transaksi', '=', 'transaksi.id_transaksi')
+            ->join('produk', 'produk.id_produk', '=', 'detail_transaksi.id_produk')
+            ->where('produk.id_outlet', $id_outlet)
+            ->whereMonth('waktu_order', '=', $monthbar)
+            ->groupBy('produk.id_produk', 'produk.id_outlet', 'produk.nama',  DB::raw('MONTH(transaksi.waktu_order)'))
+            ->get();
+
+            
+
+
+
+            
+
+            return view('about', [
+                'transactions' => $transactions,
+                'month' => $month,
+                'monthName' => $monthName,
+                'jumlahTotalproduk' => $jumlahTotalproduk,
+                'monthbar' => $monthbar,
+                'monthNameBar' => $monthNameBar,
+
+            ]);
         }
+        
 
 
+        
 
 
         // public function laporan(Request $request){

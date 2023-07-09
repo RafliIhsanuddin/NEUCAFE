@@ -183,6 +183,11 @@
                     <h3 class="font-bold text-xl text-black">
                       Detail Penjualan
                     </h3>
+                    <h3 class="font-bold text-xl text-black">
+                      @php
+                      @endphp
+                      {{ isset($monthName) ? $monthName : 'Januari' }}  
+                    </h3>
                     <form method="POST" action="{{ route('laporan') }}">
                       @csrf
                       <input type="month" id="bdaymonth" name="bdaymonth" class="rounded-md h-8">
