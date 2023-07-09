@@ -15,7 +15,8 @@ HALAMAN LOGIN
     <link rel="shortcut icon" href="../../assets/img/favicon.ico" />
     <link rel="apple-touch-icon" sizes="76x76" href="../../assets/img/apple-icon.png" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" />
-    <link rel="stylesheet" href="../../assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" />
+    <link rel="stylesheet"
+        href="../../assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" />
     <link rel="stylesheet" href="../../assets/styles/tailwind.css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <title>Dashboard | Notus Tailwind JS by Creative Tim</title>
@@ -121,7 +122,7 @@ HALAMAN LOGIN
                         </li>
 
                         <li class="items-center">
-                            <a href="/daftar"
+                            <a href="daftarProduk"
                                 class="text-xs uppercase py-3 font-bold block text-blueGray-500 hover:text-[#45D5A1]">
                                 <i class="fas fa-table mr-2 text-sm"></i>
                                 Daftar Produk
@@ -216,196 +217,194 @@ HALAMAN LOGIN
 
                             <!-- Output Informasi Bisnis -->
                             <div class="flex flex-col space-y-3.5 w-96 text-base font-medium">
-                                @foreach(session('datas') as $data)
-                                @foreach( session('outlets') as $outlet)
+                                @foreach (session('datas') as $data)
+                                @foreach (session('outlets') as $outlet)
                                 <p name="" class="h-8 py-1 rounded-md">
-                                    {{$outlet['nama']}}
+                                    {{ $outlet['nama'] }}
                                 </p>
                                 <p name="" class="h-8 py-1 rounded-md">
-                                    {{$data['email']}}
+                                    {{ $data['email'] }}
                                 </p>
                                 <p name="" class="h-8 py-1 rounded-md">
-                                    {{$data['noTelp']}}
+                                    {{ $data['noTelp'] }}
                                 </p>
                                 <p name="" class="h-8 py-1 rounded-md">
-                                    {{$outlet['alamat']}}
-                                </p>
-                                @endforeach
+                                    {{ $outlet['alamat'] }}
+                                </p> @endforeach
                                 @endforeach
                             </div>
 
                             <!-- BUTTON INI BIARIN AJA, INI BUAT NAMPILIN FORM EDIT AKUN -->
-                            <button type="submit" onclick="tampilkanFormInformasi()"
-                                class="text-base font-semibold text-white bg-green-600 hover:bg-green-500 h-8 w-28 mx-4 rounded-md">
-                                Edit Bisnis
-                            </button>
-                        </div>
+                            <button type="submit"
+        onclick="tampilkanFormInformasi()"
+        class="text-base font-semibold text-white bg-green-600 hover:bg-green-500 h-8 w-28 mx-4 rounded-md">
+    Edit Bisnis
+    </button>
+    </div>
+    </div>
+    </div>
+
+    <div class="px-4 md:px-10 mx-auto w-full">
+        <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-white h-fit px-6 py-7">
+            <div class="text-xl font-bold text-black ml-2">
+                Informasi Akun
+            </div>
+            <hr class="mt-2 mb-6">
+            <div class="flex w-full mx-2">
+
+                <div class="flex flex-col space-y-6 w-32 text-base font-medium">
+                    <p>Email</p>
+                    <p>Password</p>
+                    <p>Kode Manajer</p>
+                </div>
+                <div class="flex flex-col space-y-6 w-6 text-base font-medium">
+                    <p>:</p>
+                    <p>:</p>
+                    <p>:</p>
+                </div>
+
+
+                <!-- Output Informasi Akun -->
+                <div class="flex flex-col space-y-3.5 w-96 text-base font-medium">
+                    @foreach (session('datas') as $data)
+                        <p name="" class="h-8 py-1 rounded-md">
+                            {{ $data['email'] }}
+                        </p>
+                        <p name="" id="" class="h-8 py-1 rounded-md">
+                            {{ $data['password'] }}
+                        </p>
+                        <p name="" id="" class="h-8 py-1 rounded-md">
+                            {{ $data['kodeManajer'] }}
+                        </p>
+                    @endforeach
+                </div>
+
+                <!-- BUTTON INI BIARIN AJA, INI BUAT NAMPILIN FORM EDIT AKUN -->
+                <button type="submit" onclick="tampilkanFormAkun()"
+                    class="text-base font-semibold text-white bg-green-600 hover:bg-green-500 h-8 w-28 mx-4 rounded-md">
+                    Edit Akun
+                </button>
+
+            </div>
+        </div>
+    </div>
+
+    </div>
+    </div>
+
+
+    <!-- Form Edit Informasi Bisnis -->
+    <div class="absolute top-0 h-screen w-full bg-black/50 z-50 hidden items-center justify-center tutup"
+        id="formEditInformasi">
+        <div
+            class="relative flex flex-col min-w-0 break-words w-[150vh] mb-6 shadow-lg rounded bg-white h-fit px-6 py-7">
+            <div class="text-xl font-bold text-black ml-2">
+                Edit Informasi Bisnis
+            </div>
+            <hr class="mt-2 mb-6">
+            <div class="flex w-full mx-2">
+                <div class="flex flex-col items-center mr-7">
+                    <div class="w-40 h-40 bg-slate-400 rounded-md">
+                        <!-- image -->
                     </div>
                 </div>
 
-                <div class="px-4 md:px-10 mx-auto w-full">
-                    <div
-                        class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-white h-fit px-6 py-7">
-                        <div class="text-xl font-bold text-black ml-2">
-                            Informasi Akun
-                        </div>
-                        <hr class="mt-2 mb-6">
-                        <div class="flex w-full mx-2">
+                <div class="flex flex-col space-y-6 w-32 text-base font-medium">
+                    <p>Nama Cafe</p>
+                    <p>Email</p>
+                    <p>No HandPhone</p>
+                    <p>Alamat</p>
+                </div>
+                <div class="flex flex-col space-y-6 w-6 text-base font-medium">
+                    <p>:</p>
+                    <p>:</p>
+                    <p>:</p>
+                    <p>:</p>`
+                </div>
 
-                            <div class="flex flex-col space-y-6 w-32 text-base font-medium">
-                                <p>Email</p>
-                                <p>Password</p>
-                                <p>Kode Manajer</p>
-                            </div>
-                            <div class="flex flex-col space-y-6 w-6 text-base font-medium">
-                                <p>:</p>
-                                <p>:</p>
-                                <p>:</p>
-                            </div>
-
-
-                            <!-- Output Informasi Akun -->
+                <!-- Input Informasi Bisnis -->
+                <form action="editatas" method="POST">
+                    @foreach (session('datas') as $data)
+                        @foreach (session('outlets') as $outlet)
                             <div class="flex flex-col space-y-3.5 w-96 text-base font-medium">
-                            @foreach( session('datas') as $data)
-                                <p name="" class="h-8 py-1 rounded-md">
-                                    {{$data['email']}}
-                                </p>
-                                <p name="" id="" class="h-8 py-1 rounded-md">
-                                    {{$data['password']}}
-                                </p>
-                                <p name="" id="" class="h-8 py-1 rounded-md">
-                                    {{$data['kodeManajer']}}
-                                </p>
-                                @endforeach
+                                <input type="hidden" name="idbar" value="{{ session('id') }}">
+                                <input type="text" name="nama" value="{{ $outlet['nama'] }}"
+                                    class="h-8 py-1 rounded-md border-gray-300 bg-gray-100 border-[2px]">
+                                <input type="email" name="email" value="{{ $data['email'] }}"
+                                    class="h-8 py-1 rounded-md border-gray-300 bg-gray-100 border-[2px]">
+                                <input type="text" name="telp" value="{{ $data['noTelp'] }}"
+                                    class="h-8 py-1 rounded-md border-gray-300 bg-gray-100 border-[2px]">
+                                <input type="text" name="alamat" value="{{ $outlet['alamat'] }}"
+                                    class="h-8 py-1 rounded-md border-gray-300 bg-gray-100 border-[2px]">
+                                <input type="submit" value="Simpan Perubahan"
+                                    class="py-1 text-base font-semibold text-white bg-green-600 hover:bg-green-500 h-9 px-4 mx-4 rounded-md">
                             </div>
-
-                            <!-- BUTTON INI BIARIN AJA, INI BUAT NAMPILIN FORM EDIT AKUN -->
-                            <button type="submit" onclick="tampilkanFormAkun()"
-                                class="text-base font-semibold text-white bg-green-600 hover:bg-green-500 h-8 w-28 mx-4 rounded-md">
-                                Edit Akun
-                            </button>
-
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-
-        <!-- Form Edit Informasi Bisnis -->
-        <div class="absolute top-0 h-screen w-full bg-black/50 z-50 hidden items-center justify-center tutup"
-            id="formEditInformasi">
-            <div
-                class="relative flex flex-col min-w-0 break-words w-[150vh] mb-6 shadow-lg rounded bg-white h-fit px-6 py-7">
-                <div class="text-xl font-bold text-black ml-2">
-                    Edit Informasi Bisnis
-                </div>
-                <hr class="mt-2 mb-6">
-                <div class="flex w-full mx-2">
-                    <div class="flex flex-col items-center mr-7">
-                        <div class="w-40 h-40 bg-slate-400 rounded-md">
-                            <!-- image -->
-                        </div>
-                    </div>
-
-                    <div class="flex flex-col space-y-6 w-32 text-base font-medium">
-                        <p>Nama Cafe</p>
-                        <p>Email</p>
-                        <p>No HandPhone</p>
-                        <p>Alamat</p>
-                    </div>
-                    <div class="flex flex-col space-y-6 w-6 text-base font-medium">
-                        <p>:</p>
-                        <p>:</p>
-                        <p>:</p>
-                        <p>:</p>`
-                    </div>
-
-                    <!-- Input Informasi Bisnis -->
-                    <form action="editatas" method="POST">
-                            @foreach( session('datas') as $data)
-                            @foreach( session('outlets') as $outlet)
-                        <div class="flex flex-col space-y-3.5 w-96 text-base font-medium">
-                            <input type="hidden" name="idbar" value="{{session('id')}}" >
-                            <input type="text" name="nama"  value="{{$outlet['nama']}}"
-                                class="h-8 py-1 rounded-md border-gray-300 bg-gray-100 border-[2px]">
-                            <input type="email" name="email" value="{{$data['email']}}"
-                                class="h-8 py-1 rounded-md border-gray-300 bg-gray-100 border-[2px]">
-                            <input type="text" name="telp"  value="{{$data['noTelp']}}"
-                                class="h-8 py-1 rounded-md border-gray-300 bg-gray-100 border-[2px]">
-                            <input type="text" name="alamat"  value="{{$outlet['alamat']}}"
-                                class="h-8 py-1 rounded-md border-gray-300 bg-gray-100 border-[2px]">
-                                <input type="submit" value="Simpan Perubahan"
-                            class="py-1 text-base font-semibold text-white bg-green-600 hover:bg-green-500 h-9 px-4 mx-4 rounded-md">
-                        </div>
-                            @endforeach
-                            @endforeach
-                    </form>
-
-                    <form action="">
-                        <!-- INPUT BUTTON INI BUAT SAVE DATA -->
-                        
-                    </form>
-                </div>
-
-                <!-- BUTTON INI BIARIN AJA, INI BUAT NUTUP FORM EDIT AKUN -->
-                <button type="submit" onclick="tutupForm()"
-                    class="w-10 h-10 bg-gray-500 rounded-full top-3 right-5 absolute mx-auto text-white font-bold">X</button>
-            </div>
-        </div>
-
-        <!-- Form Edit Akun -->
-        <div class="absolute top-0 h-screen w-full bg-black/50 z-50 hidden items-center justify-center"
-            id="formEditAkun">
-            <div
-                class="relative flex flex-col min-w-0 break-words w-[90vh] mb-6 shadow-lg rounded bg-white h-fit px-6 py-7">
-
-                <div class="text-xl font-bold text-black ml-2">
-                    Informasi Akun
-                </div>
-                <hr class="mt-2 mb-6">
-                <div class="flex w-full mx-2">
-
-                    <div class="flex flex-col space-y-6 w-32 text-base font-medium">
-                        <p>Email</p>
-                        <p>Password</p>
-                        <p>Kode Manajer</p>
-                    </div>
-                    <div class="flex flex-col space-y-6 w-6 text-base font-medium">
-                        <p>:</p>
-                        <p>:</p>
-                        <p>:</p>
-                    </div>
-
-
-                    <!-- Output Informasi Akun -->
-                    <form action="editbaw" method="POST">
-                        @foreach( session('datas') as $data)
-                        <div class="flex flex-col space-y-3.5 w-72 text-base font-medium">
-                            <input type="hidden" name="idbaw" value="{{session('id')}}" >
-                            <input type="email" name="emailbaw" value="{{$data['email']}}"
-                                class="h-8 py-1 rounded-md border-gray-300 bg-gray-100 border-[2px]">
-                            <input type="text" name="passbaw" value="{{$data['password']}}"
-                                class="h-8 py-1 rounded-md border-gray-300 bg-gray-100 border-[2px]">
-                            <input type="text" name="kode" value="{{$data['kodeManajer']}}"
-                                class="h-8 py-1 rounded-md border-gray-300 bg-gray-100 border-[2px]">
-                                <input type="submit" value="Simpan Perubahan"
-                            class="text-base font-semibold text-white bg-green-600 hover:bg-green-500 h-8 px-4 mx-4 rounded-md">
-                        </div>
                         @endforeach
-                    </form>
+                    @endforeach
+                </form>
 
-                    <form action="">
-                        <!-- INPUT BUTTON INI BUAT SAVE DATA -->
-                    </form>
+                <form action="">
+                    <!-- INPUT BUTTON INI BUAT SAVE DATA -->
+
+                </form>
+            </div>
+
+            <!-- BUTTON INI BIARIN AJA, INI BUAT NUTUP FORM EDIT AKUN -->
+            <button type="submit" onclick="tutupForm()"
+                class="w-10 h-10 bg-gray-500 rounded-full top-3 right-5 absolute mx-auto text-white font-bold">X</button>
+        </div>
+    </div>
+
+    <!-- Form Edit Akun -->
+    <div class="absolute top-0 h-screen w-full bg-black/50 z-50 hidden items-center justify-center" id="formEditAkun">
+        <div
+            class="relative flex flex-col min-w-0 break-words w-[90vh] mb-6 shadow-lg rounded bg-white h-fit px-6 py-7">
+
+            <div class="text-xl font-bold text-black ml-2">
+                Informasi Akun
+            </div>
+            <hr class="mt-2 mb-6">
+            <div class="flex w-full mx-2">
+
+                <div class="flex flex-col space-y-6 w-32 text-base font-medium">
+                    <p>Email</p>
+                    <p>Password</p>
+                    <p>Kode Manajer</p>
+                </div>
+                <div class="flex flex-col space-y-6 w-6 text-base font-medium">
+                    <p>:</p>
+                    <p>:</p>
+                    <p>:</p>
                 </div>
 
-                <!-- BUTTON INI BIARIN AJA, INI BUAT NUTUP FORM EDIT AKUN -->
-                <button type="submit" onclick="tutupForm()"
-                    class="w-10 h-10 bg-gray-500 rounded-full top-3 right-5 absolute mx-auto text-white font-bold">X</button>
+
+                <!-- Output Informasi Akun -->
+                <form action="editbaw" method="POST">
+                    @foreach (session('datas') as $data)
+                        <div class="flex flex-col space-y-3.5 w-72 text-base font-medium">
+                            <input type="hidden" name="idbaw" value="{{ session('id') }}">
+                            <input type="email" name="emailbaw" value="{{ $data['email'] }}"
+                                class="h-8 py-1 rounded-md border-gray-300 bg-gray-100 border-[2px]">
+                            <input type="text" name="passbaw" value="{{ $data['password'] }}"
+                                class="h-8 py-1 rounded-md border-gray-300 bg-gray-100 border-[2px]">
+                            <input type="text" name="kode" value="{{ $data['kodeManajer'] }}"
+                                class="h-8 py-1 rounded-md border-gray-300 bg-gray-100 border-[2px]">
+                            <input type="submit" value="Simpan Perubahan"
+                                class="text-base font-semibold text-white bg-green-600 hover:bg-green-500 h-8 px-4 mx-4 rounded-md">
+                        </div>
+                    @endforeach
+                </form>
+
+                <form action="">
+                    <!-- INPUT BUTTON INI BUAT SAVE DATA -->
+                </form>
             </div>
+
+            <!-- BUTTON INI BIARIN AJA, INI BUAT NUTUP FORM EDIT AKUN -->
+            <button type="submit" onclick="tutupForm()"
+                class="w-10 h-10 bg-gray-500 rounded-full top-3 right-5 absolute mx-auto text-white font-bold">X</button>
         </div>
+    </div>
 
 
 
@@ -418,10 +417,12 @@ HALAMAN LOGIN
             var objek = document.getElementById("formEditInformasi");
             objek.style.display = "flex";
         }
+
         function tampilkanFormAkun() {
             var objek = document.getElementById("formEditAkun");
             objek.style.display = "flex";
         }
+
         function tutupForm() {
             var objek1 = document.getElementById("formEditAkun");
             var objek2 = document.getElementById("formEditInformasi");
@@ -431,7 +432,7 @@ HALAMAN LOGIN
     </script>
     <script type="text/javascript">
         /* Make dynamic date appear */
-        (function () {
+        (function() {
             if (document.getElementById("get-current-year")) {
                 document.getElementById("get-current-year").innerHTML =
                     new Date().getFullYear();
@@ -458,6 +459,6 @@ HALAMAN LOGIN
             document.getElementById(dropdownID).classList.toggle("block");
         }
     </script>
-</body>
+    </body>
 
 </html>

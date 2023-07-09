@@ -26,9 +26,9 @@ class produkController extends Controller
                 ->orWhere('id_outlet',  'like', "%$katakunci%")
                 ->paginate($jumlahbaris);
         } else {
-            $data = produk::orderBy('id_produk', 'desc')->paginate($jumlahbaris);
+            $data = produk::orderByDesc('id_produk')->paginate($jumlahbaris);
         }
-        return view("daftarProduk")->with("data", $data);
+        return view("daftarProduk", compact('data'));
     }
 
     /**
@@ -106,16 +106,17 @@ class produkController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $data = produk::whereid_produk($id)->first();
+        return view('detailProduk', compact('data'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $id_produk)
     {
-        $data = produk::where('id_produk', $id)->first();
-        return view('editProduk')->with('data', $data);
+        $data = produk::where('id_produk', $id_produk)->first();
+        return view('editProduk')->with('data', $data); // menampilkan data dalam bentuk form sekalgius mengupdate data
     }
 
     /**

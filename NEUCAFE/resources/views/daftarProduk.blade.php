@@ -123,7 +123,7 @@
                         </li>
 
                         <li class="items-center">
-                            <a href="/daftar"
+                            <a href="daftarProduk"
                                 class="text-xs uppercase py-3 font-bold block text-[#45D5A1]">
                                 <i class="fas fa-table mr-2 text-sm"></i>
                                 Daftar Produk
@@ -318,7 +318,7 @@
                                             <!-- NAH INI LINK BUAT HAPUS PRODUKNYA, DAN PINDAH KE HALAMAN DETAIL PRODUK -->
                                             <td
                                                 class="border-t-0 px-2 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-center">
-                                                <a href="#pablo" class="text-blueGray-500 block py-1 px-3"
+                                                <a href="#" class="text-blueGray-500 block py-1 px-3"
                                                     onclick="openDropdown(event,'table-light-1-dropdown')">
                                                     <i class="fas fa-ellipsis-v"></i>
                                                 </a>
@@ -326,7 +326,7 @@
                                                     id="table-light-1-dropdown">
                                                     <a href="{{ url('/daftarProduk') }}{{ '/' }}{{ $item->id_produk }}{{ '/' }}{{ 'edit' }}"
                                                         class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent hover:bg-gray-100 text-blueGray-700">Edit</a>
-                                                    <a href="detailProduk"
+                                                    <a href="{{ url('/daftarProduk')}}{{ ('/')}}{{ $item->id_produk }}"
                                                         class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent hover:bg-gray-100 text-blueGray-700">Detail</a>
                                                                             {{-- Penghapusan data --}}
                                                     <form onsubmit="return confirm('Yakin akan melakukan aksi delete data')" action="{{ url('daftarProduk/' . $item->id_produk) }}" method="POST"> 
