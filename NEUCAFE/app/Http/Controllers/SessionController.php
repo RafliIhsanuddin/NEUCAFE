@@ -531,7 +531,7 @@ class SessionController extends Controller
 
             
 
-            return view('about', [
+            return view('laporaneu', [
                 'transactions' => $transactions,
                 'month' => $month,
                 'monthName' => $monthName,

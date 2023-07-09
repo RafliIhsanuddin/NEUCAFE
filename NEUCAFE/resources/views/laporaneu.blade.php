@@ -107,7 +107,7 @@
             </li>
 
             <li class="items-center">
-              <a href="./laporan.html" class="text-xs uppercase py-3 font-bold block text-[#45D5A1]">
+              <a href="./laporaneu" class="text-xs uppercase py-3 font-bold block text-[#45D5A1]">
                 <i class="fas fa-tools mr-2 text-sm"></i>
                 Laporan
               </a>
@@ -184,8 +184,6 @@
                       Detail Penjualan
                     </h3>
                     <h3 class="font-bold text-xl text-black">
-                      @php
-                      @endphp
                       {{ isset($monthName) ? $monthName : 'Januari' }}  
                     </h3>
                     <form method="POST" action="{{ route('laporan') }}">
@@ -291,7 +289,14 @@
                       <h3 class="font-bold text-xl text-white">
                         Grafik Penjualan Produk
                       </h3>
-                      <input type="month" id="bdaymonth" name="bdaymonth" class=" rounded-md h-8">
+                      <h3 class="font-bold text-xl text-white">
+                      {{ isset($monthNameBar) ? $monthNameBar : 'Januari' }}  
+                      </h3>
+                    <form method="POST" action="{{ route('laporan') }}">
+                      @csrf
+                      <input type="month" id="bdaymonth" name="bdaymonthbar" class="rounded-md h-8">
+                      <button type="submit" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">Submit</button>
+                    </form>
                     </div>
                   </div>
                 </div>
@@ -384,7 +389,7 @@
           ],
           datasets: [
             {
-              label: new Date().getFullYear() - 1,
+              label: new Date().getFullYear(),
               fill: false,
               backgroundColor: "red",
               borderColor: "#4c51bf",
@@ -471,13 +476,9 @@
         type: "horizontalBar", // Mengganti tipe grafik menjadi horizontalBar
         data: {
           labels: [ //ini label nama produknya
-            "Cappucino",
-            "Chocolate",
-            "Americano",
-            "Matcha Coffe",
-            "Vanilla latte",
-            "Red Velvet",
-            "Lemon Tea"
+            @foreach ($jumlahTotalproduk as $totalproduk)
+            "{{ $totalproduk->nama }}",
+            @endforeach
           ],
           datasets: [
             {
@@ -485,7 +486,11 @@
               fill: false,
               backgroundColor: "#4c51bf",
               borderColor: "#4c51bf",
-              data: [27, 68, 86, 74, 10, 4, 87], //ini data jumlah produk yang terjual
+              data: [
+                @foreach ($jumlahTotalproduk as $totalproduk)
+                {{ $totalproduk->total_quantity }},
+                @endforeach
+            ], //ini data jumlah produk yang terjual
               barThickness: 8
             }
           ]

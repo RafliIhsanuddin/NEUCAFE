@@ -68,12 +68,12 @@ Route::get('flush', [SessionController::class, 'flushSession'])->name('flush');
 
 // Route::match(['GET', 'POST'], '/about', [SessionController::class, 'getreport'])->name('laporan.report');
 // Route::match(['GET', 'POST'], '/about', [SessionController::class, 'getbarport'])->name('laporan.barport');
-Route::match(['GET', 'POST'], '/about', [SessionController::class, 'getreport'])->name('laporan');
+// Route::match(['GET', 'POST'], '/about', [SessionController::class, 'getreport'])->name('laporan');
 // Route::match(['GET', 'POST'], '/about', [SessionController::class, 'getbarport'])->name('laporan');
 // Route::get('/about', [SessionController::class, 'getreport'])->name('laporan.report');
 // Route::post('/about', [SessionController::class, 'getbarport'])->name('laporan.barport');
 // Route::match(['GET', 'POST'], '/laporan', [SessionController::class, 'getreport'])->name('laporan');
-// Route::match(['GET', 'POST'], '/laporaneu', [SessionController::class, 'getreport'])->name('laporan');
+Route::match(['GET', 'POST'], '/laporaneu', [SessionController::class, 'getreport'])->name('laporan');
 
 
 
