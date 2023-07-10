@@ -5,19 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class produk extends Model
+class transaksiDetail extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'id_relasi',
+        'id_transaksi',
         'id_produk',
-        'nama',
-        'kategori',
-        'stok',
-        'harga_jual',
-        'harga_beli',
-        'deskripsi',
-        'id_outlet',
+        'quantity',
+        'total_harga',
+        'total_harga_beli'
     ]; //Membarikan Izin untuk memasukkan data ke kolom tabel
-    protected $table = 'produk'; // Izin yang diberikan ke tabel produk
+
+    protected $table = 'detail_transaksi'; // Izin yang diberikan ke tabel produk
     public $timestamps = false;  // Tidak ada timestamp di database
 }

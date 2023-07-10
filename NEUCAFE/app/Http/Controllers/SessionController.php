@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
+
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use App\Models\outlet;
 use App\Models\akun;
-use App\Models\Produk;
-
-
 
 class SessionController extends Controller
 {
@@ -20,8 +20,101 @@ class SessionController extends Controller
     // function halsig(){
     //     return view("signup");
     // }
+
+
+    // function login2(Request $req){
+    //     $akun = akun::all();
     
+    //     foreach ($akun as $out) {
+    //         if ($out->email == $req->email && $out->password == $req->password) {
+    //             $req->session()->put('id', $out->id_akun);
+    //             $id = session('id');
+    //             $data = akun::where('id_akun', $id)->first();
+    //             $outlet = outlet::where('id_akun', $id)->first();
     
+    //             if ($outlet) {
+    //                 session()->put('datas', $data->toArray());
+    //                 session()->put('outlets', $outlet->toArray());
+    //                 return view('choose');
+    //             } else {
+    //                 return view('infoOutlet');
+    //             }
+    //         }
+    //     }
+    
+    //     return redirect('login')->with('eror', 'email atau password salah');
+    // }
+
+
+    // function login2(Request $req){
+    //     $akun = akun::all();
+
+    //     foreach ($akun as $out) {
+    //         if ($out->email == $req->email && $out->password == $req->password) {
+    //             $req->session()->put('id', $out->id_akun);
+    //             $id = session('id');
+    //             $data = akun::where('id_akun', $id)->first();
+    //             $outlet = outlet::where('id_akun', $id)->first();
+    
+    //             if ($outlet) {
+    //                 session()->put('outlets', $outlet);
+    //             }
+
+    //             if ($data) {
+    //                 session()->put('datas', $data);
+    //             }
+
+    //             return view('choose');
+    //         }else {
+    //             return view('infoOutlet');
+    //         }
+    //     }
+    
+    //     return redirect('login')->with('eror', 'email atau password salah');
+
+    // }
+
+
+
+
+
+    function tes(){
+        $results = DB::table('detail_transaksi')
+        ->join('transaksi', 'detail_transaksi.id_transaksi', '=', 'transaksi.id_transaksi')
+        ->join('produk', 'detail_transaksi.id_produk', '=', 'produk.id_produk')
+        ->select('produk.id_produk', DB::raw('MAX(transaksi.id_outlet) AS id_outlet'), 'produk.nama', DB::raw('SUM(detail_transaksi.quantity) AS total_quantity'))
+        ->whereMonth('transaksi.waktu_order', '=', date('m'))
+        ->where('transaksi.id_outlet', '=', 4)
+        ->groupBy('produk.id_produk', 'produk.nama')
+        ->orderByDesc(DB::raw('SUM(detail_transaksi.quantity)'))
+        ->take(3)
+        ->get();
+
+    $topProduct1 = $results[0]->nama;
+    $topProduct2 = $results[1]->nama;
+    $topProduct3 = $results[2]->nama;
+
+    $topQuantity1 = $results[0]->total_quantity;
+    $topQuantity2 = $results[1]->total_quantity;
+    $topQuantity3 = $results[2]->total_quantity;
+
+    
+
+    return view('dashboard',[
+        "topProduct1" => $topProduct1,
+        "topProduct2" => $topProduct2,
+        "topProduct3" => $topProduct3,
+        "topQuantity1" => $topQuantity1,
+        "topQuantity2" => $topQuantity2,
+        "topQuantity3" => $topQuantity3,
+        ]);
+    }
+
+
+        // ->groupBy('produk.id_produk', 'produk.nama', 'transaksi.id_outlet')
+        // ->groupBy('produk.id_produk', 'produk.nama')
+        // ->select('produk.id_produk', 'transaksi.id_outlet', 'produk.nama', DB::raw('SUM(detail_transaksi.quantity) AS total_quantity'))
+
 
     // function login2(Request $req){
     //     $akun = akun::all();
@@ -51,28 +144,6 @@ class SessionController extends Controller
 
     function login2(Request $req){
         $akun = akun::all();
-<<<<<<< HEAD
-
-        foreach ($akun as $out) {
-            if ($out->email == $req->email && $out->password == $req->password) {
-                $req->session()->put('id', $out->id_akun);
-                $id = session('id');
-                $data = akun::where('id_akun', $id)->first();
-                $outlet = outlet::where('id_akun', $id)->first();
-    
-                if ($outlet) {
-                    session()->put('datas', $data);
-                    session()->put('outlets', $outlet);
-                    return view('choose');
-                } else {
-                    return view('infoOutlet');
-                }
-            }
-        }
-    
-        return redirect('login')->with('eror', 'email atau password salah');
-
-=======
     
         foreach($akun as $out){
             if($out->email == $req->email){
@@ -107,7 +178,6 @@ class SessionController extends Controller
             }
         }
         return redirect('login')->with('eror', 'Email atau password salah');
->>>>>>> e758d87aa9d82c992a3e155a728011e7d556b1d2
     }
 
 
@@ -126,8 +196,6 @@ class SessionController extends Controller
     }
 
 
-<<<<<<< HEAD
-=======
 
 
 
@@ -388,7 +456,6 @@ class SessionController extends Controller
 // }
 
 
->>>>>>> e758d87aa9d82c992a3e155a728011e7d556b1d2
     public function outletper(Request $req){
         $id = session('id');
         $outlet = new outlet;
@@ -409,6 +476,21 @@ class SessionController extends Controller
 
     
 
+
+    public function tanggal()
+    {
+        $query = DB::table('transaksi')
+            ->selectRaw('MONTH(waktu_order) as month, COUNT(*) as count')
+            ->groupBy(DB::raw('MONTH(waktu_order)'))
+            ->orderBy(DB::raw('MONTH(waktu_order)'));
+
+        // Execute the query and assign the result to a variable
+        $results = $query->get();
+
+        // Process the results or pass them to the view
+        // For example, you can return them as JSON
+        return view('dashboard', ['results' => $results]);
+    }
 
 
 
@@ -489,7 +571,7 @@ class SessionController extends Controller
         
     }
 
-    function logout(){
+    function logout(Request $request){
         $request->session()->flush();
     }
 

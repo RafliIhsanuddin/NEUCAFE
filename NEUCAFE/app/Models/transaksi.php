@@ -14,7 +14,6 @@ class transaksi extends Model
         'waktu_order',
         'metode_pembayaran',
         'total_tagihan',
-        'jenis_transaksi',
         'id_outlet',
     ]; //Membarikan Izin untuk memasukkan data ke kolom tabel
 

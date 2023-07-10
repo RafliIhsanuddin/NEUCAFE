@@ -18,7 +18,7 @@
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root">
         <nav
-            class=" shadow-xl bg-white flex flex-wrap items-center justify-between relative z-10 py-4 px-10">
+            class=" shadow-xl bg-white flex flex-wrap items-center justify-between relative z-10 py-2 px-10">
             <div
                 class=" px-0 flex flex-wrap items-center justify-between w-full mx-auto">
                 <a class=" text-black mr-auto inline-block whitespace-nowrap text-lg uppercase font-bold p-4 px-0"
@@ -107,7 +107,7 @@
                                             </td>
                                             <td
                                                 class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                {{ $item->waktu_order }}
+                                                {{ date('H:i:s d-m-Y', strtotime( $item->waktu_order)) }}
                                             </td>
                                             <td
                                                 class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">

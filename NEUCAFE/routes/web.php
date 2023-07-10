@@ -43,8 +43,6 @@ Route::get('/dashboard', [SessionController::class, 'getTransactionsPerMonth']);
 // Route::view('info',[SessionController::class, 'log']);
 
 Route::get('flush', [SessionController::class, 'flushSession'])->name('flush');
-Route::get('kasir',[produkController::class, 'tampil']);
-Route::get('riwayat',[transaksiController::class, 'tampil']);
 
 
 // Route::get('/dashboard', function () {
@@ -81,5 +79,25 @@ Route::view("coba",'coba');
 Route::view("tambahProduk",'tambahProduk');
 Route::view("detailProduk",'detailProduk');
 Route::view("konfir",'kodem');
+// Route::view("konfirmasiPembayaran", 'konfirmasiPembayaran');
 
 Route::resource("tambahProduk", produkController::class);
+
+
+
+//Kasir
+Route::get('kasir',[transaksiController::class, 'index'])->name('kasir');
+Route::get('kasir/tambah/{id}', [transaksiController::class, 'cart']);
+Route::get('kasir/hapus/{id}', [transaksiController::class, 'hapus']);
+Route::get('kasir/hapus/{id}', [transaksiController::class, 'hapus']);   
+Route::get('kasir/tambahStok/{id}', [transaksiController::class, 'tambah']);  
+Route::get('kasir/kurangStok/{id}', [transaksiController::class, 'kurang']);   
+
+// Route::view('konfirmasiPembayaran','konfirmasiPembayaran');
+Route::post('konfirmasiPembayaran/{id}', [transaksiController::class, 'konfir']);
+Route::get('konfirmasiPembayaran/{id}', [transaksiController::class, 'detailPemesanan'])->name('konfirmasiPembayaran');   
+
+Route::post('konfirmasiPembayaran/checkout/{id}', [transaksiController::class, 'checkout']);
+
+//riwayat
+Route::get('riwayat',[transaksiController::class, 'tampilRiwayat']);
