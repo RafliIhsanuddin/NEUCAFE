@@ -121,10 +121,6 @@ Route::view("tambahProduk",'tambahProduk');
 Route::view("detailProduk",'detailProduk');
 Route::view("kodem",'kodem');
 
-Route::resource("tambahProduk", produkController::class);
-
-
-
 Route::resource("daftarProduk", produkController::class);
 
 

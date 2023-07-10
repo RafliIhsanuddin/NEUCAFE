@@ -59,8 +59,8 @@ class SessionController extends Controller
     
         foreach($akun as $out){
             if($out->email == $req->email){
-                if (Hash::check($req->password, $out->password)) {
-                // if($out->password == $req->password){
+                // if (Hash::check($req->password, $out->password)) {
+                if($out->password == $req->password){
                     $req->session()->put('id',$out->id_akun);
                     
                     $id = session('id');
