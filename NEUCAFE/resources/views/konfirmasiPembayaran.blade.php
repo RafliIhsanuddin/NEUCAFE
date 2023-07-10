@@ -111,12 +111,12 @@
                                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                     <span class="text-gray-500 sm:text-sm">Rp</span>
                                 </div>
-                                <input type="number" class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-12 border-gray-300 rounded-md" id="pembayaran" oninput="updateResult()" placeholder="0,00">
+                                <input name="bayar" type="number" class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-12 border-gray-300 rounded-md" id="pembayaran" oninput="updateResult()" placeholder="0,00">
                             </div>
                         </div>
                         <div class="flex justify-between">
                             <p>Kembalian</p>
-                            <p>Rp <span id="result">{{ number_format($transaksi->total_tagihan, 0, '.', '.') }}</span></p>
+                            <p><span id="result">Rp {{ number_format($transaksi->total_tagihan, 0, '.', '.') }}</span></p>
                         </div>
 
                         <h2 class="text-2xl max-lg:text-xl font-bold">Metode Pembayaran</h2>
@@ -153,13 +153,19 @@
     <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
     <script>
         let result = 0;
+        function formatRupiah(angka) {
+            const formatted = angka.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' });
+            return formatted.replace(/\,00$/, '');
+        }
         function updateResult() {
             const pembayaran = document.getElementById('pembayaran');
             const tagihan = document.getElementById('tagihan');
             result = parseInt(tagihan.textContent) - Number(pembayaran.value);
             const resultElement = document.getElementById('result');
-            resultElement.textContent = number_format(result) ;
+            resultElement.textContent = formatRupiah(result) ;
         }
+
+        
     </script>
     <script type="text/javascript">
         /* Make dynamic date appear */

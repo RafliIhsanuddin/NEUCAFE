@@ -19,6 +19,7 @@ class transaksiController extends Controller
     {
         $id_outlet = session('id_outlet');
         $tanggal = Carbon::now();
+        $tanggal->setTimezone('Asia/Jakarta');
         $items = produk::where('id_outlet', $id_outlet)->where('status', 'Success')->get();
         $cek_transaksi = transaksi::where('id_outlet', $id_outlet)->where('status', 0)->first();
         if(empty($cek_transaksi)){
@@ -55,6 +56,7 @@ class transaksiController extends Controller
         $id_outlet= session('id_outlet');
         $produk = produk::where('id_produk',$id)->first();
         $tanggal = Carbon::now();
+        $tanggal->setTimezone('Asia/Jakarta');
 
         //validasi
         $cek_transaksi = transaksi::where('id_outlet', $id_outlet)->where('status', 0)->first();
@@ -181,6 +183,7 @@ class transaksiController extends Controller
 
     public function konfir(Request $request, $id){
         $tanggal = Carbon::now();
+        $tanggal->setTimezone('Asia/Jakarta');
 
         $totalQuantity = DB::table('detail_transaksi')
         ->where('id_transaksi', $id)
@@ -217,12 +220,18 @@ class transaksiController extends Controller
 
     public function checkout(Request $request, $id){
         if ($request->has('button1')) {
-            DB::table('transaksi')
-            ->where('id_transaksi', $id)
-            ->where('status', 0)
-            ->update(['status' => 1, 'metode_pembayaran' => $request->metode]);
-            Alert::success('Pembayaran Successfully', 'Pembayaran berhasil dilakukan');
-            return redirect()->route('kasir');
+            $transaksi = transaksi::where('id_transaksi',$id)->first();
+            if($request->bayar >= $transaksi->total_tagihan){
+                DB::table('transaksi')
+                ->where('id_transaksi', $id)
+                ->where('status', 0)
+                ->update(['status' => 1, 'metode_pembayaran' => $request->metode]);
+                Alert::success('Pembayaran Successfully', 'Pembayaran berhasil dilakukan');
+                return redirect()->route('kasir');
+            }else{
+                Alert::error('Pembayaran Gagal', 'Masukkan Input Pembayaran dengan Benar');
+                return redirect('konfirmasiPembayaran/'.$id);
+            }
         }
     
         if ($request->has('button2')) {
