@@ -117,25 +117,70 @@ class transaksiController extends Controller
     }
 
     public function tambah($id){
+        $id_outlet = session('id_outlet');
+        $transaksi = transaksi::where('id_outlet', $id_outlet)->where('status', 0)->first();
+
         $transaksi_detail = transaksiDetail::where('id_relasi',$id)->first();
+        $produk =  DB::table('produk')
+        ->join('detail_transaksi', 'produk.id_produk', '=', 'detail_transaksi.id_produk')
+        ->select('produk.*', 'detail_transaksi.*')
+        ->where('detail_transaksi.id_relasi', $id)
+        ->first();
+
         DB::table('detail_transaksi')
         ->where('id_relasi',$id)
-        ->update(['quantity' => $transaksi_detail->quantity+1]);
+        ->update(['quantity' => $transaksi_detail->quantity+1, 'total_harga'=> $transaksi_detail->total_harga + $produk->harga_jual, 'total_harga_beli'=>$transaksi_detail->total_harga_beli + $produk->harga_beli]);
+        
+        $result = DB::table('detail_transaksi')
+        ->join('produk', 'detail_transaksi.id_produk', '=', 'produk.id_produk')
+        ->select(DB::raw('SUM(detail_transaksi.quantity * produk.harga_jual) as total_harga'), DB::raw('SUM(detail_transaksi.quantity * produk.harga_beli) as total_beli'))
+        ->where('detail_transaksi.id_transaksi', $transaksi->id_transaksi)
+        ->first();
+
+        DB::table('transaksi')
+        ->where('id_outlet', $id_outlet)
+        ->where('status', 0)
+        ->update(['total_tagihan' => $result->total_harga, 'total_harga_beli' => $result->total_beli]);
         return redirect('kasir');
 
     }
 
     public function kurang($id){
+        $id_outlet = session('id_outlet');
+        $transaksi = transaksi::where('id_outlet', $id_outlet)->where('status', 0)->first();
+
         $transaksi_detail = transaksiDetail::where('id_relasi',$id)->first();
-        DB::table('detail_transaksi')
-        ->where('id_relasi',$id)
-        ->update(['quantity' => $transaksi_detail->quantity-1]);
+
+        if($transaksi_detail->quantity > 1){
+
+            $produk =  DB::table('produk')
+            ->join('detail_transaksi', 'produk.id_produk', '=', 'detail_transaksi.id_produk')
+            ->select('produk.*', 'detail_transaksi.*')
+            ->where('detail_transaksi.id_relasi', $id)
+            ->first();
+
+            DB::table('detail_transaksi')
+            ->where('id_relasi',$id)
+            ->update(['quantity' => $transaksi_detail->quantity-1, 'total_harga'=> $transaksi_detail->total_harga - $produk->harga_jual, 'total_harga_beli'=>$transaksi_detail->total_harga_beli - $produk->harga_beli]);
+            
+            $result = DB::table('detail_transaksi')
+            ->join('produk', 'detail_transaksi.id_produk', '=', 'produk.id_produk')
+            ->select(DB::raw('SUM(detail_transaksi.quantity * produk.harga_jual) as total_harga'), DB::raw('SUM(detail_transaksi.quantity * produk.harga_beli) as total_beli'))
+            ->where('detail_transaksi.id_transaksi', $transaksi->id_transaksi)
+            ->first();
+
+            DB::table('transaksi')
+            ->where('id_outlet', $id_outlet)
+            ->where('status', 0)
+            ->update(['total_tagihan' => $result->total_harga, 'total_harga_beli' => $result->total_beli]);
+        }else{
+            $this->hapus($id);
+        }
         return redirect('kasir');
     }
 
     public function konfir(Request $request, $id){
         $tanggal = Carbon::now();
-        
 
         $totalQuantity = DB::table('detail_transaksi')
         ->where('id_transaksi', $id)

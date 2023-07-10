@@ -5,7 +5,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use App\Models\produk;
 
 class produkController extends Controller
 {
@@ -207,4 +211,5 @@ class produkController extends Controller
         // produk::where('id_produk', $id)->delete();                                               // ini juga berhasil
         produk::destroy($id);                                                                       // ini versi kode yang lebih bersih
         return redirect()->to('daftarProduk')->with('success', 'Berhasil Melakukan Delete Data');
+    }
 }

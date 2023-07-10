@@ -56,7 +56,7 @@
                         @foreach ($items as $item)
                             <div class="relative lg:w-36 lg:h-40 w-24 h-28 m-3 text-center shadow-lg focus:shadow-none flex flex-col items-center justify-center">
                                 <h5 class="max-lg:text-sm font-semibold">{{ $item->nama }}</h5>
-                                <img src="" alt="foto produk"class="lg:w-20 lg:h-20 w-12 h-12 bg-gray-200 my-1">
+                                <img src="{{asset('imgProducts/'.$item->gambar_produk)}}" alt="foto"class="lg:w-20 lg:h-20 w-12 h-12 bg-gray-200 my-1">
                                 <h5 class="max-lg:text-xs">Rp{{ number_format($item->harga_jual, 0, '.', '.') }}</h5>
                                 <a href={{url('kasir/tambah/'.$item->id_produk)}} class="absolute w-full h-full"></a>
                             </div>
