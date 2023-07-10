@@ -6,14 +6,29 @@ use App\Models\produk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
+
 class produkController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view("tambahProduk");
+        $katakunci   = $request->katakunci;
+        $jumlahbaris = 4;
+        if (strlen($katakunci)) {
+            $data =    produk::where('nama', 'like', "%$katakunci%")
+                ->orWhere('kategori',   'like', "%$katakunci%")
+                ->orWhere('stok',       'like', "%$katakunci%")
+                ->orWhere('harga_jual', 'like', "%$katakunci%")
+                ->orWhere('harga_beli', 'like', "%$katakunci%")
+                ->orWhere('deskripsi',  'like', "%$katakunci%")
+                ->orWhere('id_outlet',  'like', "%$katakunci%")
+                ->paginate($jumlahbaris);
+        } else {
+            $data = produk::orderByDesc('id_produk')->paginate($jumlahbaris);
+        }
+        return view("daftarProduk", compact('data'));
     }
 
     /**
@@ -27,62 +42,90 @@ class produkController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    
 
-public function store(Request $request)
-{
-    $request->validate([
-        'nama'        => 'required',
-        'kategori'    => 'required',
-        'stok'        => 'required|numeric',
-        'harga_jual'  => 'required|numeric',
-        'harga_beli'  => 'required|numeric',
-        'deskripsi'   => 'required',
-        'id_outlet'   => 'required|exists:outlet,id_outlet',
-    ], [
-        'nama.required'       => 'Nama wajib diisi',
-        'kategori.required'   => 'Kategori wajib diisi',
-        'stok.required'       => 'Jumlah Stok wajib diisi',
-        'stok.numeric'        => 'Jumlah stok harus menggunakan angka',
-        'harga_jual.required' => 'Harga Jual wajib diisi',
-        'harga_jual.numeric'  => 'Harga Jual harus menggunakan angka',
-        'harga_beli.required' => 'Harga Beli wajib diisi',
-        'harga_beli.numeric'  => 'Harga Beli harus menggunakan angka',
-        'deskripsi.required'  => 'Deskripsi wajib diisi',
-        'id_outlet.required'  => 'Outlet wajib diisi',
-        'id_outlet.exists'    => 'Outlet tidak valid',
-    ]);
+    public function store(Request $request)
+    {
+        // Melihat data yang dimasukkan sebelumnya untuk mengecek kesalahan di form
+        Session::flash('nama',          $request->nama);
+        Session::flash('kategori',      $request->kategori);
+        Session::flash('stok',          $request->stok);
+        Session::flash('harga_jual',    $request->harga_jual);
+        Session::flash('harga_beli',    $request->harga_beli);
+        Session::flash('deskripsi',     $request->deskripsi);
+        Session::flash('id_outlet',     $request->id_outlet);
+        
 
-    // Create a new Produk instance and set its attributes
-    $produk = new Produk();
-    $produk->nama = $request->nama;
-    $produk->kategori = $request->kategori;
-    $produk->stok = $request->stok;
-    $produk->harga_jual = $request->harga_jual;
-    $produk->harga_beli = $request->harga_beli;
-    $produk->deskripsi = $request->deskripsi;
-    $produk->id_outlet = $request->id_outlet;
+        $request->validate([
+            'nama'          => 'required|max:255',
+            'kategori'      => 'required',
+            'stok'          => 'required|numeric',
+            'harga_jual'    => 'required|numeric',
+            'harga_beli'    => 'required|numeric',
+            'deskripsi'     => 'required|max:255',
+            'id_outlet'     => 'required|numeric|exists:outlet,id_outlet',
+            'status'        => 'required',
+            'gambar_produk' => 'required|nullable|file|image|mimes:jpeg,png,jpg|max:2048' //Dengan penambahan nullable, aturan validasi gambar_produk akan memungkinkan nilai null untuk diterima.
+            // nanti ditambahkan kodingan upload gambar
+        ], [
+            // Memberikan Peringatan dengan bahasa Indonesia
+            'nama.required'       => 'Nama wajib diisi',
+            'kategori.required'   => 'Kategori wajib diisi',
+            'stok.required'       => 'Jumlah Stok wajib diisi',
+            'stok.numeric'        => 'Jumlah stok harus menggunakan angka',
+            'harga_jual.required' => 'Harga Jual wajib diisi',
+            'harga_jual.numeric'  => 'Harga Jual harus menggunakan angka',
+            'harga_beli.required' => 'Harga Beli wajib diisi',
+            'harga_beli.numeric'  => 'Harga Beli harus menggunakan angka',
+            'deskripsi.required'  => 'Deskripsi wajib diisi',
+            'id_outlet.required'  => 'Outlet wajib diisi',
+            'id_outlet.exists'    => 'Outlet tidak valid',
+            'id_outlet.numeric'   => 'Outlet harus menggunakan angka',
+            'status'              => 'Mohon dipilih salah satu',
+            'gambar_produk.required' => 'Gambar produk wajib diunggah',
+            'gambar_produk.file'     => 'Tipe file gambar tidak valid',
+            'gambar_produk.image'    => 'File harus berupa gambar',
+            'gambar_produk.mimes'    => 'Format gambar tidak valid. Hanya diperbolehkan format JPEG, PNG, dan JPG',
+            'gambar_produk.max'      => 'Ukuran gambar terlalu besar. Maksimum 2MB',
+            
+        ]);
 
-    // Save the Produk instance to the database
-    $produk->save();
 
-    return redirect()->to('tambahProduk')->with('success', 'Berhasil Melakukan Pengisian Data');
-}
+        $file = $request->file('gambar_produk'); // input gambarnya
+        $namaFile  = time() . "_" . $file->getClientOriginalName(); // nama originalnya
+
+        $fileUp = 'imgProducts'; //buat folder imgproducts digunakan untuk menyimpan gambar yang telah di upload (create secara otomatis by laravel)
+        $file->move($fileUp, $namaFile); // simpan gambarnya di dir img products dengan nama gambar
+
+        produk::create([
+            'nama'              => $request->nama,
+            'kategori'          => $request->kategori,
+            'stok'              => $request->stok,
+            'harga_jual'        => $request->harga_jual,
+            'harga_beli'        => $request->harga_beli,
+            'deskripsi'         => $request->deskripsi,
+            'id_outlet'         => $request->id_outlet,
+            'status'            => $request->input('status'),
+            'gambar_produk'     => $namaFile,
+        ]);
+        return redirect()->to('daftarProduk')->with('success', 'Berhasil Melakukan Pengisian Data');
+    }
 
     /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
-        //
+        $data = produk::whereid_produk($id)->first();
+        return view('detailProduk', compact('data'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $id_produk)
     {
-        //
+        $data = produk::where('id_produk', $id_produk)->first();
+        return view('editProduk')->with('data', $data); // menampilkan data dalam bentuk form sekalgius mengupdate data
     }
 
     /**
@@ -90,7 +133,69 @@ public function store(Request $request)
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'nama'          => 'required',
+            'kategori'      => 'required',
+            'stok'          => 'required|numeric',
+            'harga_jual'    => 'required|numeric',
+            'harga_beli'    => 'required|numeric',
+            'deskripsi'     => 'required',
+            'id_outlet'     => 'required|numeric|exists:outlet,id_outlet',
+            'status'        => 'required',
+            'gambar_produk' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+        ], [
+            'nama.required'       => 'Nama wajib diisi',
+            'kategori.required'   => 'Kategori wajib diisi',
+            'stok.required'       => 'Jumlah Stok wajib diisi',
+            'stok.numeric'        => 'Jumlah stok harus menggunakan angka',
+            'harga_jual.required' => 'Harga Jual wajib diisi',
+            'harga_jual.numeric'  => 'Harga Jual harus menggunakan angka',
+            'harga_beli.required' => 'Harga Beli wajib diisi',
+            'harga_beli.numeric'  => 'Harga Beli harus menggunakan angka',
+            'deskripsi.required'  => 'Deskripsi wajib diisi',
+            'id_outlet.required'  => 'Outlet wajib diisi',
+            'id_outlet.exists'    => 'Outlet tidak valid',
+            'id_outlet.numeric'   => 'Outlet harus menggunakan angka',
+            'status.required'     => 'Mohon dipilih salah satu'
+        ]);
+
+        // Find the existing Produk instance by ID
+        $produk = Produk::find($id);
+
+        // Update the attributes of the existing Produk instance
+        $produk->nama           = $request->nama;
+        $produk->kategori       = $request->kategori;
+        $produk->stok           = $request->stok;
+        $produk->harga_jual     = $request->harga_jual;
+        $produk->harga_beli     = $request->harga_beli;
+        $produk->deskripsi      = $request->deskripsi;
+        $produk->id_outlet      = $request->id_outlet;
+        $produk->status         = $request->input('status');
+        
+        // Check if a new image is uploaded
+    if ($request->hasFile('gambar_produk')) {
+        $file = $request->file('gambar_produk');
+        $namaFile = time() . "_" . $file->getClientOriginalName();
+
+        $fileUp = 'imgProducts';
+        $file->move($fileUp, $namaFile);
+
+        // Delete the previous image file if it exists
+        if ($produk->gambar_produk) {
+            $fileToDelete = $fileUp . '/' . $produk->gambar_produk;
+            if (file_exists($fileToDelete)) {
+                unlink($fileToDelete);
+            }
+        }
+
+        $produk->gambar_produk = $namaFile;
+    }
+
+
+        // Save the updated Produk instance to the database
+        $produk->save();
+
+        return redirect()->to('daftarProduk')->with('success', 'Berhasil Melakukan Update Data');
     }
 
     /**
@@ -98,6 +203,8 @@ public function store(Request $request)
      */
     public function destroy(string $id)
     {
-        //
+        // produk::where('id_produk', $id)->delete();                                               // ini juga berhasil
+        produk::destroy($id);                                                                       // ini versi kode yang lebih bersih
+        return redirect()->to('daftarProduk')->with('success', 'Berhasil Melakukan Delete Data');
     }
 }

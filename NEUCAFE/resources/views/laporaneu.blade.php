@@ -114,7 +114,7 @@
             </li>
 
             <li class="items-center">
-              <a href="./daftarProduk.html" class="text-xs uppercase py-3 font-bold block text-blueGray-500 hover:text-[#45D5A1]">
+              <a href="#" class="text-xs uppercase py-3 font-bold block text-blueGray-500 hover:text-[#45D5A1]">
                 <i class="fas fa-table mr-2 text-sm"></i>
                 Daftar Produk
               </a>

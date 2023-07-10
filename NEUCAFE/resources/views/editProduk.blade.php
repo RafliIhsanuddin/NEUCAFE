@@ -85,7 +85,7 @@
                     <form class="mt-6 mb-4 md:hidden">
                         <div class="mb-3 pt-0">
                             <input type="text" placeholder="Search"
-                                class="border-0 px-3 py-2 h-12 border border-solid border-blueGray-500 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-base leading-snug shadow-none outline-none focus:outline-none w-full font-normal" />
+                                class="border-0 px-3 py-2 h-12  border-solid border-blueGray-500 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-base leading-snug shadow-none outline-none focus:outline-none w-full font-normal" />
                         </div>
                     </form>
                     <!-- Divider -->
@@ -114,7 +114,7 @@
                         </li>
 
                         <li class="items-center">
-                            <a href="./daftarProduk.html"
+                            <a href="#"
                                 class="text-xs uppercase py-3 font-bold block text-blueGray-500 hover:text-[#45D5A1]">
                                 <i class="fas fa-table mr-2 text-sm"></i>
                                 Daftar Produk
@@ -130,7 +130,7 @@
                         </li>
 
                         <li class="items-center">
-                            <a href="./informasi.html"
+                            <a href="informasi"
                                 class="text-xs uppercase py-3 font-bold block text-blueGray-500 hover:text-[#45D5A1]">
                                 <i class="fas fa-map-marked mr-2 text-sm"></i>
                                 Informasi
@@ -174,81 +174,92 @@
                 </div>
             </nav>
             <!-- Header -->
-            <div class="relative md:pt-32 pb-8 pt-12">
-                <div class="px-4 md:px-10 mx-auto w-full">
-                    <div
-                        class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-white h-fit px-6 py-7">
-                        <div class="text-xl font-bold text-black ml-2">
-                            Edit Produk
-                        </div>
-                        <hr class="mt-2 mb-6">
-                        <form method="POST" class="flex w-full mx-2">
-                            <div class="flex flex-col items-center mr-7">
-                                <figure class="image-container w-40 h-40">
-                                    <img id="chosen-image" class="w-40 h-40 bg-slate-500">
-                                </figure>
-                        
-                                <input type="file" id="upload-button" accept="image/*" class=" hidden">
-                                <label for="upload-button" class="bg-green-600 hover:bg-green-500 focus:outline-none text-white px-5 py-1 font-semibold rounded-md mt-3">
-                                    Edit Foto
-                                </label>
-                            </div>
-
-                            <div class="flex flex-col space-y-3 w-32 text-base font-medium">
-                                <p>Nama</p>
-                                <p>Kategori</p>
-                                <p>Jumlah Stok</p>
-                                <p>Harga Jual</p>
-                                <p>Harga Beli</p>
-                                <p>Deskripsi</p>
-                                <p>Status</p>
-                            </div>
-                            <div class="flex flex-col space-y-3 w-6 text-base font-medium">
-                                <p>:</p>
-                                <p>:</p>
-                                <p>:</p>
-                                <p>:</p>
-                                <p>:</p>
-                                <p>:</p>
-                                <p>:</p>
-                            </div>
-
-                            <div class="flex flex-col space-y-3 w-96 text-base font-medium">
-                                <input type="text" name="" id=""
-                                    class="h-6 py-1 rounded-md border-gray-300 border-[2px]" value="Nama">
-                                <input type="text" name="" id=""
-                                    class="h-6 py-1 rounded-md border-gray-300 border-[2px]" value="Kategori">
-                                <input type="number" name="" id=""
-                                    class="h-6 py-1 rounded-md border-gray-300 border-[2px]" value="1">
-                                <input type="number" name="" id=""
-                                    class="h-6 py-1 rounded-md border-gray-300 border-[2px]" value="2">
-                                <input type="number" name="" id=""
-                                    class="h-6 py-1 rounded-md border-gray-300 border-[2px]" value="3">
-                                <input type="text" name="" id=""
-                                    class="h-6 py-1 rounded-md border-gray-300 border-[2px]" value="Deskripsi">
-                                <select name="status" class="h-7 px-1 rounded-md border-gray-300 border-[2px]">
-                                    <option value="Success">
-                                        <i class="fas fa-circle text-green-500 mr-2"></i>
-                                        <span class="text-sm">Success</span>
-                                    </option>
-                                    <option value="pending">
-                                        <i class="fas fa-circle text-green-500 mr-2"></i>
-                                        <span class="text-sm">Pending</span>
-                                    </option>
-                                </select>
-
+            <form action="{{ url('daftarProduk/'.$data->id_produk) }}" method="post" enctype="multipart/form-data">
+                @csrf
+                @method('PUT') {{-- mengarah ke  public function update(Request $request, string $id) di produkController.php --}}
+                <div class="relative md:pt-32 pb-8 pt-12">
+                    <div class="px-4 md:px-10 mx-auto w-full">
+                        <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-white h-fit px-6 py-7">
+                            <div class="text-xl font-bold text-black flex justify-between items-center ml-2">
+                                <div>Edit Produk</div>
                                 <div>
-                                    <button type="submit"
-                                        class=" bg-green-600 hover:bg-green-500 focus:outline-none text-white w-28 py-1 font-semibold rounded-md ">Simpan</button>
-                                    <button type="submit"
-                                        class=" bg-red-600 hover:bg-red-500 focus:outline-none text-white w-28 py-1 font-semibold rounded-md">Batal</button>
+                                    <a href={{ url('daftarProduk') }} class="border-0 px-3 py-2 text-white relative rounded-md text-base shadow font-semibold outline-none focus:outline-none bg-green-600 hover:bg-green-500">
+                                        Daftar Produk
+                                    </a>
                                 </div>
                             </div>
-
-                        </form>
+                            <hr class="mt-2 mb-6">
+                            <div class="flex w-full mx-2">
+                                <div class="flex flex-col items-center mr-7">
+                                    <figure class="image-container w-40 h-40">
+                                        <img id="chosen-image" class="w-40 h-40 bg-slate-500">
+                                    </figure>
+                                    <input type="file" id="upload-button" accept="image/*" name="gambar_produk" class="hidden">
+                                    <label for="upload-button" 
+                                        class="bg-green-600 hover:bg-green-500 focus:outline-none text-white px-5 py-1 font-semibold rounded-md mt-3">
+                                        Edit Foto
+                                    </label>
+                                </div>
+            
+                                <div class="flex flex-col space-y-3 w-32 text-base font-medium">
+                                    <p>Nama</p>
+                                    <p>Kategori</p>
+                                    <p>Jumlah Stok</p>
+                                    <p>Harga Jual</p>
+                                    <p>Harga Beli</p>
+                                    <p>Deskripsi</p>
+                                    <p>Outlet</p>
+                                    <p>Status</p>
+                                </div>
+                                <div class="flex flex-col space-y-3 w-6 text-base font-medium">
+                                    <p>:</p>
+                                    <p>:</p>
+                                    <p>:</p>
+                                    <p>:</p>
+                                    <p>:</p>
+                                    <p>:</p>
+                                    <p>:</p>
+                                    <p>:</p>
+                                </div>
+            
+                                <div class="flex flex-col space-y-3 w-96 text-base font-medium">
+                                    <input type="text" name="nama"           value="{{ $data->nama }}" 
+                                                class="h-6 py-1 rounded-md border-gray-300 border-[2px]">
+                                    <input type="text" name="kategori"       value="{{ $data->kategori }}" 
+                                                class="h-6 py-1 rounded-md border-gray-300 border-[2px]">
+                                    <input type="number" name="stok"         value="{{ $data->stok }}" 
+                                                class="h-6 py-1 rounded-md border-gray-300 border-[2px]">
+                                    <input type="number" name="harga_jual"   value="{{ $data->harga_jual }}" 
+                                                class="h-6 py-1 rounded-md border-gray-300 border-[2px]">
+                                    <input type="number" name="harga_beli"   value="{{ $data->harga_beli }}" 
+                                                class="h-6 py-1 rounded-md border-gray-300 border-[2px]">
+                                    <input type="text" name="deskripsi"      value="{{ $data->deskripsi }}" 
+                                                class="h-6 py-1 rounded-md border-gray-300 border-[2px]">
+                                    <input type="text" name="id_outlet"      value="{{ $data->id_outlet }}" 
+                                                class="h-6 py-1 rounded-md border-gray-300 border-[2px]">
+                                    <select name="status" class="h-7 px-1 rounded-md border-gray-300 border-[2px]">
+                                        <option value="Success" {{ $data->status == 'Success' ? 'selected' : '' }}>
+                                            <i class="fas fa-circle text-green-500 mr-2"></i>
+                                            <span class="text-sm">Success</span>
+                                        </option>
+                                        <option value="Pending" {{ $data->status == 'Pending' ? 'selected' : '' }}>
+                                            <i class="fas fa-circle text-green-500 mr-2"></i>
+                                            <span class="text-sm">Pending</span>
+                                        </option>
+                                    </select>
+            
+                                    <div>
+                                        <button type="submit" class="bg-green-600 hover:bg-green-500 focus:outline-none text-white w-28 py-1 font-semibold rounded-md">Simpan</button>
+                                        <button type="submit" class="bg-red-600 hover:bg-red-500 focus:outline-none text-white w-28 py-1 font-semibold rounded-md">Batal</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </form>
+            
+            
         </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" charset="utf-8"></script>

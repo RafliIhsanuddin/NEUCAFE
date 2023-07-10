@@ -14,6 +14,15 @@
     <title>Daftar Produk</title>
 </head>
 
+<!-- Peringatan Berhasil -->
+@if (Session::has('success'))
+<div class="pt-3">
+    <div class="bg-green-500 text-white text-center py-2 px-4">
+        {{ Session::get('success') }}
+    </div>
+</div>
+@endif
+
 <body class="text-blueGray-700 antialiased">
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root">
@@ -27,7 +36,7 @@
                     <i class="fas fa-bars"></i>
                 </button>
                 <a class="md:block text-center md:pb-2 text-black mr-0 inline-block whitespace-nowrap text-lg uppercase font-bold p-4 px-0"
-                    href="../../index.html">
+                    href="#">
                     Neucafe
                 </a>
                 <ul class="md:hidden items-center flex flex-wrap list-none">
@@ -69,7 +78,7 @@
                         <div class="flex flex-wrap">
                             <div class="w-6/12">
                                 <a class="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
-                                    href="../../index.html">
+                                    href="#">
                                     Notus Tailwind JS
                                 </a>
                             </div>
@@ -114,7 +123,7 @@
                         </li>
 
                         <li class="items-center">
-                            <a href="/daftar"
+                            <a href="daftarProduk"
                                 class="text-xs uppercase py-3 font-bold block text-[#45D5A1]">
                                 <i class="fas fa-table mr-2 text-sm"></i>
                                 Daftar Produk
@@ -148,7 +157,7 @@
                 class="absolute top-0 left-0 w-full z-10 bg-white md:flex-row md:flex-nowrap md:justify-start flex items-center p-4">
                 <div class="w-full mx-autp items-center flex justify-between md:flex-nowrap flex-wrap md:px-10 px-4">
                     <a class="text-black text-lg uppercase hidden lg:inline-block font-bold"
-                        href="./index.html">Welcome, Juan</a>
+                        href="#">Welcome, Juan</a>
                     <form class="md:flex hidden flex-row flex-wrap items-center lg:ml-auto mr-3">
                         <div class="relative flex w-full flex-wrap items-stretch">
                             <span
@@ -191,7 +200,7 @@
                                         <div class="relative flex w-full flex-wrap items-stretch">
 
                                             <!-- INI LINK PINDAH HALAMAN KE TAMBAH PRODUK -->
-                                            <a href="tambahProduk.html"
+                                            <a href="tambahProduk"
                                                 class="border-0 px-3 py-2 text-white relative rounded-md text-base shadow font-semibold outline-none focus:outline-none w-full bg-green-600 hover:bg-green-500">
                                                 + Tambah Produk
                                             </a>
@@ -201,12 +210,13 @@
                                 <div class="flex mx-4 mt-2">
 
                                     <!-- INI FORM PENCARIAN -->
-                                    <form class="md:flex w-[60vh] flex-row flex-wrap items-center">
+                                    <form class="md:flex w-[60vh] flex-row flex-wrap items-center" action="{{ url('daftarProduk') }}" method="get">
                                         <div class="relative flex w-full flex-wrap items-stretch">
                                             <span
                                                 class="z-10 h-full leading-snug font-normal text-center text-blueGray-700 absolute bg-transparent rounded text-base items-center justify-center w-8 pl-3 py-3"><i
                                                     class="fas fa-search"></i></span>
-                                            <input type="text" placeholder="Search here..."
+                                        
+                                            <input type="search" placeholder="Search here..." name="katakunci" value="{{ Request::get('katakunci') }}"
                                                 class="border-0 px-3 py-3 placeholder-blueGray-900 text-blueGray-700 relative bg-gray-100 rounded text-sm shadow outline-none focus:outline-none w-full pl-10" />
                                         </div>
                                     </form>
@@ -219,12 +229,20 @@
                                     <thead>
                                         <tr>
                                             <th
+                                            class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100">
+                                            No
+                                        </th>
+                                            <th
                                                 class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100">
                                                 Nama Produk
                                             </th>
                                             <th
                                                 class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100">
                                                 Kategori
+                                            </th>
+                                            <th
+                                                class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100">
+                                                Id Produk
                                             </th>
                                             <th
                                                 class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100">
@@ -248,59 +266,82 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-
+                                       {{-- digunakan untuk menambah No di tampil data sesuai dgn banyak data  --}}
                                         <!-- OUTPUT DAFTAR PRODUKNYA, UNTUK SEMENTARA YANG IMAGENYA BIARIN AJA DULU -->
+                                        @foreach ($data as $item)
+                                            
                                         <tr>
+                                            <td
+                                                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                                {{ $loop->iteration }}
+                                            </td>
                                             <th
                                                 class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-sm whitespace-nowrap p-4 text-left flex items-center">
-                                                <img src="../../assets/img/bootstrap.jpg"
+                                                <img src="{{ url('imgProducts/' . $item->gambar_produk) }}"
                                                     class="h-12 w-12 bg-white rounded-full border" alt="..." />
                                                 <span class="ml-3 mr-2 font-bold text-blueGray-600">
-                                                    Americano
+                                                    {{ $item->nama }}
                                                 </span>
                                             </th>
+                                           
                                             <td
                                                 class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                Kopi
+                                                {{ $item->kategori }}
                                             </td>
                                             <td
                                                 class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                121
+                                                {{ $item->id_produk }}
                                             </td>
                                             <td
                                                 class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                Rp12.000
+                                                {{ $item->stok }}
                                             </td>
                                             <td
                                                 class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                                Rp15.000
+                                                {{ $item->harga_beli }}
                                             </td>
                                             <td
                                                 class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                                {{ $item->harga_jual }}
+                                            </td>
+                                            <td
+                                                class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                                            @if ($item->status == 'Success')
                                                 <i class="fas fa-circle text-green-500 mr-2"></i>
                                                 Tampil di menu
+                                            @elseif ($item->status == 'Pending')
+                                                <i class="fas fa-circle text-yellow-500 mr-2"></i>
+                                                Menunggu
+                                            @endif
                                             </td>
 
                                             <!-- NAH INI LINK BUAT HAPUS PRODUKNYA, DAN PINDAH KE HALAMAN DETAIL PRODUK -->
                                             <td
                                                 class="border-t-0 px-2 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-center">
-                                                <a href="#pablo" class="text-blueGray-500 block py-1 px-3"
+                                                <a href="#" class="text-blueGray-500 block py-1 px-3"
                                                     onclick="openDropdown(event,'table-light-1-dropdown')">
                                                     <i class="fas fa-ellipsis-v"></i>
                                                 </a>
                                                 <div class="hidden bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg min-w-48"
                                                     id="table-light-1-dropdown">
-                                                    <a href="/edit"
+                                                    <a href="{{ url('/daftarProduk') }}{{ '/' }}{{ $item->id_produk }}{{ '/' }}{{ 'edit' }}"
                                                         class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent hover:bg-gray-100 text-blueGray-700">Edit</a>
-                                                    <a href="detailProduk.html"
+                                                    <a href="{{ url('/daftarProduk') }}{{ '/' }}{{ $item->id_produk }}"
                                                         class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent hover:bg-gray-100 text-blueGray-700">Detail</a>
-                                                    <a href="#"
-                                                        class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent hover:bg-gray-100 text-blueGray-700">Hapus</a>
+                                                                            {{-- Penghapusan data --}}
+                                                    <form onsubmit="return confirm('Yakin akan melakukan aksi delete data')" action="{{ url('daftarProduk/' . $item->id_produk) }}" method="POST"> 
+                                                        @csrf
+                                                        @method('DELETE')
+                                                            <button  type ='submit' name='submit'
+                                                            class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent hover:bg-gray-100 text-blueGray-700">Hapus</button>
+                                                    </form>
+                                                                            {{-- Penghapusan data --}}
                                                 </div>
                                             </td>
-                                        </tr>
+                                        </tr> @endforeach
                                     </tbody>
                                 </table>
+                                {{ $data->withQueryString()->links() }} {{-- paginasi untuk mengarah ke halaman lain dengan data yang berbeda --}}
                             </div>
                         </div>
                     </div>
@@ -312,7 +353,7 @@
     <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
     <script type="text/javascript">
         /* Make dynamic date appear */
-        (function () {
+        (function() {
             if (document.getElementById("get-current-year")) {
                 document.getElementById("get-current-year").innerHTML =
                     new Date().getFullYear();
@@ -339,7 +380,7 @@
             document.getElementById(dropdownID).classList.toggle("block");
         }
 
-        (function () {
+        (function() {
             /* Chart initialisations */
             /* Line Chart */
             var config = {
@@ -358,8 +399,7 @@
                         "Oktober",
                         "November"
                     ],
-                    datasets: [
-                        {
+                    datasets: [{
                             label: new Date().getFullYear(),
                             backgroundColor: "#5a60e0",
                             borderColor: "#5a60e0",
@@ -399,50 +439,46 @@
                         intersect: true
                     },
                     scales: {
-                        xAxes: [
-                            {
-                                ticks: {
-                                    fontColor: "rgba(0, 0, 0)"
-                                },
-                                display: true,
-                                scaleLabel: {
-                                    display: false,
-                                    labelString: "Month",
-                                    fontColor: "black"
-                                },
-                                gridLines: {
-                                    display: false,
-                                    borderDash: [2],
-                                    borderDashOffset: [2],
-                                    color: "rgba(33, 37, 41, 0.3)",
-                                    zeroLineColor: "rgba(0, 0, 0, 0)",
-                                    zeroLineBorderDash: [2],
-                                    zeroLineBorderDashOffset: [2]
-                                }
+                        xAxes: [{
+                            ticks: {
+                                fontColor: "rgba(0, 0, 0)"
+                            },
+                            display: true,
+                            scaleLabel: {
+                                display: false,
+                                labelString: "Month",
+                                fontColor: "black"
+                            },
+                            gridLines: {
+                                display: false,
+                                borderDash: [2],
+                                borderDashOffset: [2],
+                                color: "rgba(33, 37, 41, 0.3)",
+                                zeroLineColor: "rgba(0, 0, 0, 0)",
+                                zeroLineBorderDash: [2],
+                                zeroLineBorderDashOffset: [2]
                             }
-                        ],
-                        yAxes: [
-                            {
-                                ticks: {
-                                    fontColor: "rgba(0,0,0)"
-                                },
-                                display: true,
-                                scaleLabel: {
-                                    display: false,
-                                    labelString: "Value",
-                                    fontColor: "black"
-                                },
-                                gridLines: {
-                                    borderDash: [3],
-                                    borderDashOffset: [3],
-                                    drawBorder: false,
-                                    color: "rgba(0,0,0, 0.15)",
-                                    zeroLineColor: "rgba(33, 37, 41, 0)",
-                                    zeroLineBorderDash: [2],
-                                    zeroLineBorderDashOffset: [2]
-                                }
+                        }],
+                        yAxes: [{
+                            ticks: {
+                                fontColor: "rgba(0,0,0)"
+                            },
+                            display: true,
+                            scaleLabel: {
+                                display: false,
+                                labelString: "Value",
+                                fontColor: "black"
+                            },
+                            gridLines: {
+                                borderDash: [3],
+                                borderDashOffset: [3],
+                                drawBorder: false,
+                                color: "rgba(0,0,0, 0.15)",
+                                zeroLineColor: "rgba(33, 37, 41, 0)",
+                                zeroLineBorderDash: [2],
+                                zeroLineBorderDashOffset: [2]
                             }
-                        ]
+                        }]
                     }
                 }
             };
@@ -462,8 +498,7 @@
                         "June",
                         "July"
                     ],
-                    datasets: [
-                        {
+                    datasets: [{
                             label: new Date().getFullYear(),
                             backgroundColor: "#ed64a6",
                             borderColor: "#ed64a6",
@@ -504,41 +539,37 @@
                         position: "bottom"
                     },
                     scales: {
-                        xAxes: [
-                            {
-                                display: false,
-                                scaleLabel: {
-                                    display: true,
-                                    labelString: "Month"
-                                },
-                                gridLines: {
-                                    borderDash: [2],
-                                    borderDashOffset: [2],
-                                    color: "rgba(33, 37, 41, 0.3)",
-                                    zeroLineColor: "rgba(33, 37, 41, 0.3)",
-                                    zeroLineBorderDash: [2],
-                                    zeroLineBorderDashOffset: [2]
-                                }
-                            }
-                        ],
-                        yAxes: [
-                            {
+                        xAxes: [{
+                            display: false,
+                            scaleLabel: {
                                 display: true,
-                                scaleLabel: {
-                                    display: false,
-                                    labelString: "Value"
-                                },
-                                gridLines: {
-                                    borderDash: [2],
-                                    drawBorder: false,
-                                    borderDashOffset: [2],
-                                    color: "rgba(33, 37, 41, 0.2)",
-                                    zeroLineColor: "rgba(33, 37, 41, 0.15)",
-                                    zeroLineBorderDash: [2],
-                                    zeroLineBorderDashOffset: [2]
-                                }
+                                labelString: "Month"
+                            },
+                            gridLines: {
+                                borderDash: [2],
+                                borderDashOffset: [2],
+                                color: "rgba(33, 37, 41, 0.3)",
+                                zeroLineColor: "rgba(33, 37, 41, 0.3)",
+                                zeroLineBorderDash: [2],
+                                zeroLineBorderDashOffset: [2]
                             }
-                        ]
+                        }],
+                        yAxes: [{
+                            display: true,
+                            scaleLabel: {
+                                display: false,
+                                labelString: "Value"
+                            },
+                            gridLines: {
+                                borderDash: [2],
+                                drawBorder: false,
+                                borderDashOffset: [2],
+                                color: "rgba(33, 37, 41, 0.2)",
+                                zeroLineColor: "rgba(33, 37, 41, 0.15)",
+                                zeroLineBorderDash: [2],
+                                zeroLineBorderDashOffset: [2]
+                            }
+                        }]
                     }
                 }
             };

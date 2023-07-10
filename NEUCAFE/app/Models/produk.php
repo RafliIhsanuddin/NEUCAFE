@@ -9,6 +9,7 @@ class produk extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'id_produk',
         'nama',
         'kategori',
         'stok',
@@ -16,7 +17,10 @@ class produk extends Model
         'harga_beli',
         'deskripsi',
         'id_outlet',
-    ]; //Membarikan Izin untuk memasukkan data ke kolom tabel
-    protected $table = 'produk'; // Izin yang diberikan ke tabel produk
-    public $timestamps = false;  // Tidak ada timestamp di database
+        'status',
+        'gambar_produk'
+    ];                                      //Memberikan Izin untuk memasukkan data ke kolom tabel
+    protected $table   = 'produk';          // Izin yang diberikan ke tabel produk
+    public $timestamps = false;             // Tidak ada timestamp di database
+    protected $primaryKey = 'id_produk';    // digunakan untuk mencari id yang ingin di update
 }

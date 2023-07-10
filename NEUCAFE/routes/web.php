@@ -28,12 +28,12 @@ Route::get('/', function () {
 
 
 // Route::get('/login',[SessionController::class, 'halog']);
-Route::post('authlog',[SessionController::class, 'login2']);
-Route::post('authsign',[SessionController::class, 'masukdata']);
-Route::post('editatas',[SessionController::class, 'upatas']);
-Route::post('editbaw',[SessionController::class, 'upbawah']);
-Route::post('outper',[SessionController::class, 'outletper']);
-Route::post('konfkod',[SessionController::class, 'outletper']);
+Route::post('authlog', [SessionController::class, 'login2']);
+Route::post('authsign', [SessionController::class, 'masukdata']);
+Route::post('editatas', [SessionController::class, 'upatas']);
+Route::post('editbaw', [SessionController::class, 'upbawah']);
+Route::post('outper', [SessionController::class, 'outletper']);
+Route::post('konfkod', [SessionController::class, 'outletper']);
 // Route::get('/tes', [YourController::class, 'tanggal'])->name('tes');
 // Route::get('/dashboard', [SessionController::class, 'tanggal']);
 // Route::get('/dashboard', [SessionController::class, 'tes']);
@@ -119,4 +119,25 @@ Route::view("tambahProduk",'tambahProduk');
 Route::view("detailProduk",'detailProduk');
 Route::view("konfir",'kodem');
 
-Route::resource("tambahProduk", produkController::class);
+// Route::view("tes",'about');
+
+// Route::get('/about', [SessionController::class, 'getTransactionsPerMonth'])->name('transactions');
+Route::view("info", 'informasi');
+Route::view("choose", 'choose');
+Route::view("kasir", 'kasir');
+// Route::view("dashboard",'dashboard');
+Route::view("login", 'login');
+Route::view("edit", 'editProduk');
+Route::view("signup", 'signup');
+Route::view("laporan", 'laporan');
+Route::view("daftarProduk", 'daftarProduk');
+Route::view("review", 'reviewPelanggan');
+Route::view("landing", 'landing');
+Route::view("ProdukPer", 'firstProduct');
+Route::view("outletPer", 'infoOutlet');
+Route::view("coba", 'coba');
+Route::view("tambahProduk", 'tambahProduk');
+Route::view("detailProduk", 'detailProduk');
+Route::view("konfir", 'kodem');
+
+Route::resource("daftarProduk", produkController::class);
