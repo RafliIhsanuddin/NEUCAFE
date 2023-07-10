@@ -181,12 +181,10 @@ HALAMAN LOGIN
 
                             <div class="flex flex-col space-y-6 w-32 text-base font-medium">
                                 <p>Nama Cafe</p>
-                                <p>Email</p>
                                 <p>No HandPhone</p>
                                 <p>Alamat</p>
                             </div>
                             <div class="flex flex-col space-y-6 w-6 text-base font-medium">
-                                <p>:</p>
                                 <p>:</p>
                                 <p>:</p>
                                 <p>:</p>
@@ -199,9 +197,6 @@ HALAMAN LOGIN
                                 @foreach (session('outlets') as $outlet)
                                 <p name="" class="h-8 py-1 rounded-md">
                                     {{ $outlet['nama'] }}
-                                </p>
-                                <p name="" class="h-8 py-1 rounded-md">
-                                    {{ $data['email'] }}
                                 </p>
                                 <p name="" class="h-8 py-1 rounded-md">
                                     {{ $data['noTelp'] }}
@@ -284,12 +279,10 @@ HALAMAN LOGIN
 
                 <div class="flex flex-col space-y-6 w-32 text-base font-medium">
                     <p>Nama Cafe</p>
-                    <p>Email</p>
                     <p>No HandPhone</p>
                     <p>Alamat</p>
                 </div>
                 <div class="flex flex-col space-y-6 w-6 text-base font-medium">
-                    <p>:</p>
                     <p>:</p>
                     <p>:</p>
                     <p>:</p>`
@@ -302,8 +295,6 @@ HALAMAN LOGIN
                             <input type="hidden" name="idbar" value="{{ session('id') }}">
                             <div class="flex flex-col space-y-3.5 w-96 text-base font-medium">
                                 <input type="text" name="nama" value="{{ $outlet['nama'] }}"
-                                    class="h-8 py-1 rounded-md border-gray-300 bg-gray-100 border-[2px]">
-                                <input type="email" name="email" value="{{ $data['email'] }}"
                                     class="h-8 py-1 rounded-md border-gray-300 bg-gray-100 border-[2px]">
                                 <input type="text" name="telp" value="{{ $data['noTelp'] }}"
                                     class="h-8 py-1 rounded-md border-gray-300 bg-gray-100 border-[2px]">
@@ -354,7 +345,7 @@ HALAMAN LOGIN
                     @foreach (session('datas') as $data)
                     <input type="hidden" name="idbaw" value="{{ session('id') }}">
                         <div class="flex flex-col space-y-3.5 w-72 text-base font-medium">
-                            <input type="text" name="passbaw" value="{{ $data['password'] }}"
+                            <input type="text" name="passbaw" value=""
                                 class="h-8 py-1 rounded-md border-gray-300 bg-gray-100 border-[2px]">
                             <input type="text" name="kode" value="{{ $data['kodeManajer'] }}"
                                 class="h-8 py-1 rounded-md border-gray-300 bg-gray-100 border-[2px]">

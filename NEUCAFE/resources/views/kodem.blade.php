@@ -5,45 +5,30 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    @vite('resources/css/app.css')
+    <title>konfirmasi kode manager</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
 </head>
 
 <body>
 
-    <!-- SIGN UP -->
-    <section class="flex items-center justify-center h-screen w-full bg-[#5fb395]  py-20  overflow-hidden">
-        <img src="{{asset('assets/bg6.png')}}" class="absolute -top-20 -left-20" alt="">
-        <img src="{{asset('assets/bg7.png')}}" class="absolute bottom-0 right-0" alt="">
-        <!-- "{{asset('assets/bg6.png')}}" -->
+    <!-- KODEM -->
+    <section class="flex items-center justify-center h-screen w-full bg-[#5fb395] py-20 px-6 overflow-hidden">
+        <img src="assets/bg6.png" class="absolute -top-20 -left-20" alt="">
+        <img src="assets/bg7.png" class="absolute bottom-0 right-0" alt="">
 
-        <div class="bg-white h-full w-2/3 flex z-10 justify-center rounded-2xl overflow-hidden ">
-                    @if((session('eror')))
-                    <div class="pt-24">
-                        <div class="bg-red-500 text-white font-bold px-4 py-3 rounded">
-                            Terjadi Kesalahan! {{ session('eror') }}
-                        </div>
-                    </div>
-                    @endif
-            <form action="" method="POST">
-                <div class="flex my-auto">
-                    <div class="">
-                        <div>
-                            <label for="">konfirmasi KODE</label>
-                        </div>
-                        <input type="konfirKode" name="email"
-                        class="border-slate-300 border-2 rounded-md h-9 px-2 focus:outline-none focus:border-[#6FBCA0] my-2"
-                        required>
-                        <div>
-                        <button type="submit"
-                            class="w-40 mt-6 h-11 bg-[#6FBCA0] hover:bg-[#337a61] rounded-full font-semibold text-white">Masuk</button>
-                        </div>
-                    </div>
-                </div>
-            
+        <div class="bg-transparent max-h-[45rem] h-full aspect-video flex flex-col items-center justify-center z-10 rounded-2xl overflow-hidden ">
+            <h1 class="text-center text-4xl font-bold text-white my-14">Masukkan Kode Manager</h1>
+            <form action="" class="flex flex-col font-semibold">
+                <input type="number"
+                    class="border-slate-300 border-2 rounded-md w-96 h-9 px-2 focus:outline-none focus:border-[#6FBCA0] my-2"
+                    required>
+                <button type="submit"
+                    class="w-40 mt-8 h-10 bg-white mx-auto hover:bg-white/80 rounded-full font-semibold text-black">Masuk</button>
             </form>
+
         </div>
-        
+
     </section>
 
 

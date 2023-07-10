@@ -11,11 +11,11 @@
 <body>
 
     <!-- SIGN UP -->
-    <section class="flex items-center justify-center h-screen w-full bg-[#5fb395]  py-20  overflow-hidden">
+    <section class="flex items-center justify-center h-screen w-full bg-[#5fb395]  py-20 px-6 overflow-hidden">
         <img src="assets/bg6.png" class="absolute -top-20 -left-20" alt="">
         <img src="assets/bg7.png" class="absolute bottom-0 right-0" alt="">
 
-        <div class="bg-white h-full w-[750px] z-10 rounded-2xl overflow-hidden px-28 py-5 mx-auto">
+        <div class="bg-white max-h-[45rem] h-full aspect-video flex z-10 rounded-2xl overflow-hidden ">
             <h1 class="text-center text-3xl font-bold my-14">Informasi Outlet</h1>
 
             <form action="outper" method="POST" class="flex flex-col font-semibold">

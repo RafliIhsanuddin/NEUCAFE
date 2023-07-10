@@ -606,17 +606,26 @@ class SessionController extends Controller
     }
 
     public function masukdata(Request $req){
-        $akun = new akun;
-        $akun->email = $req->email;
-        $akun->password = $req->pass;
-        $akun->notelp = $req->notelp;
-        $akun->kodeManajer = $req->kode;
-        if($req->pass == $req->konfir){
-            $akun->save();
-            return view('login');
-        }else{
-            return redirect('signup');
+        $akunData = Akun::all();
+
+        foreach ($akunData as $akun) {
+            if ($req->email == $akun->email) {
+                return redirect('signup')->with('eror', 'Email sudah terdaftar.');
+            }
         }
+
+        if ($req->pass != $req->konfir) {
+            return redirect('signup')->with('eror', 'Password dan konfirmasi password berbeda.');
+        }
+
+        $newAkun = new Akun;
+        $newAkun->email = $req->email;
+        $newAkun->password = bcrypt($req->pass);
+        $newAkun->notelp = $req->notelp;
+        $newAkun->kodeManajer = $req->kode;
+        $newAkun->save();
+
+        return view('login');
 
     }
 
