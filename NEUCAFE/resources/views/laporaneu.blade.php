@@ -200,14 +200,14 @@
                       <div class="flex w-6 h-full bg-red-600"></div>
                       <div class="flex flex-col items-left px-4 py-3 space-y-1">
                         <h5>Total Penjualan</h5>
-                        <h2 class=" font-semibold text-xl">Rp. {{ $totalHargabeli }}</h2>
+                        <h2 class=" font-semibold text-xl">{{ $totalHargabeli }}</h2>
                       </div>
                     </div>
                     <div class="flex w-[30%] h-24 rounded-md overflow-hidden shadow-md">
                       <div class="flex w-6 h-full bg-yellow-500"></div>
                       <div class="flex flex-col items-left px-4 py-3 space-y-1">
                         <h5>Total Pembayaran</h5>
-                        <h2 class=" font-semibold text-xl">Rp.{{ $totaltagihan }}</h2>
+                        <h2 class=" font-semibold text-xl">{{ $totaltagihan }}</h2>
                       </div>
                     </div>
                     <div class="flex w-[30%] h-24 rounded-md overflow-hidden shadow-md">
@@ -317,7 +317,9 @@
                       <h3 class="font-bold text-xl text-black">
                         Grafik Penjualan
                       </h3>
-                      <input type="month" id="bdaymonth" name="bdaymonth" class=" rounded-md h-8">
+                      <h3 class="font-bold text-xl text-black">
+                        2023
+                      </h3>
                     </div>
                   </div>
                 </div>
@@ -336,6 +338,28 @@
     </div>
   </div>
   </div>
+
+
+  @php
+    $january2023 = isset($january2023) ? $january2023 : 0;
+    $february2023 = isset($february2023) ? $february2023 : 0;
+    $march2023 = isset($march2023) ? $march2023 : 0;
+    $april2023 = isset($april2023) ? $april2023 : 0;
+    $may2023 = isset($may2023) ? $may2023 : 0;
+    $june2023 = isset($june2023) ? $june2023 : 0;
+    $july2023 = isset($july2023) ? $july2023 : 0;
+    $august2023 = isset($august2023) ? $august2023 : 0;
+    $september2023 = isset($september2023) ? $september2023 : 0;
+    $october2023 = isset($october2023) ? $october2023 : 0;
+    $november2023 = isset($november2023) ? $november2023 : 0;
+    $december2023 = isset($december2023) ? $december2023 : 0;
+
+  @endphp
+
+
+
+
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" charset="utf-8"></script>
   <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
   <script type="text/javascript">
@@ -393,7 +417,20 @@
               fill: false,
               backgroundColor: "red",
               borderColor: "#4c51bf",
-              data: [40, 68, 86, 74, 56, 60, 87, 40, 40, 35, 46, 56]
+              data: [
+                {{ $january2023 }},
+                {{ $february2023 }},
+                {{ $march2023 }},
+                {{ $april2023 }},
+                {{ $may2023 }},
+                {{ $june2023 }},
+                {{ $july2023 }},
+                {{ $august2023 }},
+                {{ $september2023 }},
+                {{ $october2023 }},
+                {{ $november2023 }},
+                {{ $december2023 }}
+              ]
             }
           ]
         },

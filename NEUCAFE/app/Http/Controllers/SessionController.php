@@ -384,6 +384,7 @@ class SessionController extends Controller
         'october2022' => $october2022,
         'november2022' => $november2022,
         'december2022' => $december2022,
+
         'january2023' => $january2023,
         'february2023' => $february2023,
         'march2023' => $march2023,
@@ -433,7 +434,28 @@ class SessionController extends Controller
 
 
 
-            
+            $transactions = DB::table('transaksi')
+            ->selectRaw('YEAR(waktu_order) AS Year, DATE_FORMAT(waktu_order, "%M") AS Month, COUNT(*) AS count')
+            ->where('id_outlet', $id_outlet)
+            ->groupBy('Year', 'Month')
+            ->orderByRaw('Year ASC, FIELD(Month, "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December")')
+            ->get();
+
+
+            foreach ($transactions as $transaction) {
+                $year = $transaction->Year;
+                $month = $transaction->Month;
+                $count = $transaction->count;
+        
+                // Create the year key if it doesn't exist
+                if (!isset($monthlyCounts[$year])) {
+                    $monthlyCounts[$year] = [];
+                }
+        
+                // Assign the count to the respective month
+                $monthlyCounts[$year][$month] = $count;
+            }
+                
 
 
 
@@ -492,10 +514,20 @@ class SessionController extends Controller
             ->sum('total_tagihan');
 
 
+
+            
+               $totaltagihan = isset($totaltagihan) ? 'Rp ' . number_format($totaltagihan, 0, ',', '.') : 'Rp.0';
+            
+
             $totalHargabeli = DB::table('transaksi')
             ->where('id_outlet', $id_outlet)
             ->whereMonth('waktu_order', $month)
             ->sum('total_harga_beli');
+
+
+            
+            
+            $totalHargabeli = isset($totalHargabeli) ? 'Rp ' . number_format($totalHargabeli, 0, ',', '.') : 'Rp.0';
 
 
 
@@ -517,6 +549,8 @@ class SessionController extends Controller
                 session(['bdaymonthbar' => $request->input('bdaymonthbar')]);
                 $yearmonthBar = $request->input('bdaymonthbar');
             }
+
+            
 
 
             // if ($request->input('bdaymonthbar') === null) {
@@ -551,6 +585,20 @@ class SessionController extends Controller
             ->groupBy('produk.id_produk', 'produk.id_outlet', 'produk.nama',  DB::raw('MONTH(transaksi.waktu_order)'))
             ->get();
 
+
+            $january2023 = isset($monthlyCounts[2023]['January']) ? $monthlyCounts[2023]['January'] : 0;
+            $february2023 = isset($monthlyCounts[2023]['February']) ? $monthlyCounts[2023]['February'] : 0;
+            $march2023 = isset($monthlyCounts[2023]['March']) ? $monthlyCounts[2023]['March'] : 0;
+            $april2023 = isset($monthlyCounts[2023]['April']) ? $monthlyCounts[2023]['April'] : 0;
+            $may2023 = isset($monthlyCounts[2023]['May']) ? $monthlyCounts[2023]['May'] : 0;
+            $june2023 = isset($monthlyCounts[2023]['June']) ? $monthlyCounts[2023]['June'] : 0;
+            $july2023 = isset($monthlyCounts[2023]['July']) ? $monthlyCounts[2023]['July'] : 0;
+            $august2023 = isset($monthlyCounts[2023]['August']) ? $monthlyCounts[2023]['August'] : 0;
+            $september2023 = isset($monthlyCounts[2023]['September']) ? $monthlyCounts[2023]['September'] : 0;
+            $october2023 = isset($monthlyCounts[2023]['October']) ? $monthlyCounts[2023]['October'] : 0;
+            $november2023 = isset($monthlyCounts[2023]['November']) ? $monthlyCounts[2023]['November'] : 0;
+            $december2023 = isset($monthlyCounts[2023]['December']) ? $monthlyCounts[2023]['December'] : 0;
+
             
 
 
@@ -567,6 +615,19 @@ class SessionController extends Controller
                 'transactionCount' => $transactionCount,
                 'totaltagihan' => $totaltagihan,
                 'totalHargabeli' => $totalHargabeli,
+
+                'january2023' => $january2023,
+                'february2023' => $february2023,
+                'march2023' => $march2023,
+                'april2023' => $april2023,
+                'may2023' => $may2023,
+                'june2023' => $june2023,
+                'july2023' => $july2023,
+                'august2023' => $august2023,
+                'september2023' => $september2023,
+                'october2023' => $october2023,
+                'november2023' => $november2023,
+                'december2023' => $december2023,
 
             ]);
         }
