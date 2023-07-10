@@ -159,29 +159,7 @@ HALAMAN LOGIN
                         href="./index.html">Welcome, Juan</a>
 
 
-                    <a href="{{ route('flush') }}" class="w-40 mt-6 h-11 bg-[#6FBCA0] hover:bg-[#337a61] rounded-full font-semibold text-white text-center">Logout</a>
-                    <form class="md:flex hidden flex-row flex-wrap items-center lg:ml-auto mr-3">
-                        <div class="relative flex w-full flex-wrap items-stretch">
-                            <span
-                                class="z-10 h-full leading-snug font-normal text-center text-blueGray-300 absolute bg-transparent rounded text-base items-center justify-center w-8 pl-3 py-3"><i
-                                    class="fas fa-search"></i></span>
-                            <input type="text" placeholder="Search here..."
-                                class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white rounded text-sm shadow outline-none focus:outline-none focus:ring w-full pl-10" />
-                        </div>
-                    </form>
-                    <ul class="flex-col md:flex-row list-none items-center hidden md:flex">
-                        <a class="text-blueGray-500 block" href="#pablo" onclick="openDropdown(event,'user-dropdown')">
-                            <div class="items-center flex">
-                                <span
-                                    class="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full"><img
-                                        alt="..." class="w-full rounded-full align-middle border-none shadow-lg"
-                                        src="../../assets/img/team-1-800x800.jpg" /></span>
-                            </div>
-                        </a>
-                        <div
-                            class="hidden bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg min-w-48">
-                        </div>
-                    </ul>
+                    <a href="{{ route('flush') }}" class="px-4 py-1 bg-green-600 hover:bg-green-500 rounded-md font-semibold text-white text-center">Logout</a>
                 </div>
             </nav>
 
@@ -254,11 +232,9 @@ HALAMAN LOGIN
 
                 <div class="flex flex-col space-y-6 w-32 text-base font-medium">
                     <p>Email</p>
-                    <p>Password</p>
                     <p>Kode Manajer</p>
                 </div>
                 <div class="flex flex-col space-y-6 w-6 text-base font-medium">
-                    <p>:</p>
                     <p>:</p>
                     <p>:</p>
                 </div>
@@ -269,9 +245,6 @@ HALAMAN LOGIN
                     @foreach (session('datas') as $data)
                         <p name="" class="h-8 py-1 rounded-md">
                             {{ $data['email'] }}
-                        </p>
-                        <p name="" id="" class="h-8 py-1 rounded-md">
-                            {{ $data['password'] }}
                         </p>
                         <p name="" id="" class="h-8 py-1 rounded-md">
                             {{ $data['kodeManajer'] }}
@@ -326,8 +299,8 @@ HALAMAN LOGIN
                 <form action="editatas" method="POST">
                     @foreach (session('datas') as $data)
                         @foreach (session('outlets') as $outlet)
+                            <input type="hidden" name="idbar" value="{{ session('id') }}">
                             <div class="flex flex-col space-y-3.5 w-96 text-base font-medium">
-                                <input type="hidden" name="idbar" value="{{ session('id') }}">
                                 <input type="text" name="nama" value="{{ $outlet['nama'] }}"
                                     class="h-8 py-1 rounded-md border-gray-300 bg-gray-100 border-[2px]">
                                 <input type="email" name="email" value="{{ $data['email'] }}"
@@ -367,12 +340,10 @@ HALAMAN LOGIN
             <div class="flex w-full mx-2">
 
                 <div class="flex flex-col space-y-6 w-32 text-base font-medium">
-                    <p>Email</p>
                     <p>Password</p>
                     <p>Kode Manajer</p>
                 </div>
                 <div class="flex flex-col space-y-6 w-6 text-base font-medium">
-                    <p>:</p>
                     <p>:</p>
                     <p>:</p>
                 </div>
@@ -381,10 +352,8 @@ HALAMAN LOGIN
                 <!-- Output Informasi Akun -->
                 <form action="editbaw" method="POST">
                     @foreach (session('datas') as $data)
+                    <input type="hidden" name="idbaw" value="{{ session('id') }}">
                         <div class="flex flex-col space-y-3.5 w-72 text-base font-medium">
-                            <input type="hidden" name="idbaw" value="{{ session('id') }}">
-                            <input type="email" name="emailbaw" value="{{ $data['email'] }}"
-                                class="h-8 py-1 rounded-md border-gray-300 bg-gray-100 border-[2px]">
                             <input type="text" name="passbaw" value="{{ $data['password'] }}"
                                 class="h-8 py-1 rounded-md border-gray-300 bg-gray-100 border-[2px]">
                             <input type="text" name="kode" value="{{ $data['kodeManajer'] }}"
