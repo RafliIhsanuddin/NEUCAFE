@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 
+
+use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -57,27 +59,30 @@ class SessionController extends Controller
     
         foreach($akun as $out){
             if($out->email == $req->email){
-                if($out->password == $req->password){
+                if (Hash::check($req->password, $out->password)) {
+                // if($out->password == $req->password){
                     $req->session()->put('id',$out->id_akun);
                     
                     $id = session('id');
 
 
-                    $outletdatabase = DB::table('outlet')
-                    ->where('id_akun', $id)
-                    ->first();
-
-                    $databaseoutlet = $outletdatabase->id_outlet ;
-
-                    $req->session()->put('id_outlet',$databaseoutlet);
+                    
 
 
                     $id_outlet = session('id_outlet');
-                    $outlet = outlet::where('id_akun','=',$id)->get();
-                    if($outlet->isEmpty()){
+                    $outlet = outlet::where('id_akun','=',$id)->first();
+                    if(empty($outlet)){
                         return view('infoOutlet');
                     }else{
-                        $data = akun::where('id_akun','=',$id)->get();
+                        $outletdatabase = DB::table('outlet')
+                        ->where('id_akun', $id)
+                        ->first();
+
+                        $databaseoutlet = $outletdatabase->id_outlet ;
+
+                    $req->session()->put('id_outlet',$databaseoutlet);
+
+                        $data = akun::where('id_akun','=',$id)->first();
                         session()->put('datas', $data);
                         session()->put('outlets', $outlet);
                         return view('choose');
@@ -546,15 +551,14 @@ class SessionController extends Controller
         }
 
         if ($akun) {
-            $akun->email = $req->email;
             $akun->noTelp = $req->telp;
             $akun->save();
         } else {
 
         }
 
-        $data = akun::where('id_akun','=',$req->idbar)->get();
-        $outle = outlet::where('id_akun','=',$req->idbar)->get();
+        $data = akun::where('id_akun','=',$req->idbar)->first();
+        $outle = outlet::where('id_akun','=',$req->idbar)->first();
 
         session()->put('datas', $data);
         session()->put('outlets', $outle);
@@ -571,15 +575,16 @@ class SessionController extends Controller
         $akun = akun::where('id_akun', '=', $req->idbaw)->first();
 
         if ($akun) {
-            $akun->email = $req->emailbaw;
-            $akun->password = $req->passbaw;
             $akun->kodeManajer = $req->kode;
+            if (isset($req->passbaw)) {
+                $akun->password =  bcrypt($req->passbaw);
+            }
             $akun->save();
         } else {
 
         }
 
-        $data = akun::where('id_akun','=',$req->idbaw)->get();
+        $data = akun::where('id_akun','=',$req->idbaw)->first();
 
         session()->put('datas', $data);
 
