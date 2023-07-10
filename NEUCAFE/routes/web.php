@@ -33,7 +33,7 @@ Route::post('authsign', [SessionController::class, 'masukdata']);
 Route::post('editatas', [SessionController::class, 'upatas']);
 Route::post('editbaw', [SessionController::class, 'upbawah']);
 Route::post('outper', [SessionController::class, 'outletper']);
-Route::post('konfkod', [SessionController::class, 'outletper']);
+Route::post('konfkod', [SessionController::class, 'konfirmasikode']);
 // Route::get('/tes', [YourController::class, 'tanggal'])->name('tes');
 // Route::get('/dashboard', [SessionController::class, 'tanggal']);
 // Route::get('/dashboard', [SessionController::class, 'tes']);
@@ -117,7 +117,7 @@ Route::view("outletPer",'infoOutlet');
 Route::view("coba",'coba');
 Route::view("tambahProduk",'tambahProduk');
 Route::view("detailProduk",'detailProduk');
-Route::view("konfir",'kodem');
+Route::view("kodem",'kodem');
 
 // Route::view("tes",'about');
 
@@ -138,7 +138,7 @@ Route::view("outletPer", 'infoOutlet');
 Route::view("coba", 'coba');
 Route::view("tambahProduk", 'tambahProduk');
 Route::view("detailProduk", 'detailProduk');
-Route::view("konfir", 'kodem');
+// Route::view("konfir", 'kodem');
 
 Route::resource("daftarProduk", produkController::class);
 

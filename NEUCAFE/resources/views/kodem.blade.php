@@ -19,8 +19,15 @@
 
         <div class="bg-transparent max-h-[45rem] h-full aspect-video flex flex-col items-center justify-center z-10 rounded-2xl overflow-hidden ">
             <h1 class="text-center text-4xl font-bold text-white my-14">Masukkan Kode Manager</h1>
-            <form action="" class="flex flex-col font-semibold">
-                <input type="number"
+            @if (session('eror'))
+                <div class="my-4">
+                    <div class="bg-red-500 text-white font-bold px-4 py-3 rounded">
+                        Terjadi Kesalahan! {{ session('eror') }}
+                    </div>
+                </div>
+            @endif
+            <form action="konfkod" method="POST" class="flex flex-col font-semibold">
+                <input type="number" name="konfirKode"
                     class="border-slate-300 border-2 rounded-md w-96 h-9 px-2 focus:outline-none focus:border-[#6FBCA0] my-2"
                     required>
                 <button type="submit"

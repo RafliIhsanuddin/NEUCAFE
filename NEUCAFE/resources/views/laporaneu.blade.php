@@ -224,7 +224,7 @@
               <div class="block w-full overflow-x-auto lg:px-8">
                 <!-- Projects table -->
                 <table class="items-center w-full bg-transparent border-collapse">
-                  <thead class=" sticky top-0">
+                  <thead class=" sticky top-0 bg-green-500 text-white">
                     <tr>
                       <th
                         class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-100 text-blueGray-500 border-blueGray-100">
@@ -250,15 +250,12 @@
                   </thead>
                   
                   <tbody>
-                    @php
-                      $variableName = 1;
-                    @endphp
                     @foreach ($transactions as $transaction)
 
                     <!-- OUTPUT DAFTAR PRODUKNYA, UNTUK SEMENTARA YANG IMAGENYA BIARIN AJA DULU -->
-                    <tr>
+                    <tr class="@if($loop->iteration%2 === 0) bg-gray-100 @else bg-gray-200 @endif">
                       <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                      {{ $variableName }}
+                      {{ $loop->iteration }}
                       </td>
                       <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                       {{ $transaction->nama_customer }}
@@ -273,9 +270,6 @@
                       {{ $transaction->metode_pembayaran }}
                       </td>
                     </tr>
-                    @php
-                      $variableName++; // Increment the variable by 1
-                    @endphp
                     @endforeach
                   </tbody>
                 </table>

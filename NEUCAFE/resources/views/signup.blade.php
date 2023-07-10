@@ -53,13 +53,13 @@
                         <div class="flex space-x-5">
                             <div class="w-1/2">
                                 <label for="">Password</label>
-                                <input type="pass" name="pass"
+                                <input type="password" name="pass"
                                     class="border-slate-300 border-2 rounded-md w-full h-9 px-2 focus:outline-none focus:border-[#6FBCA0] my-2"
                                     required>
                             </div>
                             <div class="w-1/2">
                                 <label for="">Konfirmasi Password</label>
-                                <input type="pass" name="konfir"
+                                <input type="password" name="konfir"
                                     class="border-slate-300 border-2 rounded-md w-full h-9 px-2 focus:outline-none focus:border-[#6FBCA0] my-2"
                                     required>
                             </div>

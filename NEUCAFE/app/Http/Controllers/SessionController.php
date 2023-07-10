@@ -96,17 +96,17 @@ class SessionController extends Controller
     }
 
 
-    public function konfir(Request $req){
+    public function konfirmasikode(Request $req){
         $id = session('id');
-        $akun = akun::all();
+        $akun = DB::table('akun')->where('id_akun', $id)->first();
 
-        foreach($akun as $out){
-            if($out->kodeManajer == $req->konfirKode){
-                return view('informasi');
-            }else{
-                return redirect('kodem')->with('eror','KODE manajer yang anda masukkan salah');
-            }
+        
+        if($akun->kodeManajer == $req->konfirKode){
+            return view('informasi');
+        }else{
+            return redirect('kodem')->with('eror','KODE manajer yang anda masukkan salah');
         }
+        
         
     }
 
@@ -490,13 +490,12 @@ class SessionController extends Controller
         $outlet->nama = $req->namaout;
         $outlet->alamat = $req->alout;
         $outlet->id_akun = $req->idout;
-        $outlet->save();
-        if($outlet->save()){
-            $outlet = outlet::where('id_akun','=',$id)->get();
-            $data = akun::where('id_akun','=',$id)->get();
+        if ($outlet->save()) {
+            $outlet = outlet::where('id_akun', '=', $id)->first();
+            $data = akun::where('id_akun', '=', $id)->first();
             session()->put('datas', $data);
             session()->put('outlets', $outlet);
-            return view('informasi');  
+            return view('informasi');
         }
     }
 

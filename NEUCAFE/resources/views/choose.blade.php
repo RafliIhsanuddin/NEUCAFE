@@ -18,9 +18,8 @@
         <img src="{{asset('assets/bg7.png')}}" class="absolute bottom-0 right-0" alt="">
 
         <div class="-mt-10 mb-20">
-        <a href="{{ route('flush') }}" class="w-40 mt-6 h-11 bg-[#6FBCA0] hover:bg-[#337a61] rounded-full font-semibold text-white text-center">Logout</a>
+            <a href="{{ route('flush') }}" class="px-6 py-1 mt-6 bg-white/20 hover:bg-[#337a61] rounded-md font-semibold text-white text-center text-xl">LOGOUT</a>
         </div>
-
         
 
         <div class="-mt-10 mb-16">
@@ -30,7 +29,7 @@
         <div class="flex space-x-20">
             <div class="z-10 flex flex-col items-center justify-center space-y-6">
                 <h2 class="text-3xl font-bold text-white">Manager</h2>
-                <a href="/info" class="w-56 h-56 bg-white border-2 rounded-full  flex items-center justify-center">
+                <a href="/kodem" class="w-56 h-56 bg-white border-2 rounded-full  flex items-center justify-center">
                     <img src="assets/manager.png" class="w-40 h-40 " alt="">
                 </a>
             </div>
