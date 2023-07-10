@@ -114,7 +114,7 @@
                         </li>
 
                         <li class="items-center">
-                            <a href="./daftarProduk.html"
+                            <a href="#"
                                 class="text-xs uppercase py-3 font-bold block text-blueGray-500 hover:text-[#45D5A1]">
                                 <i class="fas fa-table mr-2 text-sm"></i>
                                 Daftar Produk
@@ -159,7 +159,8 @@
                         </div>
                     </form>
                     <ul class="flex-col md:flex-row list-none items-center hidden md:flex">
-                        <a class="text-blueGray-500 block" href="#pablo" onclick="openDropdown(event,'user-dropdown')">
+                        <a class="text-blueGray-500 block" href="#pablo"
+                            onclick="openDropdown(event,'user-dropdown')">
                             <div class="items-center flex">
                                 <span
                                     class="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full"><img
@@ -208,12 +209,12 @@
 
                             <!-- OUTPUT DETAIL PRODUK -->
                             <div class="flex flex-col space-y-3 w-96 text-base font-medium">
-                                <p>Americano</p>
-                                <p>kopi</p>
-                                <p>121</p>
-                                <p>Rp18.000</p>
-                                <p>Rp14.000</p>
-                                <p>Deskripsi</p>
+                                <p>{{ $data->nama }}</p>
+                                <p>{{ $data->kategori }}</p>
+                                <p>{{ $data->stok }}</p>
+                                <p>{{ $data->harga_jual }}</p>
+                                <p>{{ $data->harga_beli }}</p>
+                                <p>{{ $data->deskripsi }}</p>
                                 <p class="text-[10px]">
                                     <i class="fas fa-circle text-green-500 mr-2"></i>
                                     <span class="text-base">Tampil di menu</span>
@@ -230,7 +231,7 @@
     <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
     <script type="text/javascript">
         /* Make dynamic date appear */
-        (function () {
+        (function() {
             if (document.getElementById("get-current-year")) {
                 document.getElementById("get-current-year").innerHTML =
                     new Date().getFullYear();

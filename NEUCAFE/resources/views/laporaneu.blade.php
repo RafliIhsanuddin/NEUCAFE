@@ -85,7 +85,7 @@
           <form class="mt-6 mb-4 md:hidden">
             <div class="mb-3 pt-0">
               <input type="text" placeholder="Search"
-                class="border-0 px-3 py-2 h-12 border border-solid border-blueGray-500 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-base leading-snug shadow-none outline-none focus:outline-none w-full font-normal" />
+                class="border-0 px-3 py-2 h-12  border-solid border-blueGray-500 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-base leading-snug shadow-none outline-none focus:outline-none w-full font-normal" />
             </div>
           </form>
           <!-- Divider -->
@@ -107,14 +107,14 @@
             </li>
 
             <li class="items-center">
-              <a href="./laporan.html" class="text-xs uppercase py-3 font-bold block text-[#45D5A1]">
+              <a href="./laporaneu" class="text-xs uppercase py-3 font-bold block text-[#45D5A1]">
                 <i class="fas fa-tools mr-2 text-sm"></i>
                 Laporan
               </a>
             </li>
 
             <li class="items-center">
-              <a href="./daftarProduk.html" class="text-xs uppercase py-3 font-bold block text-blueGray-500 hover:text-[#45D5A1]">
+              <a href="#" class="text-xs uppercase py-3 font-bold block text-blueGray-500 hover:text-[#45D5A1]">
                 <i class="fas fa-table mr-2 text-sm"></i>
                 Daftar Produk
               </a>
@@ -183,7 +183,14 @@
                     <h3 class="font-bold text-xl text-black">
                       Detail Penjualan
                     </h3>
-                    <input type="month" id="bdaymonth" name="bdaymonth" class=" rounded-md h-8">
+                    <h3 class="font-bold text-xl text-black">
+                      {{ isset($monthName) ? $monthName : 'Januari' }}  
+                    </h3>
+                    <form method="POST" action="{{ route('laporan') }}">
+                      @csrf
+                      <input type="month" id="bdaymonth" name="bdaymonth" class="rounded-md h-8">
+                      <button type="submit" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">Submit</button>
+                    </form>
                   </div>
                 </div>
                 <div class="flex mx-4 my-6">
@@ -193,21 +200,21 @@
                       <div class="flex w-6 h-full bg-red-600"></div>
                       <div class="flex flex-col items-left px-4 py-3 space-y-1">
                         <h5>Total Penjualan</h5>
-                        <h2 class=" font-semibold text-xl">Rp1.000.000</h2>
+                        <h2 class=" font-semibold text-xl">{{ $totalHargabeli }}</h2>
                       </div>
                     </div>
                     <div class="flex w-[30%] h-24 rounded-md overflow-hidden shadow-md">
                       <div class="flex w-6 h-full bg-yellow-500"></div>
                       <div class="flex flex-col items-left px-4 py-3 space-y-1">
                         <h5>Total Pembayaran</h5>
-                        <h2 class=" font-semibold text-xl">Rp1.000.000</h2>
+                        <h2 class=" font-semibold text-xl">{{ $totaltagihan }}</h2>
                       </div>
                     </div>
                     <div class="flex w-[30%] h-24 rounded-md overflow-hidden shadow-md">
                       <div class="flex w-6 h-full bg-green-600"></div>
                       <div class="flex flex-col items-left px-4 py-3 space-y-1">
                         <h5>Jumlah Transaksi</h5>
-                        <h2 class=" font-semibold text-xl">121</h2>
+                        <h2 class=" font-semibold text-xl"> {{ $transactionCount }} </h2>
                       </div>
                     </div>
                   </div>
@@ -241,34 +248,39 @@
                       </th>
                     </tr>
                   </thead>
+                  
                   <tbody>
+                    @php
+                      $variableName = 1;
+                    @endphp
+                    @foreach ($transactions as $transaction)
 
                     <!-- OUTPUT DAFTAR PRODUKNYA, UNTUK SEMENTARA YANG IMAGENYA BIARIN AJA DULU -->
                     <tr>
                       <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        001
+                      {{ $variableName }}
                       </td>
                       <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        Zaki
+                      {{ $transaction->nama_customer }}
                       </td>
                       <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        01/04/2023 12:02:43
+                      {{ $transaction->waktu_order }}
                       </td>
                       <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        Rp12.000
+                      {{ $transaction->total_tagihan }}
                       </td>
                       <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        Tunai
+                      {{ $transaction->metode_pembayaran }}
                       </td>
                     </tr>
-
+                    @php
+                      $variableName++; // Increment the variable by 1
+                    @endphp
+                    @endforeach
                   </tbody>
                 </table>
               </div>
-
             </div>
-
-
             <div class="w-full">
               <div class="relative flex flex-col min-w-0 break-words bg-sky-950 bg-bl w-full mb-6 shadow-lg rounded">
                 <div class="rounded-t mb-0 px-4 py-3 bg-transparent">
@@ -277,7 +289,14 @@
                       <h3 class="font-bold text-xl text-white">
                         Grafik Penjualan Produk
                       </h3>
-                      <input type="month" id="bdaymonth" name="bdaymonth" class=" rounded-md h-8">
+                      <h3 class="font-bold text-xl text-white">
+                      {{ isset($monthNameBar) ? $monthNameBar : 'Januari' }}  
+                      </h3>
+                    <form method="POST" action="{{ route('laporan') }}">
+                      @csrf
+                      <input type="month" id="bdaymonth" name="bdaymonthbar" class="rounded-md h-8">
+                      <button type="submit" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">Submit</button>
+                    </form>
                     </div>
                   </div>
                 </div>
@@ -298,7 +317,9 @@
                       <h3 class="font-bold text-xl text-black">
                         Grafik Penjualan
                       </h3>
-                      <input type="month" id="bdaymonth" name="bdaymonth" class=" rounded-md h-8">
+                      <h3 class="font-bold text-xl text-black">
+                        2023
+                      </h3>
                     </div>
                   </div>
                 </div>
@@ -317,6 +338,28 @@
     </div>
   </div>
   </div>
+
+
+  @php
+    $january2023 = isset($january2023) ? $january2023 : 0;
+    $february2023 = isset($february2023) ? $february2023 : 0;
+    $march2023 = isset($march2023) ? $march2023 : 0;
+    $april2023 = isset($april2023) ? $april2023 : 0;
+    $may2023 = isset($may2023) ? $may2023 : 0;
+    $june2023 = isset($june2023) ? $june2023 : 0;
+    $july2023 = isset($july2023) ? $july2023 : 0;
+    $august2023 = isset($august2023) ? $august2023 : 0;
+    $september2023 = isset($september2023) ? $september2023 : 0;
+    $october2023 = isset($october2023) ? $october2023 : 0;
+    $november2023 = isset($november2023) ? $november2023 : 0;
+    $december2023 = isset($december2023) ? $december2023 : 0;
+
+  @endphp
+
+
+
+
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" charset="utf-8"></script>
   <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
   <script type="text/javascript">
@@ -370,11 +413,24 @@
           ],
           datasets: [
             {
-              label: new Date().getFullYear() - 1,
+              label: new Date().getFullYear(),
               fill: false,
               backgroundColor: "red",
               borderColor: "#4c51bf",
-              data: [40, 68, 86, 74, 56, 60, 87, 40, 40, 35, 46, 56]
+              data: [
+                {{ $january2023 }},
+                {{ $february2023 }},
+                {{ $march2023 }},
+                {{ $april2023 }},
+                {{ $may2023 }},
+                {{ $june2023 }},
+                {{ $july2023 }},
+                {{ $august2023 }},
+                {{ $september2023 }},
+                {{ $october2023 }},
+                {{ $november2023 }},
+                {{ $december2023 }}
+              ]
             }
           ]
         },
@@ -457,13 +513,9 @@
         type: "horizontalBar", // Mengganti tipe grafik menjadi horizontalBar
         data: {
           labels: [ //ini label nama produknya
-            "Cappucino",
-            "Chocolate",
-            "Americano",
-            "Matcha Coffe",
-            "Vanilla latte",
-            "Red Velvet",
-            "Lemon Tea"
+            @foreach ($jumlahTotalproduk as $totalproduk)
+            "{{ $totalproduk->nama }}",
+            @endforeach
           ],
           datasets: [
             {
@@ -471,7 +523,11 @@
               fill: false,
               backgroundColor: "#4c51bf",
               borderColor: "#4c51bf",
-              data: [27, 68, 86, 74, 10, 4, 87], //ini data jumlah produk yang terjual
+              data: [
+                @foreach ($jumlahTotalproduk as $totalproduk)
+                {{ $totalproduk->total_quantity }},
+                @endforeach
+            ], //ini data jumlah produk yang terjual
               barThickness: 8
             }
           ]

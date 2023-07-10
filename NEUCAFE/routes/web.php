@@ -7,6 +7,7 @@ use App\Http\Controllers\produkController;
 use App\Http\Controllers\transaksiController;
 use App\Http\Controllers\tambahProdukController;
 use App\Http\Controllers\App\Models\Produk;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,12 +29,12 @@ Route::get('/', function () {
 
 
 // Route::get('/login',[SessionController::class, 'halog']);
-Route::post('authlog',[SessionController::class, 'login2']);
-Route::post('authsign',[SessionController::class, 'masukdata']);
-Route::post('editatas',[SessionController::class, 'upatas']);
-Route::post('editbaw',[SessionController::class, 'upbawah']);
-Route::post('outper',[SessionController::class, 'outletper']);
-Route::post('konfkod',[SessionController::class, 'outletper']);
+Route::post('authlog', [SessionController::class, 'login2']);
+Route::post('authsign', [SessionController::class, 'masukdata']);
+Route::post('editatas', [SessionController::class, 'upatas']);
+Route::post('editbaw', [SessionController::class, 'upbawah']);
+Route::post('outper', [SessionController::class, 'outletper']);
+Route::post('konfkod', [SessionController::class, 'outletper']);
 // Route::get('/tes', [YourController::class, 'tanggal'])->name('tes');
 // Route::get('/dashboard', [SessionController::class, 'tanggal']);
 // Route::get('/dashboard', [SessionController::class, 'tes']);
@@ -56,11 +57,51 @@ Route::get('flush', [SessionController::class, 'flushSession'])->name('flush');
 //     return "Result 1: $result1, Result 2: $result2";
 // });
 
+// Route::post('/laporan/{month}', [SessionController::class, 'laporan'])->name('laporan');
+// Route::post('/laporan/{month}', [SessionController::class, 'laporan'])->name('laporan');
+// Route::post('/about', [SessionController::class, 'laporan'])->name('laporan');
 
+// Route::match(['GET', 'POST'], '/about', [SessionController::class, 'laporan'])->name('laporan');
+
+// Route::match(['GET', 'POST'], '/about', function (Request $request) {
+//     $selectedMonth = $request->input('selected_month');
+//     return app()->call(SessionController::class.'laporan', ['request' => $request, 'selectedMonth' => $selectedMonth]);
+// })->name('laporan');
+
+// Route::match(['GET', 'POST'], '/about', [SessionController::class, 'getreport'])->name('laporan.report');
+// Route::match(['GET', 'POST'], '/about', [SessionController::class, 'getbarport'])->name('laporan.barport');
+// Route::match(['GET', 'POST'], '/about', [SessionController::class, 'getreport'])->name('laporan');
+// Route::match(['GET', 'POST'], '/about', [SessionController::class, 'getbarport'])->name('laporan');
+// Route::get('/about', [SessionController::class, 'getreport'])->name('laporan.report');
+// Route::post('/about', [SessionController::class, 'getbarport'])->name('laporan.barport');
+// Route::match(['GET', 'POST'], '/laporan', [SessionController::class, 'getreport'])->name('laporan');
+Route::match(['GET', 'POST'], '/laporaneu', [SessionController::class, 'getreport'])->name('laporan');
+
+
+
+// Route::match(['GET', 'POST'], '/about', function (Request $request) {
+//     $selectedMonth = $request->input('selected_month');
+//     return app()->call([SessionController::class, 'laporan'], ['request' => $request, 'selectedMonth' => $selectedMonth]);
+// })->name('laporan');
+
+// Route::match(['GET', 'POST'], '/about', function (Request $request) {
+//     $selectedMonth = $request->input('selected_month');
+//     return app()->call([SessionController::class, 'laporan'], ['request' => $request, 'selectedMonth' => $selectedMonth]);
+// })->name('laporan');
+
+
+// Route::get('/about', [SessionController::class, 'laporan'])->name('about');
+
+// Route::post('/laporan', [SessionController::class, 'laporan'])->name('laporan')
+// Route::post('/about', [SessionController::class, 'laporan']);
+// Route::get('/about', [SessionController::class, 'laporan'])->name('laporan');
 
 // Route::view("flush",'login');
 
+// Route::post('/about', [SessionController::class, 'laporan'])->name('laporan');
+
 // Route::view("tes",'about');
+
 // Route::get('/about', [SessionController::class, 'getTransactionsPerMonth'])->name('transactions');
 Route::view("info",'informasi');
 Route::view("choose",'choose');

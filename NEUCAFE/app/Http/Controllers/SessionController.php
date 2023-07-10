@@ -10,70 +10,10 @@ use Illuminate\Support\Facades\DB;
 use App\Models\outlet;
 use App\Models\akun;
 
+
 class SessionController extends Controller
 {
-    //
-    // function halog(){
-    //     return view("login");
-    // }
-
-    // function halsig(){
-    //     return view("signup");
-    // }
-
-
-    // function login2(Request $req){
-    //     $akun = akun::all();
     
-    //     foreach ($akun as $out) {
-    //         if ($out->email == $req->email && $out->password == $req->password) {
-    //             $req->session()->put('id', $out->id_akun);
-    //             $id = session('id');
-    //             $data = akun::where('id_akun', $id)->first();
-    //             $outlet = outlet::where('id_akun', $id)->first();
-    
-    //             if ($outlet) {
-    //                 session()->put('datas', $data->toArray());
-    //                 session()->put('outlets', $outlet->toArray());
-    //                 return view('choose');
-    //             } else {
-    //                 return view('infoOutlet');
-    //             }
-    //         }
-    //     }
-    
-    //     return redirect('login')->with('eror', 'email atau password salah');
-    // }
-
-
-    // function login2(Request $req){
-    //     $akun = akun::all();
-
-    //     foreach ($akun as $out) {
-    //         if ($out->email == $req->email && $out->password == $req->password) {
-    //             $req->session()->put('id', $out->id_akun);
-    //             $id = session('id');
-    //             $data = akun::where('id_akun', $id)->first();
-    //             $outlet = outlet::where('id_akun', $id)->first();
-    
-    //             if ($outlet) {
-    //                 session()->put('outlets', $outlet);
-    //             }
-
-    //             if ($data) {
-    //                 session()->put('datas', $data);
-    //             }
-
-    //             return view('choose');
-    //         }else {
-    //             return view('infoOutlet');
-    //         }
-    //     }
-    
-    //     return redirect('login')->with('eror', 'email atau password salah');
-
-    // }
-
 
 
 
@@ -110,36 +50,6 @@ class SessionController extends Controller
         ]);
     }
 
-
-        // ->groupBy('produk.id_produk', 'produk.nama', 'transaksi.id_outlet')
-        // ->groupBy('produk.id_produk', 'produk.nama')
-        // ->select('produk.id_produk', 'transaksi.id_outlet', 'produk.nama', DB::raw('SUM(detail_transaksi.quantity) AS total_quantity'))
-
-
-    // function login2(Request $req){
-    //     $akun = akun::all();
-
-    //     foreach($akun as $out){
-    //         if($out->email == $req->email){
-    //             if($out->password == $req->password){
-    //                 $req->session()->put('id',$out->id_akun);
-    //                 $id = session('id');
-    //                 $outlet = outlet::where('id_akun','=',$id)->get();
-    //                 if($outlet->isEmpty()){
-    //                     return view('infoOutlet');
-    //                 }else{
-    //                     $data = akun::where('id_akun','=',$id)->get();
-    //                     session()->put('datas', $data);
-    //                     session()->put('outlets', $outlet);
-    //                     return view('choose');
-    //                 }
-    //             }else {
-    //                 return redirect('login')->with('eror', 'email atau password salah');
-    //             }
-    //         }
-    //     }
-
-    // }
 
 
     function login2(Request $req){
@@ -202,6 +112,7 @@ class SessionController extends Controller
 
 
     public function getTransactionsPerMonth() {
+        $id = session('id');
         $id_outlet = session('id_outlet');
         // $id_outlet = 4;
     $transactions = DB::table('transaksi')
@@ -235,14 +146,30 @@ class SessionController extends Controller
         ->first();
 
 
-        // $total_tagihan_bulan = 'Rp ' . number_format($currentMonthTagihan->total_tagihan, 0, ',', '.');
-
         $total_tagihan_bulan = isset($currentMonthTagihan->total_tagihan) ? 'Rp ' . number_format($currentMonthTagihan->total_tagihan, 0, ',', '.') : 'Rp.0';
         
 
     
-    // $total_tagihan_bulan = isset($currentMonthTagihan->total_tagihan) ? $currentMonthTagihan->total_tagihan : 0;
 
+
+
+
+    $totalHargaBeli = DB::table('transaksi')
+    ->selectRaw('SUM(total_tagihan) as sum_total_tagihan, SUM(total_harga_beli) as sum_total_harga_beli, SUM(total_tagihan) - SUM(total_harga_beli) AS difference')
+    ->where('id_outlet', $id_outlet)
+    ->whereRaw('MONTH(waktu_order) = MONTH(CURDATE())')
+    ->first();
+
+    $difference = isset($totalHargaBeli->difference) ? 'Rp ' . number_format($totalHargaBeli->difference, 0, ',', '.') : 'Rp 0';
+
+
+
+    $akunData = DB::table('akun')
+    ->select('id_akun', 'email')
+    ->where('id_akun', $id)
+    ->first();
+
+    $akunEmail = isset($akunData->email) ? $akunData->email : "";
 
 
 
@@ -254,6 +181,20 @@ class SessionController extends Controller
     $transaksiCount = isset($transaksiCount) ? $transaksiCount : 0;
 
 
+    $namastokTerendah = DB::table('detail_transaksi')
+    ->join('transaksi', 'detail_transaksi.id_transaksi', '=', 'transaksi.id_transaksi')
+    ->join('produk', 'detail_transaksi.id_produk', '=', 'produk.id_produk')
+    ->select('detail_transaksi.id_relasi', 'produk.id_produk', 'produk.nama', 'produk.stok', DB::raw('MONTH(transaksi.waktu_order) AS month'))
+    ->where('transaksi.id_outlet', 1)
+    ->whereRaw('MONTH(transaksi.waktu_order) = MONTH(CURRENT_DATE)')
+    ->orderBy('produk.stok')
+    ->first();
+
+    $produkMinStok = isset($namastokTerendah->nama) ? $namastokTerendah->nama : "";
+
+
+
+
     $transaksiData = DB::table('detail_transaksi')
     ->join('transaksi', 'detail_transaksi.id_transaksi', '=', 'transaksi.id_transaksi')
     ->select('transaksi.id_outlet', DB::raw('SUM(detail_transaksi.quantity) AS total_quantity'), DB::raw('MONTH(transaksi.waktu_order) AS month'))
@@ -261,14 +202,7 @@ class SessionController extends Controller
     ->whereRaw('MONTH(transaksi.waktu_order) = MONTH(CURDATE())')
     ->groupBy('transaksi.id_outlet', DB::raw('MONTH(transaksi.waktu_order)'))
     ->first();
-
-    // $idOutlet = $transaksiData->id_outlet;
-    // $totalQuantity = $transaksiData->total_quantity;
-    // $month = $transaksiData->month;
-
-    // $idOutlet = isset($transaksiData->id_outlet) ? $transaksiData->id_outlet : 0;
     $totalQuantity = isset($transaksiData->total_quantity) ? $transaksiData->total_quantity : 0;
-    // $month = isset($transaksiData->month) ? $transaksiData->month : 0;
 
 
 
@@ -334,6 +268,7 @@ class SessionController extends Controller
         'october2022' => $october2022,
         'november2022' => $november2022,
         'december2022' => $december2022,
+
         'january2023' => $january2023,
         'february2023' => $february2023,
         'march2023' => $march2023,
@@ -360,6 +295,9 @@ class SessionController extends Controller
 
 
         "totalQuantity" => $totalQuantity,
+        "difference" => $difference,
+        "akunEmail" => $akunEmail,
+        "produkMinStok" => $produkMinStok,
 
         
 
@@ -369,91 +307,176 @@ class SessionController extends Controller
 
 
 
-    // public function getTransactionsPerMonth()
-    // {
-    //     $transactions = DB::table('transaksi')
-    //         ->selectRaw('YEAR(waktu_order) AS Year, DATE_FORMAT(waktu_order, "%M") AS Month, COUNT(*) AS count')
-    //         ->where('id_outlet', 1)
-    //         ->groupBy('Year', 'Month')
-    //         ->orderByRaw('Year ASC, FIELD(Month, "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December")')
-    //         ->get();
-    
-    //     // Initialize an empty associative array
-    //     $monthlyCounts = [];
-    
-    //     // Iterate over the transactions and populate the associative array
-    //     foreach ($transactions as $transaction) {
-    //         $year = $transaction->Year;
-    //         $month = $transaction->Month;
-    //         $count = $transaction->count;
-    
-    //         // Create the year key if it doesn't exist
-    //         if (!isset($monthlyCounts[$year])) {
-    //             $monthlyCounts[$year] = [];
-    //         }
-    
-    //         // Assign the count to the respective month
-    //         $monthlyCounts[$year][$month] = $count;
-    //     }
-    
-    //     $january2022 = isset($monthlyCounts[2022]['January']) ? $monthlyCounts[2022]['January'] : 0;
-    //     $february2022 = isset($monthlyCounts[2022]['February']) ? $monthlyCounts[2022]['February'] : 0;
-    //     $march2022 = isset($monthlyCounts[2022]['March']) ? $monthlyCounts[2022]['March'] : 0;
-    //     $january2023 = isset($monthlyCounts[2023]['January']) ? $monthlyCounts[2023]['January'] : 0;
-    //     $february2023 = isset($monthlyCounts[2023]['February']) ? $monthlyCounts[2023]['February'] : 0;
-    //     // Add similar lines for other months
-    
-    //     return view('about', ['january2022' => $january2022, 'february2022' => $february2022, 'january2023' => $january2023, 'february2023' => $february2023]);
-    // }
 
 
 
-//     public function getTransactionsPerMonth()
-// {
-//     $transactions = DB::table('transaksi')
-//         ->selectRaw('YEAR(waktu_order) AS Year, DATE_FORMAT(waktu_order, "%M") AS Month, COUNT(*) AS count')
-//         ->where('id_outlet', 1)
-//         ->groupBy('Year', 'Month')
-//         ->orderBy(DB::raw('Year, Month'))
-//         ->get();
-
-//     $formattedTransactions = $transactions->map(function ($transaction) {
-//         $transaction->Month = date('F', strtotime($transaction->Month));
-//         return $transaction;
-//     });
-
-//     $transactionsByMonth = $formattedTransactions->groupBy('Month')->map(function ($group) {
-//         return $group->sum('count');
-//     })->toArray();
-
-//     return view('about', [
-//         'transactionsByMonth' => $transactionsByMonth
-//     ]);
-// }
 
 
 
-//     public function getTransactionsPerMonth()
-// {
-//     $transactions = DB::table('transaksi')
-//         ->selectRaw('YEAR(waktu_order) AS Year, DATE_FORMAT(waktu_order, "%M") AS Month, COUNT(*) AS count')
-//         ->groupBy('Year', 'Month')
-//         ->orderBy(DB::raw('Year, Month'))
-//         ->get();
+        public function getreport(Request $request){
+            $id_outlet = 1;
 
-//     $formattedTransactions = $transactions->map(function ($transaction) {
-//         $transaction->Month = date('F', strtotime($transaction->Month));
-//         return $transaction;
-//     });
 
-//     $transactions2022 = $formattedTransactions->where('Year', 2022);
-//     $transactions2023 = $formattedTransactions->where('Year', 2023);
 
-//     return view('about', [
-//         'transactions2022' => $transactions2022,
-//         'transactions2023' => $transactions2023
-//     ]);
-// }
+            $transactions = DB::table('transaksi')
+            ->selectRaw('YEAR(waktu_order) AS Year, DATE_FORMAT(waktu_order, "%M") AS Month, COUNT(*) AS count')
+            ->where('id_outlet', $id_outlet)
+            ->groupBy('Year', 'Month')
+            ->orderByRaw('Year ASC, FIELD(Month, "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December")')
+            ->get();
+
+
+            foreach ($transactions as $transaction) {
+                $year = $transaction->Year;
+                $month = $transaction->Month;
+                $count = $transaction->count;
+        
+                // Create the year key if it doesn't exist
+                if (!isset($monthlyCounts[$year])) {
+                    $monthlyCounts[$year] = [];
+                }
+        
+                // Assign the count to the respective month
+                $monthlyCounts[$year][$month] = $count;
+            }
+                
+
+
+
+
+
+            if ($request->input('bdaymonth') === null) {
+                // Check if the 'bdaymonth' key exists in the session
+                if (session()->has('bdaymonth')) {
+                    // Retrieve the value from the session
+                    $yearmonth = session('bdaymonth');
+                } else {
+                    // Set a default value if the key doesn't exist in the session
+                    $yearmonth = '2023-01';
+                }
+            } else {
+                // Store the 'bdaymonth' input in the session
+                session(['bdaymonth' => $request->input('bdaymonth')]);
+                $yearmonth = $request->input('bdaymonth');
+            }
+
+            $month = date('m', strtotime($yearmonth));
+
+            $monthName = Carbon::create()->month($month)->locale('id')->monthName;
+
+            $transactions = DB::table('transaksi')
+            ->where('id_outlet', $id_outlet)
+            ->whereMonth('waktu_order', '=', $month)
+            ->get();
+
+            $transactionCount = DB::table('transaksi')
+            ->where('id_outlet', $id_outlet)
+            ->whereMonth('waktu_order', $month)
+            ->count('id_transaksi');
+
+
+            $totaltagihan = DB::table('transaksi')
+            ->where('id_outlet', $id_outlet)
+            ->whereMonth('waktu_order', $month)
+            ->sum('total_tagihan');
+
+
+
+            
+               $totaltagihan = isset($totaltagihan) ? 'Rp ' . number_format($totaltagihan, 0, ',', '.') : 'Rp.0';
+            
+
+            $totalHargabeli = DB::table('transaksi')
+            ->where('id_outlet', $id_outlet)
+            ->whereMonth('waktu_order', $month)
+            ->sum('total_harga_beli');
+
+
+            
+            
+            $totalHargabeli = isset($totalHargabeli) ? 'Rp ' . number_format($totalHargabeli, 0, ',', '.') : 'Rp.0';
+
+
+
+
+
+
+
+            if ($request->input('bdaymonthbar') === null) {
+                // Check if the 'bdaymonth' key exists in the session
+                if (session()->has('bdaymonthbar')) {
+                    // Retrieve the value from the session
+                    $yearmonthBar = session('bdaymonthbar');
+                } else {
+                    // Set a default value if the key doesn't exist in the session
+                    $yearmonthBar = '2023-01';
+                }
+            } else {
+                // Store the 'bdaymonth' input in the session
+                session(['bdaymonthbar' => $request->input('bdaymonthbar')]);
+                $yearmonthBar = $request->input('bdaymonthbar');
+            }
+
+            
+            $monthbar = date('m', strtotime($yearmonthBar)); 
+            
+            $monthNameBar = Carbon::create()->month($monthbar)->locale('id')->monthName;
+
+            $jumlahTotalproduk = DB::table('detail_transaksi')
+            ->select('produk.id_produk', 'produk.id_outlet', 'produk.nama', DB::raw('MONTH(transaksi.waktu_order) AS MONTH'), DB::raw('SUM(detail_transaksi.quantity) AS total_quantity'))
+            ->join('transaksi', 'detail_transaksi.id_transaksi', '=', 'transaksi.id_transaksi')
+            ->join('produk', 'produk.id_produk', '=', 'detail_transaksi.id_produk')
+            ->where('produk.id_outlet', $id_outlet)
+            ->whereMonth('waktu_order', '=', $monthbar)
+            ->groupBy('produk.id_produk', 'produk.id_outlet', 'produk.nama',  DB::raw('MONTH(transaksi.waktu_order)'))
+            ->get();
+
+
+            $january2023 = isset($monthlyCounts[2023]['January']) ? $monthlyCounts[2023]['January'] : 0;
+            $february2023 = isset($monthlyCounts[2023]['February']) ? $monthlyCounts[2023]['February'] : 0;
+            $march2023 = isset($monthlyCounts[2023]['March']) ? $monthlyCounts[2023]['March'] : 0;
+            $april2023 = isset($monthlyCounts[2023]['April']) ? $monthlyCounts[2023]['April'] : 0;
+            $may2023 = isset($monthlyCounts[2023]['May']) ? $monthlyCounts[2023]['May'] : 0;
+            $june2023 = isset($monthlyCounts[2023]['June']) ? $monthlyCounts[2023]['June'] : 0;
+            $july2023 = isset($monthlyCounts[2023]['July']) ? $monthlyCounts[2023]['July'] : 0;
+            $august2023 = isset($monthlyCounts[2023]['August']) ? $monthlyCounts[2023]['August'] : 0;
+            $september2023 = isset($monthlyCounts[2023]['September']) ? $monthlyCounts[2023]['September'] : 0;
+            $october2023 = isset($monthlyCounts[2023]['October']) ? $monthlyCounts[2023]['October'] : 0;
+            $november2023 = isset($monthlyCounts[2023]['November']) ? $monthlyCounts[2023]['November'] : 0;
+            $december2023 = isset($monthlyCounts[2023]['December']) ? $monthlyCounts[2023]['December'] : 0;
+
+            
+
+
+
+            
+
+            return view('laporaneu', [
+                'transactions' => $transactions,
+                'month' => $month,
+                'monthName' => $monthName,
+                'jumlahTotalproduk' => $jumlahTotalproduk,
+                'monthbar' => $monthbar,
+                'monthNameBar' => $monthNameBar,
+                'transactionCount' => $transactionCount,
+                'totaltagihan' => $totaltagihan,
+                'totalHargabeli' => $totalHargabeli,
+
+                'january2023' => $january2023,
+                'february2023' => $february2023,
+                'march2023' => $march2023,
+                'april2023' => $april2023,
+                'may2023' => $may2023,
+                'june2023' => $june2023,
+                'july2023' => $july2023,
+                'august2023' => $august2023,
+                'september2023' => $september2023,
+                'october2023' => $october2023,
+                'november2023' => $november2023,
+                'december2023' => $december2023,
+
+            ]);
+        }
 
 
     public function outletper(Request $req){
@@ -484,11 +507,8 @@ class SessionController extends Controller
             ->groupBy(DB::raw('MONTH(waktu_order)'))
             ->orderBy(DB::raw('MONTH(waktu_order)'));
 
-        // Execute the query and assign the result to a variable
         $results = $query->get();
 
-        // Process the results or pass them to the view
-        // For example, you can return them as JSON
         return view('dashboard', ['results' => $results]);
     }
 
@@ -522,9 +542,7 @@ class SessionController extends Controller
             $outlet->alamat = $req->alamat;
             $outlet->save();
         } else {
-            
-            // Handle the case when no outlet is found
-            // You can throw an exception, show an error message, or take appropriate action.
+
         }
 
         if ($akun) {
@@ -532,8 +550,7 @@ class SessionController extends Controller
             $akun->noTelp = $req->telp;
             $akun->save();
         } else {
-            // Handle the case when no akun is found
-            // You can throw an exception, show an error message, or take appropriate action.
+
         }
 
         $data = akun::where('id_akun','=',$req->idbar)->get();
@@ -559,8 +576,7 @@ class SessionController extends Controller
             $akun->kodeManajer = $req->kode;
             $akun->save();
         } else {
-            // Handle the case when no akun is found
-            // You can throw an exception, show an error message, or take appropriate action.
+
         }
 
         $data = akun::where('id_akun','=',$req->idbaw)->get();
