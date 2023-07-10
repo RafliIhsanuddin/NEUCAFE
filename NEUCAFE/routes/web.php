@@ -115,3 +115,4 @@ Route::view("detailProduk", 'detailProduk');
 Route::view("konfir", 'kodem');
 
 Route::resource("daftarProduk", produkController::class);
+

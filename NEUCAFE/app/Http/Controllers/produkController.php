@@ -14,8 +14,10 @@ class produkController extends Controller
      */
     public function index(Request $request)
     {
+        // Sintaks untuk search
+        $id_outlet = session('id_outlet');
         $katakunci   = $request->katakunci;
-        $jumlahbaris = 4;
+        $jumlahbaris = 4; //banyaknya halaman paginasi
         if (strlen($katakunci)) {
             $data =    produk::where('nama', 'like', "%$katakunci%")
                 ->orWhere('kategori',   'like', "%$katakunci%")
@@ -24,9 +26,12 @@ class produkController extends Controller
                 ->orWhere('harga_beli', 'like', "%$katakunci%")
                 ->orWhere('deskripsi',  'like', "%$katakunci%")
                 ->orWhere('id_outlet',  'like', "%$katakunci%")
+                ->where('id_outlet', $id_outlet)
                 ->paginate($jumlahbaris);
         } else {
-            $data = produk::orderByDesc('id_produk')->paginate($jumlahbaris);
+            $data = produk::orderByDesc('id_produk')
+            ->where('id_outlet', $id_outlet)
+            ->paginate($jumlahbaris);
         }
         return view("daftarProduk", compact('data'));
     }
@@ -95,7 +100,7 @@ class produkController extends Controller
 
         $fileUp = 'imgProducts'; //buat folder imgproducts digunakan untuk menyimpan gambar yang telah di upload (create secara otomatis by laravel)
         $file->move($fileUp, $namaFile); // simpan gambarnya di dir img products dengan nama gambar
-
+        Session::flash('gambar_produk', $namaFile);
         produk::create([
             'nama'              => $request->nama,
             'kategori'          => $request->kategori,
@@ -117,6 +122,7 @@ class produkController extends Controller
     {
         $data = produk::whereid_produk($id)->first();
         return view('detailProduk', compact('data'));
+    
     }
 
     /**
@@ -171,7 +177,7 @@ class produkController extends Controller
         $produk->deskripsi      = $request->deskripsi;
         $produk->id_outlet      = $request->id_outlet;
         $produk->status         = $request->input('status');
-        
+
         // Check if a new image is uploaded
     if ($request->hasFile('gambar_produk')) {
         $file = $request->file('gambar_produk');

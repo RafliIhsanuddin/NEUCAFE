@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="../../assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" />
     <link rel="stylesheet" href="../../assets/styles/tailwind.css" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/remixicon.css">
+
+
     <title>Daftar Produk</title>
 </head>
 
@@ -262,6 +265,11 @@
                                             </th>
                                             <th
                                                 class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100">
+                                                detail
+                                            </th>
+                                            <th
+                                                class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100">
+                                                hapus
                                             </th>
                                         </tr>
                                     </thead>
@@ -318,25 +326,25 @@
                                             <!-- NAH INI LINK BUAT HAPUS PRODUKNYA, DAN PINDAH KE HALAMAN DETAIL PRODUK -->
                                             <td
                                                 class="border-t-0 px-2 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-center">
-                                                <a href="#" class="text-blueGray-500 block py-1 px-3"
-                                                    onclick="openDropdown(event,'table-light-1-dropdown')">
-                                                    <i class="fas fa-ellipsis-v"></i>
-                                                </a>
-                                                <div class="hidden bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg min-w-48"
-                                                    id="table-light-1-dropdown">
-                                                    <a href="{{ url('/daftarProduk') }}{{ '/' }}{{ $item->id_produk }}{{ '/' }}{{ 'edit' }}"
-                                                        class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent hover:bg-gray-100 text-blueGray-700">Edit</a>
-                                                    <a href="{{ url('/daftarProduk') }}{{ '/' }}{{ $item->id_produk }}"
-                                                        class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent hover:bg-gray-100 text-blueGray-700">Detail</a>
-                                                                            {{-- Penghapusan data --}}
-                                                    <form onsubmit="return confirm('Yakin akan melakukan aksi delete data')" action="{{ url('daftarProduk/' . $item->id_produk) }}" method="POST"> 
-                                                        @csrf
-                                                        @method('DELETE')
-                                                            <button  type ='submit' name='submit'
-                                                            class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent hover:bg-gray-100 text-blueGray-700">Hapus</button>
-                                                    </form>
-                                                                            {{-- Penghapusan data --}}
-                                                </div>
+                                                <a href="{{ url('/daftarProduk') }}{{ '/' }}{{ $item->id_produk }}"
+                                                    class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap  hover:bg-green-400 text-blueGray-700 bg-green-300 rounded-sm mb-1">Detail</a>
+                                                <a href="{{ url('/daftarProduk') }}{{ '/' }}{{ $item->id_produk }}{{ '/' }}{{ 'edit' }}"
+                                                    class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap hover:bg-orange-400 text-blueGray-700 bg-orange-300 rounded-sm">Edit</a>
+                                            </td>
+                                            <td
+                                                class="border-t-0 px-2 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-center">
+                                                <form onsubmit="return confirm('Yakin akan melakukan aksi delete data')" action="{{ url('daftarProduk/' . $item->id_produk) }}" method="POST"> 
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    
+                                                    <button  type ='submit' name='submit'
+                                                        class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent hover:bg-gray-100 text-blueGray-700">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mx-auto text-red-400">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                                                        </svg>
+                                                    </button>
+                                                        
+                                                </form>
                                             </td>
                                         </tr> @endforeach
                                     </tbody>
@@ -576,6 +584,8 @@
             ctx = document.getElementById("bar-chart").getContext("2d");
             window.myBar = new Chart(ctx, config);
         })();
+       
+
     </script>
 </body>
 

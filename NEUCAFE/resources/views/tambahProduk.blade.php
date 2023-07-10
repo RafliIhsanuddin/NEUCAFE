@@ -179,7 +179,7 @@
             @endif
             {{-- Peringatan error yang terjadi --}}
 
-            <form action="{{ url('daftarProduk') }}" method="post" enctype="multipart/form-data">
+            <form action="{{ url('daftarProduk') }}" method="post" enctype="multipart/form-data" id="myForm" >
                 @csrf
                 <div class="relative md:pt-32 pb-8 pt-12">
                     <div class="px-4 md:px-10 mx-auto w-full">
@@ -195,8 +195,7 @@
                                         <img id="chosen-image" class="w-40 h-40 bg-slate-500">
                                     </figure>
                                     {{-- nanti ditambahkan value untuk session flash untuk upload gambar --}}
-                                    <input type="file" id="upload-button" accept="image/*" name="gambar_produk" 
-                                        class=" hidden">
+                                    <input type="file" id="upload-button" accept="image/*" name="gambar_produk" class=" hidden" value="{{ Session::get('gambar_produk') }}">
                                     <label for="upload-button"
                                         class="bg-green-600 hover:bg-green-500 focus:outline-none text-white px-5 py-1 font-semibold rounded-md mt-3">
                                         Tambah Foto
@@ -273,6 +272,7 @@
     <script type="text/javascript">
         let uploadButton = document.getElementById("upload-button");
         let chosenImage = document.getElementById("chosen-image");
+        let myForm = document.getElementById('myForm');
 
         uploadButton.onchange = () => {
             let reader = new FileReader();

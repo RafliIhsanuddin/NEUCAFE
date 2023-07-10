@@ -174,7 +174,7 @@
                 </div>
             </nav>
             <!-- Header -->
-            <form action="{{ url('daftarProduk/'.$data->id_produk) }}" method="post" enctype="multipart/form-data">
+            <form action="{{ url('daftarProduk/'.$data->id_produk) }}" method="post" enctype="multipart/form-data" id="myForm">
                 @csrf
                 @method('PUT') {{-- mengarah ke  public function update(Request $request, string $id) di produkController.php --}}
                 <div class="relative md:pt-32 pb-8 pt-12">
@@ -192,7 +192,7 @@
                             <div class="flex w-full mx-2">
                                 <div class="flex flex-col items-center mr-7">
                                     <figure class="image-container w-40 h-40">
-                                        <img id="chosen-image" class="w-40 h-40 bg-slate-500">
+                                        <img src ="{{asset('imgProducts/'.$data->gambar_produk)}}" id="chosen-image" class="w-40 h-40 bg-slate-500">
                                     </figure>
                                     <input type="file" id="upload-button" accept="image/*" name="gambar_produk" class="hidden">
                                     <label for="upload-button" 
@@ -237,7 +237,7 @@
                                                 class="h-6 py-1 rounded-md border-gray-300 border-[2px]">
                                     <input type="text" name="id_outlet"      value="{{ $data->id_outlet }}" 
                                                 class="h-6 py-1 rounded-md border-gray-300 border-[2px]">
-                                    <select name="status" class="h-7 px-1 rounded-md border-gray-300 border-[2px]">
+                                    <select name="status" class="h-7 px-1 rounded-md border-gray-300 border-[2px]" id="status">
                                         <option value="Success" {{ $data->status == 'Success' ? 'selected' : '' }}>
                                             <i class="fas fa-circle text-green-500 mr-2"></i>
                                             <span class="text-sm">Success</span>
@@ -257,9 +257,7 @@
                         </div>
                     </div>
                 </div>
-            </form>
-            
-            
+            </form>        
         </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" charset="utf-8"></script>
@@ -267,7 +265,8 @@
     <script type="text/javascript">
         let uploadButton = document.getElementById("upload-button");
         let chosenImage = document.getElementById("chosen-image");
-
+        let myForm = document.getElementById('myForm');
+        
         uploadButton.onchange = () => {
             let reader = new FileReader();
             reader.readAsDataURL(uploadButton.files[0]);

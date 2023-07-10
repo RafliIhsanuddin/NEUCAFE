@@ -163,7 +163,7 @@
                             onclick="openDropdown(event,'user-dropdown')">
                             <div class="items-center flex">
                                 <span
-                                    class="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full"><img
+                                    class="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full"><img 
                                         alt="..." class="w-full rounded-full align-middle border-none shadow-lg"
                                         src="../../assets/img/team-1-800x800.jpg" /></span>
                             </div>
@@ -186,6 +186,9 @@
                         <div class="flex w-full mx-2">
                             <div class="w-40 h-40 bg-slate-400 rounded-md mr-6">
                                 <!-- image -->
+                                <figure class="image-container w-40 h-40">
+                                    <img src ="{{asset('imgProducts/'.$data->gambar_produk)}}" id="chosen-image" class="w-40 h-40 bg-slate-500">
+                                </figure>
                             </div>
 
                             <div class="flex flex-col space-y-3 w-32 text-base font-medium">
