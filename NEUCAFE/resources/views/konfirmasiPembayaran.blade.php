@@ -103,7 +103,7 @@
                         <h2 class="text-2xl max-lg:text-xl font-bold mb-2">Pembayaran</h2>
                         <div class="flex justify-between">
                             <p>Tagihan</p>
-                            <p>Rp <span id = "tagihan">{{ $transaksi->total_tagihan, 0 }}</span></p>
+                            <p>Rp <span id = "tagihan">{{ $transaksi->total_tagihan}}</span></p>
                         </div>
                         <div class="flex justify-between">
                             <p>Pembayaran</p>
