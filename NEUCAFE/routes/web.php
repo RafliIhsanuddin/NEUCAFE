@@ -5,6 +5,7 @@ use App\Http\Controllers\SessionController;
 use App\Http\Controllers\OutletPer;
 use App\Http\Controllers\produkController;
 use App\Http\Controllers\transaksiController;
+use App\Http\Controllers\reviewController;
 use App\Http\Controllers\tambahProdukController;
 use App\Http\Controllers\App\Models\Produk;
 use Illuminate\Http\Request;
@@ -34,7 +35,7 @@ Route::post('authsign', [SessionController::class, 'masukdata']);
 Route::post('editatas', [SessionController::class, 'upatas']);
 Route::post('editbaw', [SessionController::class, 'upbawah']);
 Route::post('outper', [SessionController::class, 'outletper']);
-Route::post('konfkod', [SessionController::class, 'konfirmasikode']);
+Route::post('konfkod', [SessionController::class, 'outletper']);
 // Route::get('/tes', [YourController::class, 'tanggal'])->name('tes');
 // Route::get('/dashboard', [SessionController::class, 'tanggal']);
 // Route::get('/dashboard', [SessionController::class, 'tes']);
@@ -112,18 +113,19 @@ Route::view("edit",'editProduk');
 Route::view("signup",'signup');
 Route::view("laporan",'laporan');
 Route::view("daftar",'daftarProduk');
-Route::view("review",'reviewPelanggan');
 Route::view("landing",'landing');
 Route::view("ProdukPer",'firstProduct');
 Route::view("outletPer",'infoOutlet');
 Route::view("coba",'coba');
 Route::view("tambahProduk",'tambahProduk');
 Route::view("detailProduk",'detailProduk');
-Route::view("kodem",'kodem');
+Route::view("konfir",'kodem');
+// Route::view("konfirmasiPembayaran", 'konfirmasiPembayaran');
 
-Route::resource("daftarProduk", produkController::class);
+Route::resource("tambahProduk", produkController::class);
 
-
+//review
+Route::get('review',[reviewController::class, 'index'])->name('review');
 
 //Kasir
 Route::get('kasir',[transaksiController::class, 'index'])->name('kasir');

@@ -187,7 +187,7 @@
                         <div class="block w-full overflow-x-auto">
                             <!-- Projects table -->
                             <table class="items-center w-full bg-transparent border-collapse">
-                                <thead>
+                                <thead class=" sticky top-0 bg-green-500 text-white">
                                     <tr>
                                         <th
                                             class="px-2 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100">
@@ -216,40 +216,41 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-
+                                    @foreach ($rating as $rate)
                                     <!-- Output Rating -->
-                                    <tr>
+                                    <tr class="@if ($loop->iteration % 2 === 0) bg-gray-100 @else bg-gray-200 @endif">
                                         <td
-                                            class="border-t-0 px-2 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                            1
+                                            class="border-t-0 px-2 align-middle border-l-0 border-r-0 text-sm whitespace-nowrap p-4">
+                                            {{ $loop->iteration }}
                                             <!-- output nomor transaksi -->
                                         </td>
                                         <td
-                                            class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                            kipli
+                                            class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-sm whitespace-nowrap p-4">
+                                            {{$rate->nama_customers}}
                                             <!-- output nama pelanggan -->
                                         </td>
                                         <td
-                                            class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                            <span id="produk" class=" text-yellow-500"></span>
+                                            class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-sm whitespace-nowrap p-4">
+                                            <span id="produk" class="produk text-yellow-500" value="">{{$rate->rate_produk}}</span>
                                             <!-- output RATING PRODUK, MASUKIN DATANYA ADA DI JAVASCRIPT BAWAH -->
                                         </td>
                                         <td
-                                            class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                            <span id="pelayanan" class=" text-yellow-500"></span>
+                                            class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-sm whitespace-nowrap p-4">
+                                            <span id="pelayanan" class="pelayanan text-yellow-500">{{$rate->rate_pelayanan}}</span>
                                             <!-- output RATING PELAYANAN, MASUKIN DATANYA ADA DI JAVASCRIPT BAWAH -->
                                         </td>
                                         <td
-                                            class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                            <span id="tempat" class=" text-yellow-500"></span>
+                                            class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-sm whitespace-nowrap p-4">
+                                            <span id="tempat" class=" tempat text-yellow-500">{{$rate->rate_tempat}}</span>
                                             <!-- output RATING TEMPAT, MASUKIN DATANYA ADA DI JAVASCRIPT BAWAH -->
                                         </td>
                                         <td
                                             class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                                            <span id="akumulasi" class=" text-yellow-500"></span>
+                                            <span id="akumulasi" class=" akumulasi text-yellow-500">{{number_format(($rate->rate_produk + $rate->rate_tempat + $rate->rate_pelayanan)/3,2)}}</span>
                                             <!-- output akumulasi berdasarkan 3 rating di atas, udh otomatis terakumulasi jadi gausah di otak-atik -->
                                         </td>
                                     </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -262,27 +263,27 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" charset="utf-8"></script>
     <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
     <script type="text/javascript">
-        var resultProduk = document.getElementById("produk");
-        var resultPelayanan = document.getElementById("pelayanan");
-        var resultTempat = document.getElementById("tempat");
-        var akumulasi = document.getElementById("akumulasi");
+        // var resultProduk = document.getElementByClass("produk");
+        // var resultPelayanan = document.getElementByClass("pelayanan");
+        // var resultTempat = document.getElementByClass("tempat");
+        // var akumulasi = document.getElementByClass("akumulasi");
 
-        var dummyRatingDataProduk = 4; // Data dummy rating Produk
-        var dummyRatingDataPelayanan = 5; // Data dummy rating Pelayanan
-        var dummyRatingDataTempat = 3; // Data dummy rating Tempat
+        // var dummyRatingDataProduk = resultProduk; // Data dummy rating Produk
+        // var dummyRatingDataPelayanan = resultPelayanan; // Data dummy rating Pelayanan
+        // var dummyRatingDataTempat = resultTempat; // Data dummy rating Tempat
 
-        var totalStar = (dummyRatingDataProduk + dummyRatingDataPelayanan + dummyRatingDataTempat) /
-            3 //akumulasi rating keseluruhan
-        akumulasi.innerHTML += totalStar.toFixed(2);
+        // var totalStar = (dummyRatingDataProduk + dummyRatingDataPelayanan + dummyRatingDataTempat) /
+        //     3 //akumulasi rating keseluruhan
+        // akumulasi.innerHTML += totalStar.toFixed(2);
 
-        for (var i = 0; i < dummyRatingDataProduk; i++) {
-            resultProduk.innerHTML += "&#9733;";
-        }
-        for (var i = 0; i < dummyRatingDataPelayanan; i++) {
-            resultPelayanan.innerHTML += "&#9733;";
-        }
-        for (var i = 0; i < dummyRatingDataTempat; i++) {
-            resultTempat.innerHTML += "&#9733;";
+        // for (var i = 0; i < dummyRatingDataProduk; i++) {
+        //     resultProduk.innerHTML += "&#9733;";
+        // }
+        // for (var i = 0; i < dummyRatingDataPelayanan; i++) {
+        //     resultPelayanan.innerHTML += "&#9733;";
+        // }
+        // for (var i = 0; i < dummyRatingDataTempat; i++) {
+        //     resultTempat.innerHTML += "&#9733;";
         }
         /* Make dynamic date appear */
         (function() {
