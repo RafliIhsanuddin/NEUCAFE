@@ -591,7 +591,7 @@ class SessionController extends Controller
         
     }
 
-    function logout(){
+    function logout(Request $request){
         $request->session()->flush();
     }
 

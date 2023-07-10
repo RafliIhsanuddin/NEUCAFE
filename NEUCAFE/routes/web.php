@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\OutletPer;
 use App\Http\Controllers\produkController;
+use App\Http\Controllers\transaksiController;
 use App\Http\Controllers\tambahProdukController;
 use App\Http\Controllers\App\Models\Produk;
 use Illuminate\Http\Request;
@@ -43,6 +44,7 @@ Route::get('/dashboard', [SessionController::class, 'getTransactionsPerMonth']);
 // Route::view('info',[SessionController::class, 'log']);
 
 Route::get('flush', [SessionController::class, 'flushSession'])->name('flush');
+
 
 // Route::get('/dashboard', function () {
 //     // Call the first function
@@ -103,7 +105,7 @@ Route::match(['GET', 'POST'], '/laporaneu', [SessionController::class, 'getrepor
 // Route::get('/about', [SessionController::class, 'getTransactionsPerMonth'])->name('transactions');
 Route::view("info",'informasi');
 Route::view("choose",'choose');
-Route::view("kasir",'kasir');
+// Route::view("kasir",'kasir');
 // Route::view("dashboard",'dashboard');
 Route::view("login",'login');
 Route::view("edit",'editProduk');
@@ -119,26 +121,27 @@ Route::view("tambahProduk",'tambahProduk');
 Route::view("detailProduk",'detailProduk');
 Route::view("kodem",'kodem');
 
-// Route::view("tes",'about');
+Route::resource("tambahProduk", produkController::class);
 
-// Route::get('/about', [SessionController::class, 'getTransactionsPerMonth'])->name('transactions');
-Route::view("info", 'informasi');
-Route::view("choose", 'choose');
-Route::view("kasir", 'kasir');
-// Route::view("dashboard",'dashboard');
-Route::view("login", 'login');
-Route::view("edit", 'editProduk');
-Route::view("signup", 'signup');
-Route::view("laporan", 'laporan');
-Route::view("daftarProduk", 'daftarProduk');
-Route::view("review", 'reviewPelanggan');
-Route::view("landing", 'landing');
-Route::view("ProdukPer", 'firstProduct');
-Route::view("outletPer", 'infoOutlet');
-Route::view("coba", 'coba');
-Route::view("tambahProduk", 'tambahProduk');
-Route::view("detailProduk", 'detailProduk');
-// Route::view("konfir", 'kodem');
+
 
 Route::resource("daftarProduk", produkController::class);
 
+
+
+//Kasir
+Route::get('kasir',[transaksiController::class, 'index'])->name('kasir');
+Route::get('kasir/tambah/{id}', [transaksiController::class, 'cart']);
+Route::get('kasir/hapus/{id}', [transaksiController::class, 'hapus']);
+Route::get('kasir/hapus/{id}', [transaksiController::class, 'hapus']);   
+Route::get('kasir/tambahStok/{id}', [transaksiController::class, 'tambah']);  
+Route::get('kasir/kurangStok/{id}', [transaksiController::class, 'kurang']);   
+
+// Route::view('konfirmasiPembayaran','konfirmasiPembayaran');
+Route::post('konfirmasiPembayaran/{id}', [transaksiController::class, 'konfir']);
+Route::get('konfirmasiPembayaran/{id}', [transaksiController::class, 'detailPemesanan'])->name('konfirmasiPembayaran');   
+
+Route::post('konfirmasiPembayaran/checkout/{id}', [transaksiController::class, 'checkout']);
+
+//riwayat
+Route::get('riwayat',[transaksiController::class, 'tampilRiwayat']);

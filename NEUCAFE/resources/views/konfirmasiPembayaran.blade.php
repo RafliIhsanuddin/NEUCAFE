@@ -17,7 +17,7 @@
 <body class="text-blueGray-700 bg-gray-100 antialiased">
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root">
-        <nav class=" shadow-xl bg-white flex flex-wrap items-center justify-between relative z-10 py-4 px-10">
+        <nav class=" shadow-xl bg-white flex flex-wrap items-center justify-between relative z-10 py-2 px-10">
             <div class=" px-0 flex flex-wrap items-center justify-between w-full mx-auto">
                 <a class=" text-black mr-auto inline-block whitespace-nowrap text-lg uppercase font-bold p-4 px-0"
                     href="../../index.html">
@@ -48,27 +48,81 @@
 
             <!-- Informasi Bisnis -->
             <div class="relative pb-8 pt-12 px-2">
-                <div class="flex max-md:flex-col max-md:items-center px-1 lg:px-1 mx-auto w-full justify-center space-x-16 max-lg:space-x-10 max-md:space-x-4">
-                    <div
-                        class="flex flex-col  flex-wrap w-[70vh] bg-white px-6 py-4 mb-6 rounded h-fit space-y-3 text-lg max-lg:text-base">
+                <div class="flex max-md:flex-col max-md:items-center px-1 lg:px-1 mx-auto w-full justify-center space-x-16 max-lg:space-x-10 max-md:space-x-0">
+                    <div class="w-[55vh] max-md:w-full h-fit bg-white rounded-lg p-5 border-[2px] border-gray-300 mb-6 ">
+                        <h5 class="text-xl max-lg:text-xl font-bold mb-2">Detail Transaksi</h5>
+                        <table>
+                            <tr>
+                                <td>Customer </td>
+                                <td> :</td>
+                                <td>{{$transaksi->nama_customer}}</td>
+                            </tr>
+                            <tr>
+                                <td>Tanggal</td>
+                                <td>:</td>
+                                <td>{{date('H:i:s d-m-Y', strtotime($transaksi->waktu_order))}}</td>
+                            </tr>
+                        </table>
+                        <hr class="my-2">
+
+                        <table class="w-full">
+                            @foreach ($produk as $item)
+                                
+                            <tr class="text-left">
+                                <th>{{$item->nama}}</th>
+                            </tr>
+                            <tr>
+                                <td>{{$item->quantity}}x</td>
+                                <td>Rp {{ number_format($item->harga_jual, 0, '.', '.') }}</td>
+                                <td class="text-right">Rp {{number_format($item->quantity * $item->harga_jual, 0, '.', '.')}}</td>
+                            </tr>
+                            
+                            @endforeach
+                        </table>
+                        <hr class="my-1">
+
+                        <table class="w-full">
+                            <tr>
+                                <td>Jumlah Item</td>
+                                <td class="text-left">:</td>
+                                <td class="text-right">{{$totalQuantity}}</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold text-lg">Total</td>
+                                <td class="text-left">:</td>
+                                <td class="text-right font-semibold text-lg">Rp {{ number_format($transaksi->total_tagihan, 0, '.', '.') }}</td>
+                            </tr>
+                            
+                        </table>
+
+                    </div>
+                    
+                    <form action="{{url('konfirmasiPembayaran/checkout')}}/{{$transaksi->id_transaksi}}" method="POST"
+                        class="flex flex-col flex-wrap w-[70vh] max-md:w-full bg-white px-6 py-4 rounded h-fit space-y-3 text-lg max-lg:text-base">
+                        @csrf
                         <h2 class="text-2xl max-lg:text-xl font-bold mb-2">Pembayaran</h2>
                         <div class="flex justify-between">
                             <p>Tagihan</p>
-                            <p>Rp20.000</p>
+                            <p>Rp <span id = "tagihan">{{ $transaksi->total_tagihan}}</span></p>
                         </div>
                         <div class="flex justify-between">
                             <p>Pembayaran</p>
-                            <p>Rp20.000</p>
+                            <div class="relative mt-1 rounded-md shadow-sm">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <span class="text-gray-500 sm:text-sm">Rp</span>
+                                </div>
+                                <input name="bayar" type="number" class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-12 border-gray-300 rounded-md" id="pembayaran" oninput="updateResult()" placeholder="0,00">
+                            </div>
                         </div>
                         <div class="flex justify-between">
                             <p>Kembalian</p>
-                            <p>Rp20.000</p>
+                            <p><span id="result">Rp {{ number_format($transaksi->total_tagihan, 0, '.', '.') }}</span></p>
                         </div>
 
                         <h2 class="text-2xl max-lg:text-xl font-bold">Metode Pembayaran</h2>
                         <div class="flex justify-between">
                             <p>Metode Pembayaran</p>
-                            <select name="cars" id="cars" class="w-28 px-2 rounded-md">
+                            <select name="metode" id="metode" class="w-32 border-[1px] text-sm px-2 rounded-md">
                                 <option value="Tunai">Tunai</option>
                                 <option value="Qris">Qris</option>
                                 <option value="Debit">Debit</option>
@@ -77,45 +131,41 @@
 
                         <div class="grow-14 pt-20 pb-4 flex flex-col space-y-3">
 
-                            <button type="submit" onclick="tampilkanObjek()"
+                            <button name="button1" type="submit"
                                 class="text-base font-semibold text-white bg-green-600 hover:bg-green-500 h-10 mx-0 rounded-md">
                                 Konfirmasi Pembayaran
                             </button>
-                            <button type="submit"
+                            <button name="button2" type="submit"
                                 class="text-base font-semibold text-white bg-red-600 hover:bg-red-500 h-10 mx-0 rounded-md">
                                 Batalkan Pembayaran
                             </button>
                         </div>
 
-                    </div>
-
-                    <div class="w-[55vh] min-h-[76vh] bg-white rounded-lg p-5 ">
-
-                    </div>
+                    </form>
 
                 </div>
             </div>
         </div>
 
-        <div class="absolute hidden items-center justify-center z-50 w-full h-screen bg-black/50 top-0" id="alert">
-            <div class="w-[70vh] aspect-[8/5] bg-white rounded-md flex flex-col items-center space-y-4 py-8 px-6">
-                <h5 class=" font-bold text-3xl">Pembayaran Berhasil!</h5>
-                <img src="../../assets/img/success.png" alt="" class="object-cover w-40 h-40">
-                <button type="submit" class="text-xl font-semibold text-white bg-green-500 hover:bg-green-600 py-2 w-full mx-4 rounded-md">
-                    Cetak Struk
-                </button>
-            </div>
-
-        </div>
-
     </div>
+    @include('sweetalert::alert')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" charset="utf-8"></script>
     <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
     <script>
-        function tampilkanObjek() {
-            var objek = document.getElementById("alert");
-            objek.style.display = "flex";
+        let result = 0;
+        function formatRupiah(angka) {
+            const formatted = angka.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' });
+            return formatted.replace(/\,00$/, '');
         }
+        function updateResult() {
+            const pembayaran = document.getElementById('pembayaran');
+            const tagihan = document.getElementById('tagihan');
+            result = parseInt(tagihan.textContent) - Number(pembayaran.value);
+            const resultElement = document.getElementById('result');
+            resultElement.textContent = formatRupiah(result) ;
+        }
+
+        
     </script>
     <script type="text/javascript">
         /* Make dynamic date appear */

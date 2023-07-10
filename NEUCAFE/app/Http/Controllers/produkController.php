@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\produk;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use App\Models\produk;
 
 class produkController extends Controller
 {
@@ -43,6 +47,7 @@ class produkController extends Controller
     {
         return view('tambahProduk');
     }
+    
 
     /**
      * Store a newly created resource in storage.
