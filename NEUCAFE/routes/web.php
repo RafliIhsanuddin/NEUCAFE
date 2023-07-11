@@ -35,7 +35,7 @@ Route::post('authsign', [SessionController::class, 'masukdata']);
 Route::post('editatas', [SessionController::class, 'upatas']);
 Route::post('editbaw', [SessionController::class, 'upbawah']);
 Route::post('outper', [SessionController::class, 'outletper']);
-Route::post('konfkod', [SessionController::class, 'outletper']);
+Route::post('konfkod', [SessionController::class, 'konfirmasikode']);
 // Route::get('/tes', [YourController::class, 'tanggal'])->name('tes');
 // Route::get('/dashboard', [SessionController::class, 'tanggal']);
 // Route::get('/dashboard', [SessionController::class, 'tes']);
@@ -111,7 +111,6 @@ Route::view("choose",'choose');
 Route::view("login",'login');
 Route::view("edit",'editProduk');
 Route::view("signup",'signup');
-Route::view("laporan",'laporan');
 Route::view("daftar",'daftarProduk');
 Route::view("landing",'landing');
 Route::view("ProdukPer",'firstProduct');
@@ -122,7 +121,7 @@ Route::view("detailProduk",'detailProduk');
 Route::view("konfir",'kodem');
 // Route::view("konfirmasiPembayaran", 'konfirmasiPembayaran');
 
-Route::resource("tambahProduk", produkController::class);
+Route::resource("daftarProduk", produkController::class);
 
 //review
 Route::get('review',[reviewController::class, 'index'])->name('review');
