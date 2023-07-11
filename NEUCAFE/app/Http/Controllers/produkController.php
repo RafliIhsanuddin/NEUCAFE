@@ -16,8 +16,9 @@ class produkController extends Controller
     {
         // Sintaks untuk search
         $id_outlet = session('id_outlet');
+        
         $katakunci   = $request->katakunci;
-        $jumlahbaris = 4; //banyaknya halaman paginasi
+        
         if (strlen($katakunci)) {
             $data =    produk::where('nama', 'like', "%$katakunci%")
                 ->orWhere('kategori',   'like', "%$katakunci%")
@@ -27,13 +28,14 @@ class produkController extends Controller
                 ->orWhere('deskripsi',  'like', "%$katakunci%")
                 ->orWhere('id_outlet',  'like', "%$katakunci%")
                 ->where('id_outlet', $id_outlet)
-                ->paginate($jumlahbaris);
+                ->get();
         } else {
             $data = produk::orderByDesc('id_produk')
             ->where('id_outlet', $id_outlet)
-            ->paginate($jumlahbaris);
+            ->get();
         }
         return view("daftarProduk", compact('data'));
+        // dd($data, $id_outlet);
     }
 
     /**
@@ -88,8 +90,10 @@ class produkController extends Controller
             'status'              => 'Mohon dipilih salah satu',
             'gambar_produk.required' => 'Gambar produk wajib diunggah',
             'gambar_produk.file'     => 'Tipe file gambar tidak valid',
+
+
             'gambar_produk.image'    => 'File harus berupa gambar',
-            'gambar_produk.mimes'    => 'Format gambar tidak valid. Hanya diperbolehkan format JPEG, PNG, dan JPG',
+            'gambar_produk.mimes'    => 'Format gambar tidak valid. Hanya diperbolehkan format JPEG, PNG, dan JPG,',
             'gambar_produk.max'      => 'Ukuran gambar terlalu besar. Maksimum 2MB',
             
         ]);
@@ -118,6 +122,7 @@ class produkController extends Controller
     /**
      * Display the specified resource.
      */
+
     public function show(string $id)
     {
         $data = produk::whereid_produk($id)->first();
