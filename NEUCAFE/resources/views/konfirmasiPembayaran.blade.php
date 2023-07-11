@@ -26,13 +26,13 @@
 
                 <ul class="flex list-none space-x-6">
                     <li class="items-center">
-                        <a href="./kasir.html" class="text-sm uppercase py-3 font-bold block text-[#45D5A1]">
+                        <a href="kasir" class="text-sm uppercase py-3 font-bold block text-[#45D5A1]">
                             <i class="fas fa-tv mr-1 text-sm opacity-75"></i>
                             Kasir
                         </a>
                     </li>
                     <li class="items-center">
-                        <a href="./dashboard.html"
+                        <a href="riwayat"
                             class="text-sm uppercase py-3 font-bold block text-blueGray-500 hover:text-[#45D5A1]">
                             <i class="fas fa-tv mr-1 text-sm opacity-75"></i>
                             Riwayat

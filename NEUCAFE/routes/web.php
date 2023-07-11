@@ -5,6 +5,7 @@ use App\Http\Controllers\SessionController;
 use App\Http\Controllers\OutletPer;
 use App\Http\Controllers\produkController;
 use App\Http\Controllers\transaksiController;
+use App\Http\Controllers\reviewController;
 use App\Http\Controllers\tambahProdukController;
 use App\Http\Controllers\App\Models\Produk;
 use Illuminate\Http\Request;
@@ -147,6 +148,17 @@ Route::middleware(['auth'])->group(function () {
 
 
 
+Route::resource("tambahProduk", produkController::class);
+
+//review
+Route::get('review',[reviewController::class, 'index'])->name('review');
 
 
+// Route::view('konfirmasiPembayaran','konfirmasiPembayaran');
+Route::post('konfirmasiPembayaran/{id}', [transaksiController::class, 'konfir']);
+Route::get('konfirmasiPembayaran/{id}', [transaksiController::class, 'detailPemesanan'])->name('konfirmasiPembayaran');   
 
+Route::post('konfirmasiPembayaran/checkout/{id}', [transaksiController::class, 'checkout']);
+
+//riwayat
+Route::get('riwayat',[transaksiController::class, 'tampilRiwayat']);
