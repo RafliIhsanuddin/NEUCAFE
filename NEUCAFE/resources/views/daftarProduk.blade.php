@@ -349,7 +349,6 @@
                                         </tr> @endforeach
                                     </tbody>
                                 </table>
-                                {{ $data->withQueryString()->links() }} {{-- paginasi untuk mengarah ke halaman lain dengan data yang berbeda --}}
                             </div>
                         </div>
                     </div>

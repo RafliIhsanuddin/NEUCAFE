@@ -21,7 +21,6 @@ class produkController extends Controller
         // Sintaks untuk search
         $id_outlet = session('id_outlet');
         $katakunci   = $request->katakunci;
-        $jumlahbaris = 4; //banyaknya halaman paginasi
         if (strlen($katakunci)) {
             $data =    produk::where('nama', 'like', "%$katakunci%")
                 ->orWhere('kategori',   'like', "%$katakunci%")
@@ -31,11 +30,11 @@ class produkController extends Controller
                 ->orWhere('deskripsi',  'like', "%$katakunci%")
                 ->orWhere('id_outlet',  'like', "%$katakunci%")
                 ->where('id_outlet', $id_outlet)
-                ->paginate($jumlahbaris);
+                ->get();
         } else {
             $data = produk::orderByDesc('id_produk')
             ->where('id_outlet', $id_outlet)
-            ->paginate($jumlahbaris);
+            ->get();
         }
         return view("daftarProduk", compact('data'));
     }

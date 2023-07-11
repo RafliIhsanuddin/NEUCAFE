@@ -32,23 +32,23 @@ class SessionController extends Controller
         ->take(3)
         ->get();
 
-    $topProduct1 = $results[0]->nama;
-    $topProduct2 = $results[1]->nama;
-    $topProduct3 = $results[2]->nama;
+        $topProduct1 = $results[0]->nama;
+        $topProduct2 = $results[1]->nama;
+        $topProduct3 = $results[2]->nama;
 
-    $topQuantity1 = $results[0]->total_quantity;
-    $topQuantity2 = $results[1]->total_quantity;
-    $topQuantity3 = $results[2]->total_quantity;
+        $topQuantity1 = $results[0]->total_quantity;
+        $topQuantity2 = $results[1]->total_quantity;
+        $topQuantity3 = $results[2]->total_quantity;
 
     
 
-    return view('dashboard',[
-        "topProduct1" => $topProduct1,
-        "topProduct2" => $topProduct2,
-        "topProduct3" => $topProduct3,
-        "topQuantity1" => $topQuantity1,
-        "topQuantity2" => $topQuantity2,
-        "topQuantity3" => $topQuantity3,
+        return view('dashboard',[
+            "topProduct1" => $topProduct1,
+            "topProduct2" => $topProduct2,
+            "topProduct3" => $topProduct3,
+            "topQuantity1" => $topQuantity1,
+            "topQuantity2" => $topQuantity2,
+            "topQuantity3" => $topQuantity3,
         ]);
     }
 
@@ -56,6 +56,10 @@ class SessionController extends Controller
 
     function login2(Request $req){
         $akun = akun::all();
+
+        if ($req->session()->has('id')) {
+            return redirect('choose');
+        }
     
         foreach($akun as $out){
             if($out->email == $req->email){
@@ -80,7 +84,7 @@ class SessionController extends Controller
 
                         $databaseoutlet = $outletdatabase->id_outlet ;
 
-                    $req->session()->put('id_outlet',$databaseoutlet);
+                        $req->session()->put('id_outlet',$databaseoutlet);
 
                         $data = akun::where('id_akun','=',$id)->first();
                         session()->put('datas', $data);
@@ -102,7 +106,7 @@ class SessionController extends Controller
 
         
         if($akun->kodeManajer == $req->konfirKode){
-            return view('informasi');
+            return view('dashboard');
         }else{
             return redirect('kodem')->with('eror','KODE manajer yang anda masukkan salah');
         }
@@ -319,7 +323,7 @@ class SessionController extends Controller
 
 
         public function getreport(Request $request){
-            $id_outlet = 1;
+            $id_outlet = session('id_outlet');
 
 
 
@@ -495,7 +499,7 @@ class SessionController extends Controller
             $data = akun::where('id_akun', '=', $id)->first();
             session()->put('datas', $data);
             session()->put('outlets', $outlet);
-            return view('informasi');
+            return view('dashboard');
         }
     }
 
@@ -624,7 +628,8 @@ class SessionController extends Controller
 
         $newAkun = new Akun;
         $newAkun->email = $req->email;
-        $newAkun->password = bcrypt($req->pass);
+        // $newAkun->password = bcrypt($req->pass);
+        $newAkun->password = $req->pass;
         $newAkun->notelp = $req->notelp;
         $newAkun->kodeManajer = $req->kode;
         $newAkun->save();
