@@ -54,14 +54,24 @@ class produkController extends Controller
 
     public function store(Request $request)
     {
-        // Melihat data yang dimasukkan sebelumnya untuk mengecek kesalahan di form
-        Session::flash('nama',          $request->nama);
-        Session::flash('kategori',      $request->kategori);
-        Session::flash('stok',          $request->stok);
-        Session::flash('harga_jual',    $request->harga_jual);
-        Session::flash('harga_beli',    $request->harga_beli);
-        Session::flash('deskripsi',     $request->deskripsi);
-        Session::flash('id_outlet',     $request->id_outlet);
+        // // Melihat data yang dimasukkan sebelumnya untuk mengecek kesalahan di form
+        // Session::flash('nama',          $request->nama);
+        // Session::flash('kategori',      $request->kategori);
+        // Session::flash('stok',          $request->stok);
+        // Session::flash('harga_jual',    $request->harga_jual);
+        // Session::flash('harga_beli',    $request->harga_beli);
+        // Session::flash('deskripsi',     $request->deskripsi);
+        // Session::flash('id_outlet',     $request->id_outlet);
+
+        // Store form data in the session
+session()->put('nama', $request->nama);
+session()->put('kategori', $request->kategori);
+session()->put('stok', $request->stok);
+session()->put('harga_jual', $request->harga_jual);
+session()->put('harga_beli', $request->harga_beli);
+session()->put('deskripsi', $request->deskripsi);
+session()->put('id_outlet', $request->id_outlet);
+
         
 
         $request->validate([

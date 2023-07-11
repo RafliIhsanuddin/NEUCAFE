@@ -224,22 +224,22 @@
                                 </div>
 
                                 <div class="flex flex-col space-y-3 w-96 text-base font-medium">
-                                    <input type="text" name="nama" value="{{ Session::get('nama') }}"
+                                    <input type="text" name="nama" value="{{ old('nama') }}"
                                         id="" class="h-6 py-1 rounded-md border-gray-300 border-[2px]">
                                     <!-- name digunakan untuk pengiriman data yg telah diisi di form ke database , $request->validate di produkController.php-->
-                                    <input type="text" name="kategori" value="{{ Session::get('kategori') }}"
+                                    <input type="text" name="kategori"  value="{{ old('kategori') }}"
                                         id="" class="h-6 py-1 rounded-md border-gray-300 border-[2px]">
                                     <!-- value digunakan untuk data yang salah masih bisa dilihat di form pengisian , berhubungan dengan Session::flash di produkController.php-->
-                                    <input type="text" name="stok" value="{{ Session::get('stok') }}"
+                                    <input type="text" name="stok" value="{{ old('stok') }}"
                                         id="" class="h-6 py-1 rounded-md border-gray-300 border-[2px]">
-                                    <input type="text" name="harga_jual" value="{{ Session::get('harga_jual') }}"
+                                    <input type="text" name="harga_jual" value="{{ old('harga_jual') }}"
                                         id="" class="h-6 py-1 rounded-md border-gray-300 border-[2px]">
-                                    <input type="text" name="harga_beli" value="{{ Session::get('harga_beli') }}"
+                                    <input type="text" name="harga_beli" value="{{ old('harga_beli') }}"
                                         id="" class="h-6 py-1 rounded-md border-gray-300 border-[2px]">
-                                    <input type="text" name="deskripsi" value="{{ Session::get('deskripsi') }}"
+                                    <input type="text" name="deskripsi" value="{{ old('deskripsi') }}"
                                         id="" class="h-6 py-1 rounded-md border-gray-300 border-[2px]"
                                         maxlength="255">
-                                    <input type="text" name="id_outlet" value="{{ Session::get('id_outlet') }}"
+                                    <input type="text" name="id_outlet"  value="{{ old('id_outlet') }}"
                                         id="" class="h-6 py-1 rounded-md border-gray-300 border-[2px]">
                                     <select name="status" class="h-7 px-1 rounded-md border-gray-300 border-[2px]">
                                         <option value="Success">
