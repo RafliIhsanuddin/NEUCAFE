@@ -138,7 +138,7 @@ HALAMAN LOGIN
                         </li>
 
                         <li class="items-center">
-                            <a href="/informasi"
+                            <a href="/info"
                                 class="text-xs uppercase py-3 font-bold block text-[#45D5A1]">
                                 <i class="fas fa-map-marked mr-2 text-sm"></i>
                                 Informasi

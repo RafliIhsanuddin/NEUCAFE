@@ -80,12 +80,16 @@ class SessionController extends Controller
 
                         $databaseoutlet = $outletdatabase->id_outlet ;
 
-                    $req->session()->put('id_outlet',$databaseoutlet);
+                        $req->session()->put('id_outlet',$databaseoutlet);
+                        $data = akun::where('id_akun', $id)->first();
 
-                        $data = akun::where('id_akun','=',$id)->first();
-                        session()->put('datas', $data);
-                        session()->put('outlets', $outlet);
-                        return view('choose');
+                        if ($data) {
+                            session()->put('datas', $data);
+                            session()->put('outlets', $outlet);
+                            return view('choose');
+                        } else {
+                            return redirect('login')->with('error', 'Email atau password salah');
+                        }
                     }
                 }else {
                     return redirect('login')->with('eror', 'Email atau password salah');
@@ -624,7 +628,8 @@ class SessionController extends Controller
 
         $newAkun = new Akun;
         $newAkun->email = $req->email;
-        $newAkun->password = bcrypt($req->pass);
+        $newAkun->password = $req->pass;
+        // $newAkun->password = bcrypt($req->pass);
         $newAkun->notelp = $req->notelp;
         $newAkun->kodeManajer = $req->kode;
         $newAkun->save();

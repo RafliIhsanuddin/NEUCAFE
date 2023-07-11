@@ -47,7 +47,7 @@
                 <p class="mt-2 mb-10 text-lg">memantau keuangan kafe mu dari sini dan mengubah segala pencatatan keuangan
                     cafe dengan efisien dan
                     informatif! </p>
-                <a href="" class="text-sm px-5 py-3 bg-[#1a7409] font-semibold text-white rounded-lg">DAFTAR
+                <a href="signup" class="text-sm px-5 py-3 bg-[#1a7409] font-semibold text-white rounded-lg">DAFTAR
                     SEKARANG</a>
             </div>
             <div class="w-1/2 max-md:w-3/4 max-sm:hidden">
