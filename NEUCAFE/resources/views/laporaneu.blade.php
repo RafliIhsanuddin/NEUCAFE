@@ -99,7 +99,7 @@
 
           <ul class="md:flex-col md:min-w-full flex flex-col list-none">
             <li class="items-center">
-              <a href="./dashboard.html"
+              <a href="/dashboard"
                 class="text-xs uppercase py-3 font-bold block text-blueGray-500 hover:text-[#45D5A1]">
                 <i class="fas fa-tv mr-2 text-sm opacity-75"></i>
                 Dashboard
@@ -107,21 +107,21 @@
             </li>
 
             <li class="items-center">
-              <a href="./laporaneu" class="text-xs uppercase py-3 font-bold block text-[#45D5A1]">
+              <a href="/laporaneu" class="text-xs uppercase py-3 font-bold block text-[#45D5A1]">
                 <i class="fas fa-tools mr-2 text-sm"></i>
                 Laporan
               </a>
             </li>
 
             <li class="items-center">
-              <a href="#" class="text-xs uppercase py-3 font-bold block text-blueGray-500 hover:text-[#45D5A1]">
+              <a href="/daftar" class="text-xs uppercase py-3 font-bold block text-blueGray-500 hover:text-[#45D5A1]">
                 <i class="fas fa-table mr-2 text-sm"></i>
                 Daftar Produk
               </a>
             </li>
 
             <li class="items-center">
-              <a href="./reviewPelanggan.html"
+              <a href="/reviewPelanggan"
                 class="text-xs uppercase py-3 font-bold block text-blueGray-500 hover:text-[#45D5A1]">
                 <i class="fas fa-map-marked mr-2 text-sm"></i>
                 Review Pelanggan
@@ -129,7 +129,7 @@
             </li>
 
             <li class="items-center">
-              <a href="./informasi.html"
+              <a href="/info"
                 class="text-xs uppercase py-3 font-bold block text-blueGray-500 hover:text-[#45D5A1]">
                 <i class="fas fa-map-marked mr-2 text-sm"></i>
                 Informasi

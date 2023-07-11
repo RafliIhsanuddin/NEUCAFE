@@ -106,7 +106,7 @@
             </li>
 
             <li class="items-center">
-              <a href="/laporan"
+              <a href="/laporaneu"
                 class="text-xs uppercase py-3 font-bold block text-blueGray-500 hover:text-[#45D5A1]">
                 <i class="fas fa-tools mr-2 text-sm"></i>
                 Laporan
@@ -114,7 +114,7 @@
             </li>
 
             <li class="items-center">
-              <a href="daftar"
+              <a href="/daftar"
                 class="text-xs uppercase py-3 font-bold block text-blueGray-500 hover:text-[#45D5A1]">
                 <i class="fas fa-table mr-2 text-sm"></i>
                 Daftar Produk
