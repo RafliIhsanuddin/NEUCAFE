@@ -30,10 +30,10 @@
                 <h4 class=" font-bold text-lg">Neucafe</h4>
             </div>
             <div>
-                <a href="login"
+                <a href="signup"
                     class="px-5 py-2 rounded-full text-sm font-semibold hover:text-[#fff001] hover:border-b-2 hover:border-[#fff001]">SIGN
                     UP</a>
-                <a href="signup"
+                <a href="login"
                     class="px-6 py-2 rounded-full text-sm font-semibold hover:text-[#fff001] hover:border-b-2 hover:border-[#fff001]">LOGIN</a>
             </div>
         </div>
