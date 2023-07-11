@@ -53,6 +53,9 @@ class SessionController extends Controller
     }
 
 
+    
+
+
 
     function login2(Request $req){
         $akun = akun::all();
