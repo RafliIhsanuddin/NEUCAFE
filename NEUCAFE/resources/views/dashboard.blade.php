@@ -199,12 +199,6 @@
                       </div>
                     </div>
                     <p class="text-sm text-black mt-4">
-                      <span class="text-black mr-2">
-                        <i class="fas fa-arrow-up"></i> 3.48%
-                      </span>
-                      <span class="whitespace-nowrap">
-                        Since last month
-                      </span>
                     </p>
                   </div>
                 </div>
@@ -229,10 +223,7 @@
                       </div>
                     </div>
                     <p class="text-sm text-black mt-4">
-                      <span class="text-black mr-2">
-                        <i class="fas fa-arrow-down"></i> 3.48%
-                      </span>
-                      <span class="whitespace-nowrap"> Since last week </span>
+                      
                     </p>
                   </div>
                 </div>
@@ -257,10 +248,6 @@
                       </div>
                     </div>
                     <p class="text-sm text-black mt-4">
-                      <span class="text-black mr-2">
-                        <i class="fas fa-arrow-down"></i> 1.10%
-                      </span>
-                      <span class="whitespace-nowrap"> Since yesterday </span>
                     </p>
                   </div>
                 </div>
@@ -285,12 +272,6 @@
                       </div>
                     </div>
                     <p class="text-sm text-black mt-4">
-                      <span class="text-black mr-2">
-                        <i class="fas fa-arrow-up"></i> 12%
-                      </span>
-                      <span class="whitespace-nowrap">
-                        Since last month
-                      </span>
                     </p>
                   </div>
                 </div>

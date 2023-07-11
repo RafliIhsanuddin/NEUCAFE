@@ -194,7 +194,7 @@ class SessionController extends Controller
     ->join('transaksi', 'detail_transaksi.id_transaksi', '=', 'transaksi.id_transaksi')
     ->join('produk', 'detail_transaksi.id_produk', '=', 'produk.id_produk')
     ->select('detail_transaksi.id_relasi', 'produk.id_produk', 'produk.nama', 'produk.stok', DB::raw('MONTH(transaksi.waktu_order) AS month'))
-    ->where('transaksi.id_outlet', 1)
+    ->where('transaksi.id_outlet', $id_outlet)
     ->whereRaw('MONTH(transaksi.waktu_order) = MONTH(CURRENT_DATE)')
     ->orderBy('produk.stok')
     ->first();
@@ -323,7 +323,7 @@ class SessionController extends Controller
 
 
         public function getreport(Request $request){
-            $id_outlet = 1;
+            $id_outlet = session('id_outlet');
 
 
 
