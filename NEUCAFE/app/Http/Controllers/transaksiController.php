@@ -20,7 +20,11 @@ class transaksiController extends Controller
         $id_outlet = session('id_outlet');
         $tanggal = Carbon::now();
         $tanggal->setTimezone('Asia/Jakarta');
-        $items = produk::where('id_outlet', $id_outlet)->where('status', 'Success')->get();
+        $items = produk::where('id_outlet', $id_outlet)
+        ->where('status', 'Success')
+        ->where('stok','>',0)
+        ->orderBy('nama', 'asc')
+        ->get();
         $cek_transaksi = transaksi::where('id_outlet', $id_outlet)->where('status', 0)->first();
         if(empty($cek_transaksi)){
             //simpan ke db transaksi
@@ -41,6 +45,7 @@ class transaksiController extends Controller
         ->select('produk.*', 'detail_transaksi.*')
         ->where('transaksi.status', 0)
         ->where('transaksi.id_outlet', $id_outlet)
+        ->orderBy('detail_transaksi.id_relasi', 'asc')
         ->get();
 
         $totalQuantity = DB::table('detail_transaksi')
@@ -129,21 +134,29 @@ class transaksiController extends Controller
         ->where('detail_transaksi.id_relasi', $id)
         ->first();
 
-        DB::table('detail_transaksi')
-        ->where('id_relasi',$id)
-        ->update(['quantity' => $transaksi_detail->quantity+1, 'total_harga'=> $transaksi_detail->total_harga + $produk->harga_jual, 'total_harga_beli'=>$transaksi_detail->total_harga_beli + $produk->harga_beli]);
-        
-        $result = DB::table('detail_transaksi')
-        ->join('produk', 'detail_transaksi.id_produk', '=', 'produk.id_produk')
-        ->select(DB::raw('SUM(detail_transaksi.quantity * produk.harga_jual) as total_harga'), DB::raw('SUM(detail_transaksi.quantity * produk.harga_beli) as total_beli'))
-        ->where('detail_transaksi.id_transaksi', $transaksi->id_transaksi)
-        ->first();
 
-        DB::table('transaksi')
-        ->where('id_outlet', $id_outlet)
-        ->where('status', 0)
-        ->update(['total_tagihan' => $result->total_harga, 'total_harga_beli' => $result->total_beli]);
-        return redirect('kasir');
+        if($transaksi_detail->quantity < $produk->stok){
+            DB::table('detail_transaksi')
+            ->where('id_relasi',$id)
+            ->update(['quantity' => $transaksi_detail->quantity+1, 'total_harga'=> $transaksi_detail->total_harga + $produk->harga_jual, 'total_harga_beli'=>$transaksi_detail->total_harga_beli + $produk->harga_beli]);
+            
+            $result = DB::table('detail_transaksi')
+            ->join('produk', 'detail_transaksi.id_produk', '=', 'produk.id_produk')
+            ->select(DB::raw('SUM(detail_transaksi.quantity * produk.harga_jual) as total_harga'), DB::raw('SUM(detail_transaksi.quantity * produk.harga_beli) as total_beli'))
+            ->where('detail_transaksi.id_transaksi', $transaksi->id_transaksi)
+            ->first();
+    
+            DB::table('transaksi')
+            ->where('id_outlet', $id_outlet)
+            ->where('status', 0)
+            ->update(['total_tagihan' => $result->total_harga, 'total_harga_beli' => $result->total_beli]);
+            return redirect('kasir');
+        }else{
+            Alert::error('Gagal Menambah Item', 'Stok item terbatas');
+            return redirect('kasir');
+        }
+
+       
 
     }
 
@@ -212,6 +225,7 @@ class transaksiController extends Controller
         ->select('produk.*', 'detail_transaksi.*')
         ->where('transaksi.id_transaksi', $id)
         ->get();
+        
         $totalQuantity = DB::table('detail_transaksi')
         ->where('id_transaksi', $id)
         ->sum('quantity');
