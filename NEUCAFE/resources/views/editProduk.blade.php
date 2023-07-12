@@ -177,6 +177,7 @@
             <form action="{{ url('daftarProduk/'.$data->id_produk) }}" method="post" enctype="multipart/form-data" id="myForm">
                 @csrf
                 @method('PUT') {{-- mengarah ke  public function update(Request $request, string $id) di produkController.php --}}
+               
                 <div class="relative md:pt-32 pb-8 pt-12">
                     <div class="px-4 md:px-10 mx-auto w-full">
                         <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-white h-fit px-6 py-7">
@@ -192,11 +193,11 @@
                             <div class="flex w-full mx-2">
                                 <div class="flex flex-col items-center mr-7">
                                     <figure class="image-container w-40 h-40">
-                                        <img src ="{{asset('imgProducts/'.$data->gambar_produk)}}" id="chosen-image" class="w-40 h-40 bg-slate-500">
+                                        <img src ="{{asset('imgProducts/'.$data->gambar_produk)}}" id="chosen-image" class="w-40 h-40 bg-slate-500 ">
                                     </figure>
                                     <input type="file" id="upload-button" accept="image/*" name="gambar_produk" class="hidden">
                                     <label for="upload-button" 
-                                        class="bg-green-600 hover:bg-green-500 focus:outline-none text-white px-5 py-1 font-semibold rounded-md mt-3">
+                                        class="bg-green-600 hover:bg-green-500 focus:outline-none text-white px-5 py-1 font-semibold rounded-md mt-3 form-control @error('gambar_produk') is-invalid @enderror">
                                         Edit Foto
                                     </label>
                                 </div>
@@ -221,23 +222,23 @@
                                     <p>:</p>
                                     <p>:</p>
                                 </div>
-            
+                               
                                 <div class="flex flex-col space-y-3 w-96 text-base font-medium">
                                     <input type="text" name="nama"           value="{{ $data->nama }}" 
-                                                class="h-6 py-1 rounded-md border-gray-300 border-[2px]">
+                                                class="h-6 py-1 rounded-md border-gray-300 border-[2px] form-control @error('nama') is-invalid @enderror"  >
                                     <input type="text" name="kategori"       value="{{ $data->kategori }}" 
-                                                class="h-6 py-1 rounded-md border-gray-300 border-[2px]">
+                                                class="h-6 py-1 rounded-md border-gray-300 border-[2px] form-control @error('kategori') is-invalid @enderror">
                                     <input type="number" name="stok"         value="{{ $data->stok }}" 
-                                                class="h-6 py-1 rounded-md border-gray-300 border-[2px]">
+                                                class="h-6 py-1 rounded-md border-gray-300 border-[2px] form-control @error('stok') is-invalid @enderror">
                                     <input type="number" name="harga_jual"   value="{{ $data->harga_jual }}" 
-                                                class="h-6 py-1 rounded-md border-gray-300 border-[2px]">
+                                                class="h-6 py-1 rounded-md border-gray-300 border-[2px] form-control @error('harga_jual') is-invalid @enderror">
                                     <input type="number" name="harga_beli"   value="{{ $data->harga_beli }}" 
-                                                class="h-6 py-1 rounded-md border-gray-300 border-[2px]">
+                                                class="h-6 py-1 rounded-md border-gray-300 border-[2px] form-control @error('harga_beli') is-invalid @enderror">
                                     <input type="text" name="deskripsi"      value="{{ $data->deskripsi }}" 
-                                                class="h-6 py-1 rounded-md border-gray-300 border-[2px]">
+                                                class="h-6 py-1 rounded-md border-gray-300 border-[2px] form-control @error('deskripsi') is-invalid @enderror">
                                     <input type="text" name="id_outlet"      value="{{ $data->id_outlet }}" 
-                                                class="h-6 py-1 rounded-md border-gray-300 border-[2px]">
-                                    <select name="status" class="h-7 px-1 rounded-md border-gray-300 border-[2px]" id="status">
+                                                class="h-6 py-1 rounded-md border-gray-300 border-[2px] form-control @error('id_outlet') is-invalid @enderror">
+                                    <select name="status" class="h-7 px-1 rounded-md border-gray-300 border-[2px]" id="status form-control @error('status') is-invalid @enderror">
                                         <option value="Success" {{ $data->status == 'Success' ? 'selected' : '' }}>
                                             <i class="fas fa-circle text-green-500 mr-2"></i>
                                             <span class="text-sm">Success</span>
@@ -257,7 +258,67 @@
                         </div>
                     </div>
                 </div>
-            </form>        
+            </form> 
+            @php
+            $errorClass = "alert alert-danger text-red-500 ml-10 font-bold marker:text-red-500";
+            @endphp
+           
+           @if ($errors->any())
+           <div class="pt-24">
+               <div class="bg-red-500 text-white font-bold px-4 py-3 rounded">
+                   Terjadi Kesalahan!
+               </div>
+           </div>
+       @endif
+            <ul class="mt-2 list-disc list-inside">
+                @error('nama')
+                <li class="{{ $errorClass }}">{{ $message }}</li>
+                @enderror
+            </ul>
+            
+            <ul class="mt-2 list-disc list-inside">
+                @error('kategori')
+                <li class="{{ $errorClass }}">{{ $message }}</li>
+                @enderror
+            </ul>
+            
+            <ul class="mt-2 list-disc list-inside">
+                @error('stok')
+                <li class="{{ $errorClass }}">{{ $message }}</li>
+                @enderror
+            </ul>
+            
+            <ul class="mt-2 list-disc list-inside">
+                @error('harga_jual')
+                <li class="{{ $errorClass }}">{{ $message }}</li>
+                @enderror
+            </ul>
+            
+            <ul class="mt-2 list-disc list-inside">
+                @error('harga_beli')
+                <li class="{{ $errorClass }}">{{ $message }}</li>
+                @enderror
+            </ul>
+            
+            <ul class="mt-2 list-disc list-inside">
+                @error('deskripsi')
+                <li class="{{ $errorClass }}">{{ $message }}</li>
+                @enderror
+            </ul>
+            
+            <ul class="mt-2 list-disc list-inside">
+                @error('id_outlet')
+                <li class="{{ $errorClass }}">{{ $message }}</li>
+                @enderror
+            </ul>
+            
+            <ul class="mt-2 list-disc list-inside">
+                @error('gambar_produk')
+                <li class="{{ $errorClass }}">{{ $message }}</li>
+                @enderror
+            </ul>
+            
+
         </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" charset="utf-8"></script>
