@@ -173,6 +173,18 @@
                     </ul>
                 </div>
             </nav>
+            @if ($errors->any())
+            <div class="pt-24">
+                <div class="bg-red-500 text-white font-bold px-4 py-3 rounded">
+                    Terjadi Kesalahan!
+                </div>
+                <ul class="mt-2 list-disc list-inside">
+                    @foreach ($errors->all() as $item)
+                        <li class="text-red-500">{{ $item }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
             <!-- Header -->
             <form action="{{ url('daftarProduk/'.$data->id_produk) }}" method="post" enctype="multipart/form-data" id="myForm">
                 @csrf
@@ -259,7 +271,7 @@
                     </div>
                 </div>
             </form> 
-            @php
+            {{-- @php
             $errorClass = "alert alert-danger text-red-500 ml-10 font-bold marker:text-red-500";
             @endphp
            
@@ -316,7 +328,7 @@
                 @error('gambar_produk')
                 <li class="{{ $errorClass }}">{{ $message }}</li>
                 @enderror
-            </ul>
+            </ul> --}}
             
 
         </div>
