@@ -52,8 +52,8 @@ class produkController extends Controller
      * Store a newly created resource in storage.
      */
 
-    public function store(Request $request)
-    {
+    public function store(Request $request){
+        $id_outlet = session('id_outlet');
         // // Melihat data yang dimasukkan sebelumnya untuk mengecek kesalahan di form
         // Session::flash('nama',          $request->nama);
         // Session::flash('kategori',      $request->kategori);
@@ -70,16 +70,16 @@ class produkController extends Controller
             session()->put('harga_jual', $request->harga_jual);
             session()->put('harga_beli', $request->harga_beli);
             session()->put('deskripsi', $request->deskripsi);
-            session()->put('id_outlet', $request->id_outlet);
+            session()->put('id_outlet', $id_outlet);
 
         
 
         $request->validate([
             'nama'          => 'required|max:255',
             'kategori'      => 'required',
-            'stok'          => 'required|numeric',
-            'harga_jual'    => 'required|numeric',
-            'harga_beli'    => 'required|numeric',
+            'stok'          => 'required|numeric|min:0',
+            'harga_jual'    => 'required|numeric|min:1',
+            'harga_beli'    => 'required|numeric|min:1',
             'deskripsi'     => 'required|max:255',
             'id_outlet'     => 'required|numeric|exists:outlet,id_outlet',
             'status'        => 'required',
@@ -91,10 +91,13 @@ class produkController extends Controller
             'kategori.required'   => 'Kategori wajib diisi',
             'stok.required'       => 'Jumlah Stok wajib diisi',
             'stok.numeric'        => 'Jumlah stok harus menggunakan angka',
+            'stok.min'          => 'Jumlah stok tidak boleh dibawah 0',
             'harga_jual.required' => 'Harga Jual wajib diisi',
             'harga_jual.numeric'  => 'Harga Jual harus menggunakan angka',
+            'harga_jual.min'          => 'Harga Jual tidak boleh dibawah 0',
             'harga_beli.required' => 'Harga Beli wajib diisi',
             'harga_beli.numeric'  => 'Harga Beli harus menggunakan angka',
+            'harga_beli.min'          => 'Harga Beli tidak boleh dibawah 0',
             'deskripsi.required'  => 'Deskripsi wajib diisi',
             'id_outlet.required'  => 'Outlet wajib diisi',
             'id_outlet.exists'    => 'Outlet tidak valid',
@@ -153,25 +156,28 @@ class produkController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $request->validate([
+        $this->validate($request,[
             'nama'          => 'required',
             'kategori'      => 'required',
-            'stok'          => 'required|numeric',
-            'harga_jual'    => 'required|numeric',
-            'harga_beli'    => 'required|numeric',
+            'stok'          => 'required|numeric | min:0',
+            'harga_jual'    => 'required|numeric | min:0',
+            'harga_beli'    => 'required|numeric | min:0',
             'deskripsi'     => 'required',
             'id_outlet'     => 'required|numeric|exists:outlet,id_outlet',
             'status'        => 'required',
-            'gambar_produk' => 'required | nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'gambar_produk' => 'required|nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ], [
             'nama.required'       => 'Nama wajib diisi',
             'kategori.required'   => 'Kategori wajib diisi',
             'stok.required'       => 'Jumlah Stok wajib diisi',
             'stok.numeric'        => 'Jumlah stok harus menggunakan angka',
+            'stok.min'          => 'Jumlah stok tidak boleh dibawah 0',
             'harga_jual.required' => 'Harga Jual wajib diisi',
             'harga_jual.numeric'  => 'Harga Jual harus menggunakan angka',
+            'harga_jual.min'          => 'Harga Jual tidak boleh dibawah 0',
             'harga_beli.required' => 'Harga Beli wajib diisi',
             'harga_beli.numeric'  => 'Harga Beli harus menggunakan angka',
+            'harga_beli.min'          => 'Harga Beli tidak boleh dibawah 0',
             'deskripsi.required'  => 'Deskripsi wajib diisi',
             'id_outlet.required'  => 'Outlet wajib diisi',
             'id_outlet.exists'    => 'Outlet tidak valid',
@@ -182,6 +188,7 @@ class produkController extends Controller
             'gambar_produk.image'    => 'File harus berupa gambar',
             'gambar_produk.mimes'    => 'Format gambar tidak valid. Hanya diperbolehkan format JPEG, PNG, dan JPG',
             'gambar_produk.max'      => 'Ukuran gambar terlalu besar. Maksimum 2MB',
+            
         ]);
 
         // Find the existing Produk instance by ID
@@ -194,7 +201,7 @@ class produkController extends Controller
         $produk->harga_jual     = $request->harga_jual;
         $produk->harga_beli     = $request->harga_beli;
         $produk->deskripsi      = $request->deskripsi;
-        $produk->id_outlet      = $request->id_outlet;
+        $produk->id_outlet      = $id_outlet;
         $produk->status         = $request->input('status');
 
         // Check if a new image is uploaded

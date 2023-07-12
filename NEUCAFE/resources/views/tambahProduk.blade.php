@@ -209,11 +209,9 @@
                                     <p>Harga Jual</p>
                                     <p>Harga Beli</p>
                                     <p>Deskripsi</p>
-                                    <p>Outlet</p>
                                     <p>Status</p>
                                 </div>
                                 <div class="flex flex-col space-y-3 w-6 text-base font-medium">
-                                    <p>:</p>
                                     <p>:</p>
                                     <p>:</p>
                                     <p>:</p>
@@ -225,23 +223,23 @@
 
                                 <div class="flex flex-col space-y-3 w-96 text-base font-medium">
                                     <input type="text" name="nama" value="{{ old('nama') }}"
-                                        id="" class="h-6 py-1 rounded-md border-gray-300 border-[2px]">
+                                        id="" class="h-6 py-1 rounded-md border-gray-300 border-[2px] form-control @error('nama') is-invalid @enderror">
                                     <!-- name digunakan untuk pengiriman data yg telah diisi di form ke database , $request->validate di produkController.php-->
                                     <input type="text" name="kategori"  value="{{ old('kategori') }}"
-                                        id="" class="h-6 py-1 rounded-md border-gray-300 border-[2px]">
+                                        id="" class="h-6 py-1 rounded-md border-gray-300 border-[2px] form-control @error('kategori') is-invalid @enderror">
                                     <!-- value digunakan untuk data yang salah masih bisa dilihat di form pengisian , berhubungan dengan Session::flash di produkController.php-->
                                     <input type="text" name="stok" value="{{ old('stok') }}"
-                                        id="" class="h-6 py-1 rounded-md border-gray-300 border-[2px]">
+                                        id="" class="h-6 py-1 rounded-md border-gray-300 border-[2px] form-control @error('stok') is-invalid @enderror">
                                     <input type="text" name="harga_jual" value="{{ old('harga_jual') }}"
-                                        id="" class="h-6 py-1 rounded-md border-gray-300 border-[2px]">
+                                        id="" class="h-6 py-1 rounded-md border-gray-300 border-[2px] form-control @error('harga_jual') is-invalid @enderror">
                                     <input type="text" name="harga_beli" value="{{ old('harga_beli') }}"
-                                        id="" class="h-6 py-1 rounded-md border-gray-300 border-[2px]">
+                                        id="" class="h-6 py-1 rounded-md border-gray-300 border-[2px] form-control @error('harga_beli') is-invalid @enderror">
                                     <input type="text" name="deskripsi" value="{{ old('deskripsi') }}"
-                                        id="" class="h-6 py-1 rounded-md border-gray-300 border-[2px]"
+                                        id="" class="h-6 py-1 rounded-md border-gray-300 border-[2px] form-control @error('deskripsi') is-invalid @enderror"
                                         maxlength="255">
-                                    <input type="text" name="id_outlet"  value="{{ old('id_outlet') }}"
+                                    <input type="hidden" name="id_outlet"  value="{{ old('id_outlet') }}"
                                         id="" class="h-6 py-1 rounded-md border-gray-300 border-[2px]">
-                                    <select name="status" class="h-7 px-1 rounded-md border-gray-300 border-[2px]">
+                                    <select name="status" class="h-7 px-1 rounded-md border-gray-300 border-[2px] form-control @error('status') is-invalid @enderror">
                                         <option value="Success">
                                             <i class="fas fa-circle text-green-500 mr-2"></i>
                                             <span class="text-sm">Success</span>
