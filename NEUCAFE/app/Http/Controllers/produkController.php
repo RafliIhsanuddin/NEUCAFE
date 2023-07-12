@@ -162,7 +162,7 @@ class produkController extends Controller
             'deskripsi'     => 'required',
             'id_outlet'     => 'required|numeric|exists:outlet,id_outlet',
             'status'        => 'required',
-            'gambar_produk' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'gambar_produk' => 'required | nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ], [
             'nama.required'       => 'Nama wajib diisi',
             'kategori.required'   => 'Kategori wajib diisi',
@@ -176,7 +176,12 @@ class produkController extends Controller
             'id_outlet.required'  => 'Outlet wajib diisi',
             'id_outlet.exists'    => 'Outlet tidak valid',
             'id_outlet.numeric'   => 'Outlet harus menggunakan angka',
-            'status.required'     => 'Mohon dipilih salah satu'
+            'status.required'     => 'Mohon dipilih salah satu',
+            'gambar_produk.required' => 'Gambar produk wajib diunggah',
+            'gambar_produk.file'     => 'Tipe file gambar tidak valid',
+            'gambar_produk.image'    => 'File harus berupa gambar',
+            'gambar_produk.mimes'    => 'Format gambar tidak valid. Hanya diperbolehkan format JPEG, PNG, dan JPG',
+            'gambar_produk.max'      => 'Ukuran gambar terlalu besar. Maksimum 2MB',
         ]);
 
         // Find the existing Produk instance by ID

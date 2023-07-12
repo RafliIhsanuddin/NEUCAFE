@@ -109,7 +109,7 @@
                         </li>
 
                         <li class="items-center">
-                            <a href="./reviewPelanggan.html"
+                            <a href="./reviewPelanggan"
                                 class="text-xs uppercase py-3 font-bold block text-blueGray-500 hover:text-[#45D5A1]">
                                 <i class="fas fa-map-marked mr-2 text-sm"></i>
                                 Review Pelanggan
@@ -117,7 +117,7 @@
                         </li>
 
                         <li class="items-center">
-                            <a href="./informasi.html"
+                            <a href="./info"
                                 class="text-xs uppercase py-3 font-bold block text-blueGray-500 hover:text-[#45D5A1]">
                                 <i class="fas fa-map-marked mr-2 text-sm"></i>
                                 Informasi

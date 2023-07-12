@@ -73,9 +73,9 @@ Route::get('/', function () {
 //     return view('login');
 // })->name('login');
 
-Route::get('choose', function () {
-    return view('choose');
-})->name('choose');
+// Route::get('choose', function () {
+//     return view('choose');
+// })->name('choose');
 
 
 Route::get('login', function () {
@@ -154,7 +154,7 @@ Route::middleware([CheckSession::class])->group(function () {
     Route::get('/dashboard', [SessionController::class, 'getTransactionsPerMonth']);
 
 
-    Route::get('/choose', [SessionController::class, 'outletId'])->name('choose');
+    Route::get('choose', [SessionController::class, 'outletId'])->name('choose');
     //riwayat
     Route::get('riwayat',[transaksiController::class, 'tampilRiwayat']);
 

@@ -101,7 +101,7 @@ class SessionController extends Controller
         $outletdatabase = DB::table('outlet')->where('id_akun', $id)->first();
         $databaseoutlet = $outletdatabase->id_outlet;
         $req->session()->put('id_outlet', $databaseoutlet);
-
+        // dd(session('id_outlet'));
         return view('choose');
     }
 
@@ -516,8 +516,9 @@ class SessionController extends Controller
             $data = akun::where('id_akun', '=', $id)->first();
             session()->put('datas', $data);
             session()->put('outlets', $outlet);
-            $id_outlet = session('id_outlet');
-            $outlet = outlet::where('id_akun', '=', $id)->first();
+
+            $this->outletId($req);
+
             return view('choose');
         }
     }
