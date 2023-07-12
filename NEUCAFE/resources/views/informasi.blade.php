@@ -19,7 +19,7 @@ HALAMAN LOGIN
         href="../../assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" />
     <link rel="stylesheet" href="../../assets/styles/tailwind.css" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <title>Dashboard | Notus Tailwind JS by Creative Tim</title>
+    <title>Informasi</title>
 </head>
 
 <body class="text-blueGray-700 antialiased">
@@ -114,7 +114,7 @@ HALAMAN LOGIN
                         </li>
 
                         <li class="items-center">
-                            <a href="#"
+                            <a href="/laporaneu"
                                 class="text-xs uppercase py-3 font-bold block text-blueGray-500 hover:text-[#45D5A1]">
                                 <i class="fas fa-tools mr-2 text-sm"></i>
                                 Laporan
@@ -122,7 +122,7 @@ HALAMAN LOGIN
                         </li>
 
                         <li class="items-center">
-                            <a href="/daftar"
+                            <a href="/daftarProduk"
                                 class="text-xs uppercase py-3 font-bold block text-blueGray-500 hover:text-[#45D5A1]">
                                 <i class="fas fa-table mr-2 text-sm"></i>
                                 Daftar Produk
@@ -138,7 +138,7 @@ HALAMAN LOGIN
                         </li>
 
                         <li class="items-center">
-                            <a href="/informasi"
+                            <a href="/info"
                                 class="text-xs uppercase py-3 font-bold block text-[#45D5A1]">
                                 <i class="fas fa-map-marked mr-2 text-sm"></i>
                                 Informasi
@@ -164,7 +164,7 @@ HALAMAN LOGIN
                 class="absolute top-0 left-0 w-full z-10 bg-white md:flex-row md:flex-nowrap md:justify-start flex items-center p-4">
                 <div class="w-full mx-autp items-center flex justify-between md:flex-nowrap flex-wrap md:px-10 px-4">
                     <a class="text-black text-lg uppercase hidden lg:inline-block font-bold"
-                        href="./index.html">Welcome, Juan</a>
+                        href="./index.html">Welcome</a>
 
                     <a href="{{ route('flush') }}" class="px-4 py-1 bg-green-600 hover:bg-green-500 rounded-md font-semibold text-white text-center">Logout</a>
                 </div>

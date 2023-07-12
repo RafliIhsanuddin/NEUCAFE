@@ -118,7 +118,7 @@
                         </li>
 
                         <li class="items-center">
-                            <a href="/laporan"
+                            <a href="/laporaneu"
                                 class="text-xs uppercase py-3 font-bold block text-blueGray-500 hover:text-[#45D5A1]">
                                 <i class="fas fa-tools mr-2 text-sm"></i>
                                 Laporan
@@ -149,6 +149,14 @@
                             </a>
                         </li>
 
+                        <li class="items-center">
+                            <a href="/choose"
+                                class="text-xs uppercase py-3 font-bold block text-blueGray-500 hover:text-[#45D5A1]">
+                                <i class="fas fa-map-marked mr-2 text-sm"></i>
+                                Kembali
+                            </a>
+                        </li>
+
                     </ul>
 
                 </div>
@@ -160,7 +168,7 @@
                 class="absolute top-0 left-0 w-full z-10 bg-white md:flex-row md:flex-nowrap md:justify-start flex items-center p-4">
                 <div class="w-full mx-autp items-center flex justify-between md:flex-nowrap flex-wrap md:px-10 px-4">
                     <a class="text-black text-lg uppercase hidden lg:inline-block font-bold"
-                        href="#">Welcome, Juan</a>
+                        href="#">Welcome</a>
                     <form class="md:flex hidden flex-row flex-wrap items-center lg:ml-auto mr-3">
                         <div class="relative flex w-full flex-wrap items-stretch">
                             <span
@@ -346,9 +354,11 @@
                                                         
                                                 </form>
                                             </td>
-                                        </tr> @endforeach
+                                        </tr> 
+                                        @endforeach
                                     </tbody>
                                 </table>
+                                
                             </div>
                         </div>
                     </div>

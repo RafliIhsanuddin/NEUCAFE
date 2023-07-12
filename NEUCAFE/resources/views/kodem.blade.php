@@ -27,6 +27,7 @@
                 </div>
             @endif
             <form action="konfkod" method="POST" class="flex flex-col font-semibold">
+                @csrf
                 <input type="number" name="konfirKode"
                     class="border-slate-300 border-2 rounded-md w-96 h-9 px-2 focus:outline-none focus:border-[#6FBCA0] my-2"
                     required>

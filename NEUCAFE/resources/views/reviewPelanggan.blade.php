@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="../../assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" />
     <link rel="stylesheet" href="../../assets/styles/tailwind.css" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <title>Dashboard | Notus Tailwind JS by Creative Tim</title>
+    <title>Review Pelanggan</title>
 </head>
 
 <body class="text-blueGray-700 antialiased">
@@ -106,7 +106,7 @@
                         </li>
 
                         <li class="items-center">
-                            <a href="#"
+                            <a href="/laporaneu"
                                 class="text-xs uppercase py-3 font-bold block text-blueGray-500 hover:text-[#45D5A1]">
                                 <i class="fas fa-tools mr-2 text-sm"></i>
                                 Laporan

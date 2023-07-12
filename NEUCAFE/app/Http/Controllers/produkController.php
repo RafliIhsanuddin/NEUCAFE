@@ -211,10 +211,10 @@ class produkController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        // produk::where('id_produk', $id)->delete();                                               // ini juga berhasil
-        produk::destroy($id);                                                                       // ini versi kode yang lebih bersih
+        produk::where('id_produk', $id)->delete();                                               // ini juga berhasil
+                                                                            // ini versi kode yang lebih bersih
         return redirect()->to('daftarProduk')->with('success', 'Berhasil Melakukan Delete Data');
     }
 }

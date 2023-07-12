@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Pilih akun NEUCAFE</title>
     <script src="https://cdn.tailwindcss.com"></script>
 
 </head>
@@ -29,7 +29,7 @@
         <div class="flex space-x-20">
             <div class="z-10 flex flex-col items-center justify-center space-y-6">
                 <h2 class="text-3xl font-bold text-white">Manager</h2>
-                <a href="/kodem" class="w-56 h-56 bg-white border-2 rounded-full  flex items-center justify-center">
+                <a href="/konfir" class="w-56 h-56 bg-white border-2 rounded-full  flex items-center justify-center">
                     <img src="assets/manager.png" class="w-40 h-40 " alt="">
                 </a>
             </div>

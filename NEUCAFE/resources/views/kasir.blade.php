@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="../../assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" />
     <link rel="stylesheet" href="../../assets/styles/tailwind.css" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <title>Dashboard | Notus Tailwind JS by Creative Tim</title>
+    <title>Kasir</title>
 </head>
 
 <body class="text-blueGray-700 bg-gray-50 antialiased">
@@ -38,6 +38,13 @@
                             class="text-sm uppercase py-3 font-bold block text-blueGray-500 hover:text-[#45D5A1]">
                             <i class="fas fa-tv mr-1 text-sm opacity-75"></i>
                             Riwayat
+                        </a>
+                    </li>
+                    <li class="items-center">
+                        <a href="./choose"
+                            class="text-sm uppercase py-3 font-bold block text-blueGray-500 hover:text-[#45D5A1]">
+                            <i class="fas fa-tv mr-1 text-sm opacity-75"></i>
+                            Kembali
                         </a>
                     </li>
 
