@@ -58,48 +58,39 @@ class SessionController extends Controller
 
 
     function login2(Request $req){
-        $akun = akun::all();
-    
-        foreach($akun as $out){
-            if($out->email == $req->email){
-                // if (Hash::check($req->password, $out->password)) {
-                if($out->password == $req->password){
-                    $req->session()->put('id',$out->id_akun);
-                    
-                    $id = session('id');
+        
 
+        $akun = akun::where('email', $req->email)->firstOrFail();
 
-                    
+        if (Hash::check($req->password, $akun->password)) {
+           
+            
+            $req->session()->put('id', $akun->id_akun);
+            $id = session('id');
 
+            $id_outlet = session('id_outlet');
+            $outlet = outlet::where('id_akun', '=', $id)->first();
+            
+            if (empty($outlet)) {
+                return view('infoOutlet');
+            } else {
+                $outletdatabase = DB::table('outlet')->where('id_akun', $id)->first();
+                $databaseoutlet = $outletdatabase->id_outlet;
+                $req->session()->put('id_outlet', $databaseoutlet);
 
-                    $id_outlet = session('id_outlet');
-                    $outlet = outlet::where('id_akun','=',$id)->first();
-                    if(empty($outlet)){
-                        return view('infoOutlet');
-                    }else{
-                        $outletdatabase = DB::table('outlet')
-                        ->where('id_akun', $id)
-                        ->first();
+                $data = akun::where('id_akun', $id)->first();
 
-                        $databaseoutlet = $outletdatabase->id_outlet ;
-
-                        $req->session()->put('id_outlet',$databaseoutlet);
-                        $data = akun::where('id_akun', $id)->first();
-
-                        if ($data) {
-                            session()->put('datas', $data);
-                            session()->put('outlets', $outlet);
-                            return view('choose');
-                        } else {
-                            return redirect('login')->with('error', 'Email atau password salah');
-                        }
-                    }
-                }else {
-                    return redirect('login')->with('eror', 'Email atau password salah');
+                if ($data) {
+                    session()->put('datas', $data);
+                    session()->put('outlets', $outlet);
+                    return view('choose');
+                } else {
+                    return redirect('login')->with('error', 'Email atau password salah');
                 }
             }
+        } else {
+            return redirect('login')->with('error', 'Email atau password salah');
         }
-        return redirect('login')->with('eror', 'Email atau password salah');
     }
 
 
