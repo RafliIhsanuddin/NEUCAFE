@@ -66,9 +66,9 @@ Route::get('signup', function () {
 
 Route::middleware([CheckSession::class])->group(function () {
     Route::view("info",'informasi');
-    Route::get('choose', function () {
-        return view('choose');
-    })->name('choose');
+    // Route::get('choose', function () {
+    //     return view('choose');
+    // })->name('choose');
     
     // Route::view("kasir",'kasir');
     // Route::view("dashboard",'dashboard');
@@ -86,6 +86,8 @@ Route::middleware([CheckSession::class])->group(function () {
     
     //review
     Route::get('review',[reviewController::class, 'index'])->name('review');
+
+    
     
     //Kasir
     Route::get('kasir',[transaksiController::class, 'index'])->name('kasir');
@@ -107,6 +109,9 @@ Route::middleware([CheckSession::class])->group(function () {
     Route::post('outper', [SessionController::class, 'outletper']);
     Route::post('konfkod', [SessionController::class, 'konfirmasikode']);
     Route::get('/dashboard', [SessionController::class, 'getTransactionsPerMonth']);
+
+
+    Route::get('/choose', [SessionController::class, 'outletId'])->name('choose');
     //riwayat
     Route::get('riwayat',[transaksiController::class, 'tampilRiwayat']);
 

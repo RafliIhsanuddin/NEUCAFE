@@ -20,6 +20,9 @@ class SessionController extends Controller
 
 
 
+
+    
+
     function tes(){
         $results = DB::table('detail_transaksi')
         ->join('transaksi', 'detail_transaksi.id_transaksi', '=', 'transaksi.id_transaksi')
@@ -85,24 +88,35 @@ class SessionController extends Controller
                     session()->put('outlets', $outlet);
                     return view('choose');
                 } else {
-                    return redirect('login')->with('error', 'Email atau password salah');
+                    return redirect('login')->with('eror', 'Email atau password salah');
                 }
             }
         } else {
-            return redirect('login')->with('error', 'Email atau password salah');
+            return redirect('login')->with('eror', 'Email atau password salah');
         }
+    }
+
+    public function outletId(Request $req){
+        $id = session('id');
+        $outletdatabase = DB::table('outlet')->where('id_akun', $id)->first();
+        $databaseoutlet = $outletdatabase->id_outlet;
+        $req->session()->put('id_outlet', $databaseoutlet);
+
+        return view('choose');
     }
 
 
     public function konfirmasikode(Request $req){
         $id = session('id');
         $akun = DB::table('akun')->where('id_akun', $id)->first();
+        $kodem = DB::table('akun')->where('kodeManajer',$req->konfirKode)->first();
+        
 
         
-        if($akun->kodeManajer == $req->konfirKode){
+        if(!empty($kodem)){
             return view('informasi');
         }else{
-            return redirect('kodem')->with('eror','KODE manajer yang anda masukkan salah');
+            return redirect('konfir')->with('eror','KODE manajer yang anda masukkan salah');
         }
         
         
@@ -121,6 +135,7 @@ class SessionController extends Controller
     $transactions = DB::table('transaksi')
         ->selectRaw('YEAR(waktu_order) AS Year, DATE_FORMAT(waktu_order, "%M") AS Month, COUNT(*) AS count')
         ->where('id_outlet', $id_outlet)
+        ->where('status',1)
         ->groupBy('Year', 'Month')
         ->orderByRaw('Year ASC, FIELD(Month, "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December")')
         ->get();
@@ -178,6 +193,7 @@ class SessionController extends Controller
 
     $transaksiCount = DB::table('transaksi')
     ->where('id_outlet', $id_outlet)
+    ->where('status',1)
     ->whereRaw('MONTH(waktu_order) = MONTH(CURDATE())')
     ->count();
 
@@ -310,6 +326,8 @@ class SessionController extends Controller
 
 
 
+        
+
 
 
 
@@ -324,6 +342,7 @@ class SessionController extends Controller
             $transactions = DB::table('transaksi')
             ->selectRaw('YEAR(waktu_order) AS Year, DATE_FORMAT(waktu_order, "%M") AS Month, COUNT(*) AS count')
             ->where('id_outlet', $id_outlet)
+            ->where('status',1)
             ->groupBy('Year', 'Month')
             ->orderByRaw('Year ASC, FIELD(Month, "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December")')
             ->get();
@@ -369,17 +388,20 @@ class SessionController extends Controller
 
             $transactions = DB::table('transaksi')
             ->where('id_outlet', $id_outlet)
+            ->where('status',1)
             ->whereMonth('waktu_order', '=', $month)
             ->get();
 
             $transactionCount = DB::table('transaksi')
             ->where('id_outlet', $id_outlet)
+            ->where('status',1)
             ->whereMonth('waktu_order', $month)
             ->count('id_transaksi');
 
 
             $totaltagihan = DB::table('transaksi')
             ->where('id_outlet', $id_outlet)
+            ->where('status',1)
             ->whereMonth('waktu_order', $month)
             ->sum('total_tagihan');
 
@@ -391,6 +413,7 @@ class SessionController extends Controller
 
             $totalHargabeli = DB::table('transaksi')
             ->where('id_outlet', $id_outlet)
+            ->where('status',1)
             ->whereMonth('waktu_order', $month)
             ->sum('total_harga_beli');
 
@@ -493,7 +516,9 @@ class SessionController extends Controller
             $data = akun::where('id_akun', '=', $id)->first();
             session()->put('datas', $data);
             session()->put('outlets', $outlet);
-            return view('informasi');
+            $id_outlet = session('id_outlet');
+            $outlet = outlet::where('id_akun', '=', $id)->first();
+            return view('choose');
         }
     }
 
@@ -622,8 +647,8 @@ class SessionController extends Controller
 
         $newAkun = new Akun;
         $newAkun->email = $req->email;
-        $newAkun->password = $req->pass;
-        // $newAkun->password = bcrypt($req->pass);
+        // $newAkun->password = $req->pass;
+        $newAkun->password = bcrypt($req->pass);
         $newAkun->notelp = $req->notelp;
         $newAkun->kodeManajer = $req->kode;
         $newAkun->save();

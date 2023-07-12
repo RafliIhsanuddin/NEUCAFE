@@ -40,6 +40,13 @@
                             Riwayat
                         </a>
                     </li>
+                    <li class="items-center">
+                        <a href="./choose"
+                            class="text-sm uppercase py-3 font-bold block text-blueGray-500 hover:text-[#45D5A1]">
+                            <i class="fas fa-tv mr-1 text-sm opacity-75"></i>
+                            Kembali
+                        </a>
+                    </li>
 
                 </ul>
                 
