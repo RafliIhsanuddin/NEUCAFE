@@ -13,24 +13,24 @@
 <body>
 
     <!-- SIGN UP -->
-    <section class="flex items-center justify-center h-screen w-full bg-[#5fb395]  py-20 px-6 overflow-hidden">
+    <section class="flex items-center justify-center h-screen w-full bg-[#5fb395]  py-20 max-md:py-10 px-6 overflow-hidden">
         <img src="assets/bg6.png" class="absolute -top-20 -left-20" alt="">
         <img src="assets/bg7.png" class="absolute bottom-0 right-0" alt="">
 
-        <div class="bg-white max-h-[45rem] h-full aspect-video flex z-10 rounded-2xl overflow-hidden ">
-            <div class="h-full w-2/5 bg-gray-100 ">
+        <div class="bg-white h-full aspect-video flex z-10 rounded-2xl overflow-hidden ">
+            <div class="h-full w-2/5 bg-gray-100 max-md:hidden">
                 <img src="assets/login.jpg" class="object-fill h-full" alt="">
             </div>
 
-            <div class="h-full w-3/5 flex flex-col items-center justify-center py-8 px-20 space-y-6">
-                <div class="flex justify-end w-full h-fit items-center font-medium text-sm text-gray-400 space-x-3">
+            <div class="h-full w-3/5 max-md:bg-[url('{{ asset('assets/login.jpg') }}')] bg-cover bg-center max-md:w-full flex flex-col items-center justify-center py-8 px-20 max-lg:px-6 space-y-6 max-md:text-white">
+                <div class="flex justify-end w-full h-fit items-center font-medium text-sm text-gray-400 max-md:text-white space-x-3">
                     <p class="">Sudah punya akun?</p>
                     <a href='login'
                         class="w-20 text-center py-1 border-2 border-gray-300 font-bold rounded-full text-xs hover:bg-[#6FBCA0] hover:text-white hover:border-white">LOGIN</a>
                 </div>
                 <div class="w-full h-fit">
                     <h2 class="text-3xl font-bold">Welcome to Neucafe!</h2>
-                    <p class="text-base font-medium text-gray-400 mb-6 mt-1">Register your account</p>
+                    <p class="text-base font-medium text-gray-400 max-md:text-gray-100 mb-6 mt-1">Register your account</p>
                     @if (session('eror'))
                         <div class="my-4">
                             <div class="bg-red-500 text-white font-bold px-4 py-3 rounded">
@@ -74,7 +74,7 @@
 
                 </div>
 
-                <div class="flex justify-start w-full h-fit items-center font-medium text-sm text-gray-400 space-x-4">
+                <div class="flex justify-start w-full h-fit items-center font-medium text-sm text-gray-400 max-md:text-white space-x-4">
                     <p class="">Create account with</p>
                 </div>
 

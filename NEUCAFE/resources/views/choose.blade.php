@@ -17,26 +17,26 @@
         <img src="{{asset('assets/bg6.png')}}" class="absolute -top-20 -left-20" alt="">
         <img src="{{asset('assets/bg7.png')}}" class="absolute bottom-0 right-0" alt="">
 
-        <div class="-mt-10 mb-20">
-            <a href="{{ route('flush') }}" class="px-6 py-1 mt-6 bg-white/20 hover:bg-[#337a61] rounded-md font-semibold text-white text-center text-xl">LOGOUT</a>
+        <div class="-mt-10 mb-20 z-20">
+            <a href="{{ route('flush') }}" class="px-6 py-1 mt-6 bg-white/20 hover:bg-[#337a61] rounded-md font-semibold text-white text-center text-xl max-md:text-lg">LOGOUT</a>
         </div>
         
 
-        <div class="-mt-10 mb-16">
-            <h2 class="text-4xl font-bold">NEUCAFE</h2>
+        <div class="-mt-10 mb-16 z-20">
+            <h2 class="text-4xl max-sm:text-3xl font-bold">NEUCAFE</h2>
         </div>
 
-        <div class="flex space-x-20">
+        <div class="flex space-x-20 max-md:space-x-10 px-6 z-20">
             <div class="z-10 flex flex-col items-center justify-center space-y-6">
-                <h2 class="text-3xl font-bold text-white">Manager</h2>
-                <a href="/kodem" class="w-56 h-56 bg-white border-2 rounded-full  flex items-center justify-center">
-                    <img src="assets/manager.png" class="w-40 h-40 " alt="">
+                <h2 class="text-3xl max-md:text-xl font-bold text-white">Manager</h2>
+                <a href="/kodem" class="w-56 aspect-square p-2 max-md:w-40 max-sm:w-32 bg-white border-2 rounded-full  flex items-center justify-center">
+                    <img src="assets/manager.png" class="w-full rounded-full " alt="">
                 </a>
             </div>
             <div class="z-10 flex flex-col items-center justify-center space-y-6">
-                <h2 class="text-3xl font-bold text-white">Karyawan</h2>
-                <a href="/kasir" class="w-56 h-56 bg-white border-2 rounded-full  flex items-center justify-center">
-                    <img src="assets/Kasir.png" class="w-40 h-40 " alt="">
+                <h2 class="text-3xl max-md:text-xl font-bold text-white">Karyawan</h2>
+                <a href="/kasir" class="w-56 aspect-square p-2 max-md:w-40 max-sm:w-32 bg-white border-2 rounded-full  flex items-center justify-center">
+                    <img src="assets/Kasir.png" class="w-full rounded-full" alt="">
                 </a>
             </div>
         </div>

@@ -18,26 +18,26 @@
         <!-- "{{ asset('assets/bg6.png') }}" -->
 
         <div class="bg-white max-h-[45rem] h-full aspect-video flex z-10 rounded-2xl overflow-hidden ">
-            <div class="h-full w-2/5 bg-gray-100 ">
+            <div class="h-full w-2/5 bg-gray-100 max-md:hidden">
                 <img src="{{ asset('assets/login.jpg') }}" class="object-cover object-center h-full" alt="">
             </div>
 
-            <div class="h-full w-3/5 flex flex-col items-center justify-center py-8 px-20 space-y-6">
-                <div class="flex justify-end w-full h-fit items-center font-medium text-sm text-gray-400 space-x-3">
+            <div class="h-full w-3/5 max-md:bg-[url('{{ asset('assets/login.jpg') }}')] bg-cover bg-center max-md:w-full flex flex-col items-center justify-center py-8 px-20 max-lg:px-6 space-y-6 max-md:text-white">
+                <div class="flex justify-end w-full h-fit items-center font-medium text-sm text-gray-400 max-md:text-white space-x-3">
                     <p class="">Belum punya akun?</p>
 
                     <a href="signup"
-                        class="w-20 text-center py-1 border-2 border-gray-300 font-bold rounded-full text-xs hover:bg-[#6FBCA0] hover:text-white hover:border-white">SIGN
+                        class="w-20 text-center py-1 border-2 border-gray-300 font-bold max-md:text-white rounded-full text-xs hover:bg-[#6FBCA0] hover:text-white hover:border-white">SIGN
                         UP</a>
                 </div>
 
                 <div class="w-full h-fit">
-                    <h2 class="text-3xl font-bold">Welcome to Neucafe!</h2>
-                    <p class="text-lg font-semibold text-gray-500">Register your account</p>
+                    <h2 class="text-3xl max-lg:text-2xl font-bold">Welcome to Neucafe!</h2>
+                    <p class="text-lg font-semibold text-gray-500 max-md:text-gray-100">Register your account</p>
 
                     @if (session('eror'))
                         <div class="mt-4">
-                            <div class="bg-red-500 text-white font-bold px-4 py-3 rounded">
+                            <div class="bg-red-500 text-white max-md:text-sm max-sm:text-xs font-bold px-4 py-3 rounded">
                                 Terjadi Kesalahan! {{ session('eror') }}
                             </div>
                         </div>
@@ -69,7 +69,7 @@
 
                 </div>
 
-                <div class="flex w-full h-fit items-center font-medium text-sm text-gray-500 space-x-3">
+                <div class="flex w-full h-fit items-center font-medium text-sm text-gray-500 max-md:text-white space-x-3">
                     <p class="">Create account with</p>
                     <button type="submit"
                         class="w-7 h-7 py-1 border-2 border-gray-300 font-bold rounded-full text-xs hover:bg-[#6FBCA0] hover:text-white hover:border-white"></button>
