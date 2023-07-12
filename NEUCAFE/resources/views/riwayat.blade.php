@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="../../assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" />
     <link rel="stylesheet" href="../../assets/styles/tailwind.css" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <title>Riwayat Transaksi</title>
+    <title>Riwayat</title>
 </head>
 
 <body class="text-blueGray-700 antialiased">
