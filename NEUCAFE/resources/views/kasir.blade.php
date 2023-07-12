@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="../../assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" />
     <link rel="stylesheet" href="../../assets/styles/tailwind.css" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <title>Dashboard | Notus Tailwind JS by Creative Tim</title>
+    <title>Kasir</title>
 </head>
 
 <body class="text-blueGray-700 bg-gray-50 antialiased">
