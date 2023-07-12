@@ -64,13 +64,13 @@ class produkController extends Controller
         // Session::flash('id_outlet',     $request->id_outlet);
 
         // Store form data in the session
-session()->put('nama', $request->nama);
-session()->put('kategori', $request->kategori);
-session()->put('stok', $request->stok);
-session()->put('harga_jual', $request->harga_jual);
-session()->put('harga_beli', $request->harga_beli);
-session()->put('deskripsi', $request->deskripsi);
-session()->put('id_outlet', $request->id_outlet);
+            session()->put('nama', $request->nama);
+            session()->put('kategori', $request->kategori);
+            session()->put('stok', $request->stok);
+            session()->put('harga_jual', $request->harga_jual);
+            session()->put('harga_beli', $request->harga_beli);
+            session()->put('deskripsi', $request->deskripsi);
+            session()->put('id_outlet', $request->id_outlet);
 
         
 
@@ -145,7 +145,7 @@ session()->put('id_outlet', $request->id_outlet);
     public function edit(string $id_produk)
     {
         $data = produk::where('id_produk', $id_produk)->first();
-        return view('editProduk')->with('data', $data); // menampilkan data dalam bentuk form sekalgius mengupdate data
+        return view('editProduk', compact('data')); // menampilkan data dalam bentuk form sekalgius mengupdate data
     }
 
     /**
