@@ -108,17 +108,17 @@ class SessionController extends Controller
 
     public function konfirmasikode(Request $req){
         $id = session('id');
-        $akun = DB::table('akun')->where('id_akun', $id)->first();
-        $kodem = DB::table('akun')->where('kodeManajer',$req->konfirKode)->first();
-        
+        $kodem = DB::table('akun')
+        ->where('kodeManajer', $req->konfirKode)
+        ->where('id_akun', $id)
+        ->first();
 
-        
-        if(!empty($kodem)){
+        if (!empty($kodem)) {
             return view('informasi');
-        }else{
-            return redirect('konfir')->with('eror','KODE manajer yang anda masukkan salah');
+        } else {
+            dd(session()->all());
+            return redirect()->route('konfir')->with('eror','KODE manajer yang anda masukkan salah');
         }
-        
         
     }
 
